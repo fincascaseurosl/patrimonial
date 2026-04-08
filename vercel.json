@@ -1,0 +1,44 @@
+{
+  "redirects": [
+    { "source": "/reformas-integrales-barcelona/", "destination": "/es/servicios/reformas", "permanent": true },
+    { "source": "/reformas-integrales-barcelona", "destination": "/es/servicios/reformas", "permanent": true },
+    { "source": "/servicios/", "destination": "/es/servicios", "permanent": true },
+    { "source": "/acerca-de/", "destination": "/es/sobre-nosotros", "permanent": true },
+    { "source": "/acerca-de", "destination": "/es/sobre-nosotros", "permanent": true },
+    { "source": "/proyectos/", "destination": "/es/portfolio", "permanent": true },
+    { "source": "/contacto/", "destination": "/es/contacto", "permanent": true },
+
+    { "source": "/reforma-rambla/", "destination": "/es/portfolio/reforma-rambla", "permanent": true },
+    { "source": "/reforma-rambla", "destination": "/es/portfolio/reforma-rambla", "permanent": true },
+    { "source": "/balmes/", "destination": "/es/portfolio/piso-balmes", "permanent": true },
+    { "source": "/balmes", "destination": "/es/portfolio/piso-balmes", "permanent": true },
+    { "source": "/colocacion-del-cesped-artificial-en-una-comunidad/", "destination": "/es/portfolio/cesped-artificial-comunidad", "permanent": true },
+    { "source": "/colocacion-del-cesped-artificial-en-una-comunidad", "destination": "/es/portfolio/cesped-artificial-comunidad", "permanent": true },
+
+    { "source": "/politica-de-privacidad/", "destination": "/es/politica-de-privacidad", "permanent": true },
+    { "source": "/politica-de-calidad/", "destination": "/es/politica-de-privacidad", "permanent": true },
+
+    { "source": "/category/proyectos-destacados/", "destination": "/es/portfolio", "permanent": true },
+    { "source": "/category/reformas/", "destination": "/es/servicios/reformas", "permanent": true },
+    { "source": "/category/obra-nueva/", "destination": "/es/servicios/obra-nueva", "permanent": true },
+    { "source": "/category/instalaciones-luz-agua-gas/", "destination": "/es/servicios/instalaciones", "permanent": true },
+    { "source": "/category/retirada-amianto/", "destination": "/es/servicios/amianto", "permanent": true },
+    { "source": "/category/trabajos-verticales/", "destination": "/es/servicios/trabajos-verticales", "permanent": true },
+    { "source": "/category/refuerzos-estructurales/", "destination": "/es/servicios/refuerzos", "permanent": true },
+    { "source": "/category/impermeabilizacion-terrados/", "destination": "/es/servicios/impermeabilizacion", "permanent": true },
+
+    { "source": "/project/:slug*", "destination": "/es/portfolio", "permanent": true },
+    { "source": "/portfolio/:slug*", "destination": "/es/portfolio", "permanent": true },
+
+    { "source": "/367-2/", "destination": "/es/blog", "permanent": true },
+    { "source": "/358-2/", "destination": "/es/blog", "permanent": true },
+
+    { "source": "/wp-content/:path*", "destination": "/es", "permanent": true },
+    { "source": "/wp-admin/:path*", "destination": "/es", "permanent": true },
+    { "source": "/wp-login.php", "destination": "/es", "permanent": true },
+    { "source": "/wp-json/:path*", "destination": "/es", "permanent": true },
+    { "source": "/feed/:path*", "destination": "/es", "permanent": true },
+    { "source": "/comments/feed/:path*", "destination": "/es", "permanent": true },
+    { "source": "/xmlrpc.php", "destination": "/es", "statusCode": 410 }
+  ]
+}

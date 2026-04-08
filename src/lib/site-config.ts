@@ -1,0 +1,93 @@
+export const siteConfig = {
+  nombre: "Patrimonial Obras Barcelona",
+  dominio: "obrasenbarcelona.es",
+  url: "https://obrasenbarcelona.es",
+  email: "gestion@obraspatrimonial.es",
+  telefonoFijo: "+34 93 531 64 31",
+  telefonoMovil: "+34 626 20 53 20",
+  telefonoFijoHref: "tel:+34935316431",
+  telefonoMovilHref: "tel:+34626205320",
+  direccion: "C/ de Lepant, 286-288",
+  cp: "08013",
+  ciudad: "Barcelona",
+  pais: "España",
+  horario: "Lun. - Vie. 9:00 - 18:00",
+  colorPrimario: "#ffc107",
+} as const;
+
+export const serviceSlugs = [
+  "reformas",
+  "obra-nueva",
+  "rehabilitacion",
+  "instalaciones",
+  "amianto",
+  "trabajos-verticales",
+  "refuerzos",
+  "impermeabilizacion",
+] as const;
+
+export type ServiceSlug = (typeof serviceSlugs)[number];
+
+export const serviceKeyMap: Record<ServiceSlug, string> = {
+  reformas: "reformas",
+  "obra-nueva": "obraNueva",
+  rehabilitacion: "rehabilitacion",
+  instalaciones: "instalaciones",
+  amianto: "amianto",
+  "trabajos-verticales": "trabajosVerticales",
+  refuerzos: "refuerzos",
+  impermeabilizacion: "impermeabilizacion",
+};
+
+export const serviceIcons: Record<ServiceSlug, string> = {
+  reformas: "/images/services/construccion.png",
+  "obra-nueva": "/images/services/bosquejo.png",
+  rehabilitacion: "/images/services/techo.png",
+  instalaciones: "/images/services/relampago.png",
+  amianto: "/images/services/amianto.png",
+  "trabajos-verticales": "/images/services/escalada-de-roca.png",
+  refuerzos: "/images/services/haz.png",
+  impermeabilizacion: "/images/services/gota-de-agua.png",
+};
+
+export const projects = [
+  {
+    slug: "reforma-rambla",
+    images: [
+      "/images/portfolio/reforma-piso-barcelona-1.jpg",
+      "/images/portfolio/reforma-piso-barcelona-2.jpg",
+      "/images/portfolio/reforma-piso-barcelona-3.jpg",
+    ],
+    category: "reformas",
+  },
+  {
+    slug: "piso-balmes",
+    images: [
+      "/images/portfolio/piso-balmes-1.jpg",
+      "/images/portfolio/piso-balmes-2.jpg",
+      "/images/portfolio/piso-balmes-3.jpg",
+      "/images/portfolio/piso-balmes-4.jpg",
+    ],
+    category: "reformas",
+  },
+  {
+    slug: "cesped-artificial-comunidad",
+    images: ["/images/portfolio/cesped-artificial.jpg"],
+    category: "rehabilitacion",
+  },
+] as const;
+
+export const projectNames: Record<string, { es: string; ca: string }> = {
+  "reforma-rambla": {
+    es: "Piso en Rambla Barcelona",
+    ca: "Pis a la Rambla de Barcelona",
+  },
+  "piso-balmes": {
+    es: "Piso en C/ Balmes",
+    ca: "Pis al C/ Balmes",
+  },
+  "cesped-artificial-comunidad": {
+    es: "Colocación del césped artificial en una comunidad",
+    ca: "Col·locació de gespa artificial en una comunitat",
+  },
+};

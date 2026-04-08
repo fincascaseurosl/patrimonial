@@ -1,0 +1,161 @@
+{
+  "meta": {
+    "title": "Obras en Barcelona | Patrimonial - Construcción, Reformas y Rehabilitación",
+    "description": "Empresa de construcción, reformas integrales y rehabilitación de edificios en Barcelona con más de 25 años de experiencia. Presupuesto sin compromiso."
+  },
+  "nav": {
+    "inicio": "Inicio",
+    "servicios": "Servicios",
+    "portfolio": "Proyectos",
+    "sobreNosotros": "Sobre nosotros",
+    "contacto": "Contacto",
+    "blog": "Blog",
+    "presupuesto": "Pedir presupuesto",
+    "idioma": "CA"
+  },
+  "hero": {
+    "titulo": "Obras en Barcelona",
+    "subtitulo": "Expertos en construcción, reformas y rehabilitación de edificios con más de 25 años de experiencia.",
+    "cta": "Obtener presupuesto"
+  },
+  "servicios": {
+    "titulo": "Construimos tu sueño",
+    "subtitulo": "Entre nuestros clientes se encuentran un gran número de Administradores, Arquitectos, industrias, Empresas y Particulares.",
+    "verTodos": "Ver todos los servicios",
+    "items": {
+      "reformas": {
+        "nombre": "Reformas Barcelona",
+        "descripcion": "Realizamos reformas integrales y parciales, tanto en viviendas, como en oficinas y locales comerciales. Instaladores autorizados y agremiados de gas, luz, agua, etc. Retirada de amianto.",
+        "descripcionLarga": "En Patrimonial somos especialistas en reformas integrales en Barcelona. Nos encargamos de todo el proceso, desde el diseño hasta la ejecución final, incluyendo instalaciones de gas, luz, agua, telecomunicaciones y climatización. Contamos con instaladores autorizados y agremiados que garantizan la máxima calidad y el cumplimiento de toda la normativa vigente. También realizamos reformas parciales adaptadas a las necesidades y presupuesto de cada cliente, ya sea en viviendas particulares, oficinas o locales comerciales."
+      },
+      "obraNueva": {
+        "nombre": "Obra nueva",
+        "descripcion": "Realizamos construcciones de obra nueva tanto de edificios de oficinas como de viviendas, locales, etc. de principio a fin de la obra.",
+        "descripcionLarga": "Ejecutamos proyectos de obra nueva de principio a fin. Desde la cimentación hasta los acabados finales, gestionamos todos los oficios y fases de la construcción: estructura, albañilería, instalaciones, pavimentos, revestimientos y carpintería. Trabajamos tanto en edificios residenciales como en oficinas, locales comerciales e instalaciones industriales, siempre respetando los plazos y presupuestos acordados."
+      },
+      "rehabilitacion": {
+        "nombre": "Rehabilitación",
+        "descripcion": "Hacemos rehabilitaciones integrales tanto de edificios, fachadas, portales, pavimentos y todo lo que necesites. Trabajos verticales, refuerzos estructurales, etc.",
+        "descripcionLarga": "Somos expertos en rehabilitación integral de edificios en Barcelona. Realizamos trabajos de rehabilitación de fachadas, portales, escaleras comunitarias, cubiertas y terrados. Nuestro equipo está especializado en trabajos verticales, refuerzos estructurales y consolidación de elementos constructivos, garantizando la seguridad y durabilidad de cada intervención."
+      },
+      "instalaciones": {
+        "nombre": "Instalaciones de luz, agua y gas",
+        "descripcion": "Instaladores autorizados y agremiados para todo tipo de instalaciones: electricidad, fontanería, gas natural y climatización.",
+        "descripcionLarga": "Disponemos de instaladores autorizados para realizar todo tipo de instalaciones en viviendas, oficinas y locales comerciales. Nos encargamos de las instalaciones eléctricas, de fontanería, gas natural, aire acondicionado y calefacción, cumpliendo siempre con la normativa vigente y proporcionando los boletines y certificados necesarios."
+      },
+      "amianto": {
+        "nombre": "Retirada de amianto",
+        "descripcion": "Empresa inscrita en el RERA para la retirada segura y legal de materiales con amianto en todo tipo de edificaciones.",
+        "descripcionLarga": "Estamos inscritos en el Registro de Empresas con Riesgo de Amianto (RERA) y contamos con toda la formación y equipamiento necesario para la retirada segura de materiales que contienen amianto. Gestionamos todo el proceso: evaluación, plan de trabajo, retirada, transporte y eliminación en vertederos autorizados, garantizando la seguridad de los trabajadores y vecinos."
+      },
+      "trabajosVerticales": {
+        "nombre": "Trabajos verticales",
+        "descripcion": "Intervención en fachadas, cubiertas y zonas de difícil acceso mediante técnicas de trabajos en altura con cuerdas.",
+        "descripcionLarga": "Nuestro equipo está formado y certificado para realizar trabajos verticales en fachadas, cubiertas, patios de luces y cualquier zona de difícil acceso. Esta técnica permite intervenir en edificios sin necesidad de montar andamios, reduciendo costes y plazos de ejecución. Realizamos reparaciones de fachada, impermeabilización, pintura, instalación de redes de protección y anclajes."
+      },
+      "refuerzos": {
+        "nombre": "Refuerzos estructurales",
+        "descripcion": "Consolidación y refuerzo de estructuras: vigas, pilares, forjados y cimentaciones con las técnicas más avanzadas.",
+        "descripcionLarga": "Realizamos estudios y proyectos de refuerzo estructural para edificios que presentan patologías o necesitan adaptarse a nuevos usos. Trabajamos con técnicas de refuerzo de vigas, pilares, forjados y cimentaciones, utilizando materiales como fibra de carbono, resinas epoxi, perfiles metálicos y hormigón proyectado."
+      },
+      "impermeabilizacion": {
+        "nombre": "Impermeabilización de terrados",
+        "descripcion": "Impermeabilización profesional de terrados, cubiertas y azoteas con las mejores técnicas y materiales del mercado.",
+        "descripcionLarga": "Ofrecemos soluciones profesionales de impermeabilización para terrados, cubiertas planas, azoteas y balcones. Trabajamos con tela asfáltica, membranas de PVC, poliuretano proyectado y láminas EPDM, seleccionando la solución óptima según las características de cada cubierta y las necesidades del cliente."
+      }
+    }
+  },
+  "porqueElegirnos": {
+    "titulo": "¿Por qué elegirnos?",
+    "subtitulo": "Lo que buscan nuestros clientes",
+    "items": {
+      "experiencia": {
+        "titulo": "Experiencia",
+        "texto": "Más de 25 años en el sector de la construcción"
+      },
+      "financiacion": {
+        "titulo": "Financiación",
+        "texto": "0% de interés y financiación del 100%"
+      },
+      "subvencion": {
+        "titulo": "Subvención",
+        "texto": "Gestionamos toda la tramitación de las subvenciones"
+      },
+      "garantia": {
+        "titulo": "Garantía",
+        "texto": "Máxima profesionalidad y rigurosidad en nuestros trabajos"
+      }
+    }
+  },
+  "cta": {
+    "titulo": "Reformas, obra nueva y rehabilitación de edificios",
+    "texto": "Entendemos que los proyectos representan no sólo edificios, sino los planes para el futuro de nuestros clientes. Pregúntanos lo que quieras sin ningún tipo de compromiso. Te responderemos en el menor tiempo posible.",
+    "boton": "Contáctanos",
+    "presupuesto": "Pídenos presupuesto sin compromiso",
+    "subtexto": "Cuéntanos tu proyecto y te asesoramos sin ningún compromiso."
+  },
+  "portfolio": {
+    "titulo": "Nuestros proyectos",
+    "subtitulo": "Todos nuestros trabajos están realizados con los máximos controles de calidad",
+    "verMas": "Ver más",
+    "verTodos": "Ver todos los proyectos",
+    "verProyecto": "Ver proyecto",
+    "volver": "Volver a proyectos"
+  },
+  "testimonios": {
+    "titulo": "Testimonios",
+    "items": [
+      {
+        "texto": "Necesitaba una reforma de mi salón y Patrimonial hizo un trabajo excelente en toda la obra y con gran limpieza y profesionalidad.",
+        "autor": "Carlos"
+      }
+    ]
+  },
+  "sobreNosotros": {
+    "titulo": "Sobre nosotros",
+    "subtitulo": "Patrimonial Obras Barcelona",
+    "descripcion": "Empresa de servicios inmobiliarios integrales experta en la gestión del patrimonio con más de 25 años de experiencia.",
+    "contenido": "Desde nuestros inicios, en Patrimonial nos hemos dedicado a ofrecer un servicio integral de construcción, reformas y rehabilitación de edificios en Barcelona. Nuestra filosofía se basa en la cercanía con el cliente, la transparencia en los presupuestos y la máxima calidad en cada uno de nuestros trabajos.\n\nEntre nuestros clientes se encuentran un gran número de Administradores de fincas, Arquitectos, industrias, empresas y particulares que confían en nuestra experiencia y profesionalidad.\n\nContamos con un equipo de profesionales cualificados en todas las especialidades de la construcción: albañilería, electricidad, fontanería, gas, climatización, pintura, carpintería y trabajos verticales. Todos nuestros instaladores están autorizados y agremiados.\n\nEstamos inscritos en el RERA (Registro de Empresas con Riesgo de Amianto) y contamos con las certificaciones necesarias para realizar cualquier tipo de intervención constructiva.",
+    "valores": {
+      "titulo": "Nuestros valores",
+      "items": [
+        "Profesionalidad y rigurosidad en cada proyecto",
+        "Transparencia en presupuestos y plazos",
+        "Cercanía y comunicación constante con el cliente",
+        "Cumplimiento estricto de la normativa vigente",
+        "Compromiso con la calidad y la sostenibilidad"
+      ]
+    }
+  },
+  "contacto": {
+    "titulo": "Contacto",
+    "subtitulo": "Pídenos presupuesto sin compromiso",
+    "descripcion": "Te responderemos en el menor tiempo posible.",
+    "formulario": {
+      "nombre": "Nombre",
+      "email": "Email",
+      "telefono": "Teléfono",
+      "mensaje": "Mensaje",
+      "enviar": "Enviar mensaje",
+      "enviado": "¡Mensaje enviado correctamente!",
+      "error": "Ha ocurrido un error, inténtalo de nuevo."
+    },
+    "info": {
+      "direccionLabel": "Dirección",
+      "telefonoLabel": "Teléfono",
+      "emailLabel": "Email",
+      "horarioLabel": "Horario"
+    }
+  },
+  "footer": {
+    "empresa": "Patrimonial Obras Barcelona",
+    "descripcion": "Empresa de servicios inmobiliarios integrales experta en la gestión del patrimonio con más de 25 años de experiencia.",
+    "menu": "Menú",
+    "serviciosTitle": "Servicios",
+    "contactoTitle": "Contacto",
+    "legal": "Todos los derechos reservados.",
+    "privacidad": "Política de privacidad",
+    "financiadoUE": "Financiado por la Unión Europea",
+    "prtr": "Plan de Recuperación, Transformación y Resiliencia"
+  }
+}

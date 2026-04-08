@@ -1,0 +1,161 @@
+{
+  "meta": {
+    "title": "Obres a Barcelona | Patrimonial - Construcció, Reformes i Rehabilitació",
+    "description": "Empresa de construcció, reformes integrals i rehabilitació d'edificis a Barcelona amb més de 25 anys d'experiència. Pressupost sense compromís."
+  },
+  "nav": {
+    "inicio": "Inici",
+    "servicios": "Serveis",
+    "portfolio": "Projectes",
+    "sobreNosotros": "Sobre nosaltres",
+    "contacto": "Contacte",
+    "blog": "Blog",
+    "presupuesto": "Demanar pressupost",
+    "idioma": "ES"
+  },
+  "hero": {
+    "titulo": "Obres a Barcelona",
+    "subtitulo": "Experts en construcció, reformes i rehabilitació d'edificis amb més de 25 anys d'experiència.",
+    "cta": "Obtenir pressupost"
+  },
+  "servicios": {
+    "titulo": "Construïm el teu somni",
+    "subtitulo": "Entre els nostres clients es troben un gran nombre d'Administradors, Arquitectes, indústries, Empreses i Particulars.",
+    "verTodos": "Veure tots els serveis",
+    "items": {
+      "reformas": {
+        "nombre": "Reformes Barcelona",
+        "descripcion": "Realitzem reformes integrals i parcials, tant en habitatges, com en oficines i locals comercials. Instal·ladors autoritzats i agremiats de gas, llum, aigua, etc. Retirada d'amiant.",
+        "descripcionLarga": "A Patrimonial som especialistes en reformes integrals a Barcelona. Ens encarreguem de tot el procés, des del disseny fins a l'execució final, incloent instal·lacions de gas, llum, aigua, telecomunicacions i climatització. Comptem amb instal·ladors autoritzats i agremiats que garanteixen la màxima qualitat i el compliment de tota la normativa vigent."
+      },
+      "obraNueva": {
+        "nombre": "Obra nova",
+        "descripcion": "Realitzem construccions d'obra nova tant d'edificis d'oficines com d'habitatges, locals, etc. de principi a fi de l'obra.",
+        "descripcionLarga": "Executem projectes d'obra nova de principi a fi. Des de la cimentació fins als acabats finals, gestionem tots els oficis i fases de la construcció: estructura, paleta, instal·lacions, paviments, revestiments i fusteria."
+      },
+      "rehabilitacion": {
+        "nombre": "Rehabilitació",
+        "descripcion": "Fem rehabilitacions integrals tant d'edificis, façanes, portals, paviments i tot el que necessitis. Treballs verticals, reforços estructurals, etc.",
+        "descripcionLarga": "Som experts en rehabilitació integral d'edificis a Barcelona. Realitzem treballs de rehabilitació de façanes, portals, escales comunitàries, cobertes i terrats."
+      },
+      "instalaciones": {
+        "nombre": "Instal·lacions de llum, aigua i gas",
+        "descripcion": "Instal·ladors autoritzats i agremiats per a tot tipus d'instal·lacions: electricitat, lampisteria, gas natural i climatització.",
+        "descripcionLarga": "Disposem d'instal·ladors autoritzats per realitzar tot tipus d'instal·lacions en habitatges, oficines i locals comercials."
+      },
+      "amianto": {
+        "nombre": "Retirada d'amiant",
+        "descripcion": "Empresa inscrita al RERA per a la retirada segura i legal de materials amb amiant en tot tipus d'edificacions.",
+        "descripcionLarga": "Estem inscrits al Registre d'Empreses amb Risc d'Amiant (RERA) i comptem amb tota la formació i equipament necessari per a la retirada segura de materials que contenen amiant."
+      },
+      "trabajosVerticales": {
+        "nombre": "Treballs verticals",
+        "descripcion": "Intervenció en façanes, cobertes i zones de difícil accés mitjançant tècniques de treballs en alçada amb cordes.",
+        "descripcionLarga": "El nostre equip està format i certificat per realitzar treballs verticals en façanes, cobertes, patis de llums i qualsevol zona de difícil accés."
+      },
+      "refuerzos": {
+        "nombre": "Reforços estructurals",
+        "descripcion": "Consolidació i reforç d'estructures: bigues, pilars, forjats i fonamentacions amb les tècniques més avançades.",
+        "descripcionLarga": "Realitzem estudis i projectes de reforç estructural per a edificis que presenten patologies o necessitin adaptar-se a nous usos."
+      },
+      "impermeabilizacion": {
+        "nombre": "Impermeabilització de terrats",
+        "descripcion": "Impermeabilització professional de terrats, cobertes i terrasses amb les millors tècniques i materials del mercat.",
+        "descripcionLarga": "Oferim solucions professionals d'impermeabilització per a terrats, cobertes planes, terrasses i balcons."
+      }
+    }
+  },
+  "porqueElegirnos": {
+    "titulo": "Per què triar-nos?",
+    "subtitulo": "El que busquen els nostres clients",
+    "items": {
+      "experiencia": {
+        "titulo": "Experiència",
+        "texto": "Més de 25 anys en el sector de la construcció"
+      },
+      "financiacion": {
+        "titulo": "Finançament",
+        "texto": "0% d'interès i finançament del 100%"
+      },
+      "subvencion": {
+        "titulo": "Subvenció",
+        "texto": "Gestionem tota la tramitació de les subvencions"
+      },
+      "garantia": {
+        "titulo": "Garantia",
+        "texto": "Màxima professionalitat i rigorositat en els nostres treballs"
+      }
+    }
+  },
+  "cta": {
+    "titulo": "Reformes, obra nova i rehabilitació d'edificis",
+    "texto": "Entenem que els projectes representen no només edificis, sinó els plans per al futur dels nostres clients. Pregunta'ns el que vulguis sense cap tipus de compromís. Et respondrem en el menor temps possible.",
+    "boton": "Contacta'ns",
+    "presupuesto": "Demana'ns pressupost sense compromís",
+    "subtexto": "Explica'ns el teu projecte i t'assessorem sense cap compromís."
+  },
+  "portfolio": {
+    "titulo": "Els nostres projectes",
+    "subtitulo": "Tots els nostres treballs estan realitzats amb els màxims controls de qualitat",
+    "verMas": "Veure més",
+    "verTodos": "Veure tots els projectes",
+    "verProyecto": "Veure projecte",
+    "volver": "Tornar a projectes"
+  },
+  "testimonios": {
+    "titulo": "Testimonis",
+    "items": [
+      {
+        "texto": "Necessitava una reforma del meu saló i Patrimonial va fer un treball excel·lent en tota l'obra i amb gran neteja i professionalitat.",
+        "autor": "Carlos"
+      }
+    ]
+  },
+  "sobreNosotros": {
+    "titulo": "Sobre nosaltres",
+    "subtitulo": "Patrimonial Obres Barcelona",
+    "descripcion": "Empresa de serveis immobiliaris integrals experta en la gestió del patrimoni amb més de 25 anys d'experiència.",
+    "contenido": "Des dels nostres inicis, a Patrimonial ens hem dedicat a oferir un servei integral de construcció, reformes i rehabilitació d'edificis a Barcelona. La nostra filosofia es basa en la proximitat amb el client, la transparència en els pressupostos i la màxima qualitat en cadascun dels nostres treballs.\n\nEntre els nostres clients es troben un gran nombre d'Administradors de finques, Arquitectes, indústries, empreses i particulars que confien en la nostra experiència i professionalitat.\n\nComptem amb un equip de professionals qualificats en totes les especialitats de la construcció: paleta, electricitat, lampisteria, gas, climatització, pintura, fusteria i treballs verticals. Tots els nostres instal·ladors estan autoritzats i agremiats.\n\nEstem inscrits al RERA (Registre d'Empreses amb Risc d'Amiant) i comptem amb les certificacions necessàries per realitzar qualsevol tipus d'intervenció constructiva.",
+    "valores": {
+      "titulo": "Els nostres valors",
+      "items": [
+        "Professionalitat i rigorositat en cada projecte",
+        "Transparència en pressupostos i terminis",
+        "Proximitat i comunicació constant amb el client",
+        "Compliment estricte de la normativa vigent",
+        "Compromís amb la qualitat i la sostenibilitat"
+      ]
+    }
+  },
+  "contacto": {
+    "titulo": "Contacte",
+    "subtitulo": "Demana'ns pressupost sense compromís",
+    "descripcion": "Et respondrem en el menor temps possible.",
+    "formulario": {
+      "nombre": "Nom",
+      "email": "Email",
+      "telefono": "Telèfon",
+      "mensaje": "Missatge",
+      "enviar": "Enviar missatge",
+      "enviado": "Missatge enviat correctament!",
+      "error": "S'ha produït un error, torna-ho a intentar."
+    },
+    "info": {
+      "direccionLabel": "Adreça",
+      "telefonoLabel": "Telèfon",
+      "emailLabel": "Email",
+      "horarioLabel": "Horari"
+    }
+  },
+  "footer": {
+    "empresa": "Patrimonial Obres Barcelona",
+    "descripcion": "Empresa de serveis immobiliaris integrals experta en la gestió del patrimoni amb més de 25 anys d'experiència.",
+    "menu": "Menú",
+    "serviciosTitle": "Serveis",
+    "contactoTitle": "Contacte",
+    "legal": "Tots els drets reservats.",
+    "privacidad": "Política de privacitat",
+    "financiadoUE": "Finançat per la Unió Europea",
+    "prtr": "Pla de Recuperació, Transformació i Resiliència"
+  }
+}
