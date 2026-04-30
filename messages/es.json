@@ -11,6 +11,7 @@
     "contacto": "Contacto",
     "blog": "Blog",
     "presupuesto": "Pedir presupuesto",
+    "verTodos": "Ver todos",
     "idioma": "CA"
   },
   "hero": {
@@ -18,9 +19,83 @@
     "subtitulo": "Expertos en construcción, reformas y rehabilitación de edificios con más de 25 años de experiencia.",
     "cta": "Obtener presupuesto"
   },
+  "home": {
+    "heroEyebrow": "Patrimonial · Barcelona · Desde 1998",
+    "heroLine1": "Construimos",
+    "heroLine2": "el patrimonio",
+    "heroLine3": "de Barcelona.",
+    "heroSub": "Reformas integrales, obra nueva y rehabilitación de edificios con la disciplina de un estudio de arquitectura y la rigurosidad de una constructora con 25 años en la ciudad.",
+    "heroScroll": "Desplaza para descubrir",
+    "marqueeItems": ["Reformas integrales", "Obra nueva", "Rehabilitación de edificios", "Trabajos verticales", "Retirada de amianto", "Refuerzos estructurales", "Impermeabilización"],
+    "manifiestoEyebrow": "Manifiesto",
+    "manifiestoText": "No hacemos obras. Devolvemos a Barcelona los edificios que la han sostenido durante un siglo, con la misma exigencia con la que se levantaron.",
+    "cifrasEyebrow": "Cifras que nos sostienen",
+    "cifras": [
+      { "num": 25, "suffix": "+", "label": "años en Barcelona" },
+      { "num": 480, "suffix": "+", "label": "proyectos entregados" },
+      { "num": 92000, "suffix": " m²", "label": "intervenidos" },
+      { "num": 38, "suffix": "", "label": "profesionales en plantilla" }
+    ],
+    "serviciosEyebrow": "Servicios destacados",
+    "serviciosTitulo": "Tres formas de intervenir un patrimonio.",
+    "procesoEyebrow": "Cómo trabajamos",
+    "procesoTitulo": "Un método propio en cinco fases.",
+    "proceso": [
+      { "num": "01", "titulo": "Visita técnica", "texto": "Reconocimiento del inmueble, levantamiento de patologías y entrevista con la propiedad o administración." },
+      { "num": "02", "titulo": "Anteproyecto", "texto": "Memoria valorada, propuesta de soluciones y estimación de plazos en 7 días laborables." },
+      { "num": "03", "titulo": "Proyecto y licencias", "texto": "Coordinación con arquitectura, gestión documental y tramitación ante el Ayuntamiento." },
+      { "num": "04", "titulo": "Ejecución", "texto": "Equipo propio en obra, jefe de obra dedicado y reportes semanales con foto a la propiedad." },
+      { "num": "05", "titulo": "Entrega y postventa", "texto": "Pruebas finales, libro del edificio y dos años de garantía sobre las intervenciones." }
+    ],
+    "portfolioEyebrow": "Trabajos recientes",
+    "portfolioTitulo": "Proyectos que prefieren no gritar.",
+    "certEyebrow": "Acreditaciones",
+    "certItems": ["RERA · Empresa inscrita amianto", "Gremi de Constructors BCN", "ISO 9001 calidad", "ISO 14001 medio ambiente", "FAD Arquitectura", "Asociación Rehabilitación BCN"],
+    "blogEyebrow": "Diario de obra",
+    "blogTitulo": "Lectura para quien construye.",
+    "mapaEyebrow": "Dónde trabajamos",
+    "mapaTitulo": "Toda Catalunya, con base en el Eixample.",
+    "mapaTexto": "Equipo propio operando en Barcelona ciudad y desplazamientos coordinados en las cuatro provincias. Tiempo medio de respuesta: 48 horas.",
+    "testimonioMega": "«Tres reformas en cinco años. Plazos cumplidos, presupuesto respetado, comunicación impecable. Es lo más cerca que he visto a contratar a un buen amigo arquitecto.»",
+    "testimonioAutor": "Marta Vilaró · Administradora de fincas",
+    "faqEyebrow": "Preguntas frecuentes",
+    "faqTitulo": "Lo que nos preguntáis antes de empezar.",
+    "faq": [
+      { "q": "¿Cuánto tarda una reforma integral en Barcelona?", "a": "Una vivienda media de 80 m² se entrega en 10-14 semanas desde la firma del contrato, incluyendo tramitación de licencia y pruebas finales." },
+      { "q": "¿Trabajáis con comunidades de propietarios?", "a": "Sí. Más del 60% de nuestra cartera son rehabilitaciones de fachadas, cubiertas y zonas comunes para administradores y juntas de propietarios." },
+      { "q": "¿Gestionáis las subvenciones de rehabilitación?", "a": "Sí. Tramitamos los Fondos Next Generation, ayudas a la accesibilidad y bonificaciones del IBI por mejora energética." },
+      { "q": "¿Tenéis financiación para particulares?", "a": "Ofrecemos financiación al 0% hasta 24 meses con entidad bancaria colaboradora, sujeto a estudio." },
+      { "q": "¿Sois empresa autorizada para retirada de amianto?", "a": "Estamos inscritos en el RERA con el equipo certificado y los seguros para retirada y transporte a vertedero autorizado." },
+      { "q": "¿Cómo se controla el presupuesto durante la obra?", "a": "Cada partida adicional se aprueba por escrito antes de ejecutarse. No hay sorpresas en la factura final." }
+    ],
+    "ctaFinalEyebrow": "Hablemos",
+    "ctaFinalTitulo": "Cuéntanos qué edificio quieres cuidar.",
+    "ctaFinalSub": "Respondemos en menos de 48 horas con una primera valoración y propuesta de visita técnica.",
+    "ctaFinalBoton": "Iniciar proyecto",
+    "ctaFinalSecundario": "Ver servicios"
+  },
   "servicios": {
-    "titulo": "Construimos tu sueño",
-    "subtitulo": "Entre nuestros clientes se encuentran un gran número de Administradores, Arquitectos, industrias, Empresas y Particulares.",
+    "titulo": "Servicios de construcción, reformas y rehabilitación en Barcelona",
+    "subtitulo": "Reformas integrales, obra nueva, rehabilitación y trabajos especializados con un equipo propio de 38 profesionales.",
+    "heroEyebrow": "Nuestros servicios",
+    "heroLine1": "Construimos",
+    "heroLine2": "tu proyecto",
+    "heroLine3": "de principio a fin.",
+    "heroDisciplines": "08 disciplinas",
+    "manifiestoEyebrow": "Un solo equipo · del arquitecto al cerrajero",
+    "manifiestoTexto": "No subcontratamos lo que sabemos hacer. Cada disciplina tiene un jefe de obra propio y una sola persona que responde ante ti.",
+    "marqueeServiciosItems": ["Reformas", "Obra nueva", "Rehabilitación", "Estructuras", "Amianto", "Verticales", "Impermeabilización"],
+    "detailEncargo": "El encargo",
+    "detailMetodo": "Método · 04 fases",
+    "detailFases": [
+      { "n": "01", "titulo": "Diagnóstico", "descripcion": "Visita técnica, mediciones e informe del estado actual." },
+      { "n": "02", "titulo": "Proyecto", "descripcion": "Definición de alcance, materiales, plazos y presupuesto cerrado." },
+      { "n": "03", "titulo": "Ejecución", "descripcion": "Jefe de obra propio y una sola persona como interlocutor." },
+      { "n": "04", "titulo": "Entrega", "descripcion": "Repaso final, limpieza y garantía escrita para cada partida." }
+    ],
+    "detailPresupuestoLabel": "Presupuesto",
+    "detailOtrosServicios": "Otros servicios",
+    "detailSiguiente": "Siguiente servicio",
     "verTodos": "Ver todos los servicios",
     "items": {
       "reformas": {

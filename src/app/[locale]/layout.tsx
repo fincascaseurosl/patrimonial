@@ -1,12 +1,23 @@
 import type { Metadata } from "next";
+import { Inter_Tight } from "next/font/google";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { SmoothScroll } from "@/components/SmoothScroll";
+import { CustomCursor } from "@/components/CustomCursor";
+import { PageTransition } from "@/components/PageTransition";
 import { getLocalBusinessSchema } from "@/lib/schema";
 import { siteConfig } from "@/lib/site-config";
+
+const interTight = Inter_Tight({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-inter-tight",
+  display: "swap",
+});
 
 type Props = {
   children: React.ReactNode;
@@ -63,7 +74,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   const schema = getLocalBusinessSchema(locale);
 
   return (
-    <html lang={locale} className="h-full antialiased">
+    <html lang={locale} className={`h-full antialiased ${interTight.variable}`}>
       <head>
         <script
           type="application/ld+json"
@@ -72,6 +83,9 @@ export default async function LocaleLayout({ children, params }: Props) {
       </head>
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider locale={locale} messages={messages}>
+          <SmoothScroll />
+          <CustomCursor />
+          <PageTransition />
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />

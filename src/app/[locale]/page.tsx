@@ -1,229 +1,504 @@
-import { useTranslations } from "next-intl";
+import { useTranslations, useMessages } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { serviceSlugs, serviceKeyMap, serviceIcons, projects, projectNames } from "@/lib/site-config";
+import { serviceKeyMap } from "@/lib/site-config";
+import { getProjects } from "@/lib/projects";
+import type { Project } from "@/lib/projects";
 import type { Locale } from "@/i18n/routing";
-import Image from "next/image";
+import {
+  RevealOnScroll,
+  StaggerChildren,
+  TextReveal,
+  Counter,
+  Magnetic,
+  MarqueeText,
+  SplitText,
+} from "@/components/animations";
+import { HomeFAQ } from "@/components/HomeFAQ";
+import { HeroVideo } from "@/components/HeroVideo";
 
 type Props = {
   params: Promise<{ locale: string }>;
 };
 
+export const revalidate = 60;
+
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
-
-  return <HomeContent locale={locale as Locale} />;
+  const projects = await getProjects();
+  const sorted = [...projects].sort((a, b) => a.order - b.order);
+  return <HomeContent locale={locale as Locale} projects={sorted} />;
 }
 
-function HomeContent({ locale }: { locale: Locale }) {
-  const t = useTranslations();
+type Cifra = { num: number; suffix: string; label: string };
+type Paso = { num: string; titulo: string; texto: string };
+type FAQ = { q: string; a: string };
 
+function HomeContent({ locale, projects }: { locale: Locale; projects: Project[] }) {
+  const t = useTranslations();
+  const messages = useMessages() as unknown as {
+    home: {
+      cifras: Cifra[];
+      proceso: Paso[];
+      faq: FAQ[];
+      marqueeItems: string[];
+      certItems: string[];
+    };
+  };
+
+  const cifras = messages.home.cifras;
+  const procesoPasos = messages.home.proceso;
+  const faqItems = messages.home.faq;
+  const marqueeItems = messages.home.marqueeItems;
+  const certItems = messages.home.certItems;
   const mainServices = ["reformas", "obra-nueva", "rehabilitacion"] as const;
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative bg-[var(--color-dark)] text-white overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-dark)] to-transparent z-10" />
-        <div className="relative z-20 max-w-7xl mx-auto px-4 py-24 md:py-32 lg:py-40">
-          <div className="max-w-2xl">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              {t("hero.titulo")}
-            </h1>
-            <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
-              {t("hero.subtitulo")}
-            </p>
-            <Link
-              href="/contacto"
-              className="inline-block px-8 py-4 bg-[var(--color-primary)] text-[var(--color-dark)] font-bold text-lg rounded-md hover:bg-[var(--color-primary-dark)] transition-colors"
-            >
-              {t("hero.cta")}
-            </Link>
+      {/* 1 Â· HERO */}
+      <section className="relative h-screen min-h-[680px] flex flex-col justify-end overflow-hidden bg-[var(--ink)]">
+        <HeroVideo poster="/images/hero/hero.jpg" />
+
+        <div className="absolute top-28 left-0 right-0 z-10">
+          <div className="max-w-7xl mx-auto px-6">
+            <RevealOnScroll direction="none" duration={0.8}>
+              <p className="text-white/70 text-[11px] font-semibold tracking-[0.32em] uppercase">
+                {t("home.heroEyebrow")}
+              </p>
+            </RevealOnScroll>
           </div>
+        </div>
+
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pb-28 md:pb-36">
+          <h1 className="font-display text-white text-[clamp(3rem,10vw,9rem)] font-bold leading-[1.02] tracking-[-0.035em] mb-10">
+            <SplitText as="span" className="block" by="word" stagger={0.08} duration={1.0} delay={0.1}>
+              {t("home.heroLine1")}
+            </SplitText>
+            <SplitText as="span" className="block italic font-medium" by="word" stagger={0.08} duration={1.0} delay={0.25}>
+              {t("home.heroLine2")}
+            </SplitText>
+            <SplitText as="span" className="block" by="word" stagger={0.08} duration={1.0} delay={0.4}>
+              {t("home.heroLine3")}
+            </SplitText>
+          </h1>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-end">
+            <RevealOnScroll direction="up" delay={0.7} distance={20} className="md:col-span-6 lg:col-span-5">
+              <p className="text-white/75 text-base md:text-lg leading-relaxed">{t("home.heroSub")}</p>
+            </RevealOnScroll>
+
+            <RevealOnScroll direction="up" delay={0.85} distance={15} className="md:col-span-6 lg:col-span-7 md:flex md:justify-end gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Magnetic strength={0.18}>
+                  <Link
+                    href="/contacto"
+                    className="cursor-grow inline-flex items-center justify-center px-9 py-5 bg-[var(--brand-red)] text-white text-[12px] font-semibold tracking-[0.18em] uppercase transition-colors duration-300 hover:bg-[var(--brand-red-deep)]"
+                  >
+                    {t("hero.cta")}
+                  </Link>
+                </Magnetic>
+                <Magnetic strength={0.15}>
+                  <Link
+                    href="/portfolio"
+                    className="cursor-grow inline-flex items-center justify-center px-9 py-5 border border-white/30 text-white text-[12px] font-medium tracking-[0.18em] uppercase transition-all duration-300 hover:border-white hover:bg-white/5"
+                  >
+                    {t("portfolio.verTodos")}
+                  </Link>
+                </Magnetic>
+              </div>
+            </RevealOnScroll>
+          </div>
+        </div>
+
+        <div className="absolute bottom-6 left-6 right-6 z-10 flex items-end justify-between text-white/50 text-[10px] font-medium tracking-[0.32em] uppercase">
+          <span>{t("home.heroScroll")}</span>
+          <span>BCN Â· 41.40Â°N Â· 2.17Â°E</span>
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-dark)] mb-4">
-              {t("servicios.titulo")}
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              {t("servicios.subtitulo")}
+      {/* 2 Â· MARQUEE SERVICIOS */}
+      <section className="bg-[var(--ink)] border-t border-white/10 py-6">
+        <MarqueeText speed={45}>
+          {marqueeItems.map((item, i) => (
+            <span key={i} className="inline-flex items-center gap-10 px-10 font-display text-white text-2xl md:text-3xl font-semibold uppercase tracking-tight">
+              {item}
+              <span className="w-2 h-2 bg-[var(--brand-red)] inline-block" />
+            </span>
+          ))}
+        </MarqueeText>
+      </section>
+
+      {/* 3 Â· MANIFIESTO */}
+      <section className="py-32 md:py-44 bg-[var(--paper)]">
+        <div className="max-w-6xl mx-auto px-6">
+          <RevealOnScroll direction="none">
+            <p className="text-[var(--mute)] text-[11px] font-semibold tracking-[0.32em] uppercase mb-12 flex items-center gap-4">
+              <span className="w-8 h-[1px] bg-[var(--mute)]" />
+              {t("home.manifiestoEyebrow")}
             </p>
+          </RevealOnScroll>
+          <TextReveal as="p" className="font-display text-[var(--ink)] text-[clamp(1.75rem,4.2vw,3.75rem)] font-medium leading-[1.15] tracking-[-0.02em] text-balance">
+            {t("home.manifiestoText")}
+          </TextReveal>
+        </div>
+      </section>
+
+      {/* 4 Â· CIFRAS */}
+      <section className="py-24 md:py-32 bg-[var(--ink)] text-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <RevealOnScroll direction="none">
+            <p className="text-white/40 text-[11px] font-semibold tracking-[0.32em] uppercase mb-14">
+              {t("home.cifrasEyebrow")}
+            </p>
+          </RevealOnScroll>
+
+          <StaggerChildren className="grid grid-cols-2 lg:grid-cols-4 gap-y-14 gap-x-8" stagger={0.12}>
+            {cifras.map((c, i) => (
+              <div key={i} className="border-l border-white/15 pl-6">
+                <div className="font-display text-[clamp(3rem,7vw,6rem)] font-bold leading-none tracking-[-0.04em] text-white">
+                  <Counter end={c.num} suffix={c.suffix} duration={2.4} />
+                </div>
+                <p className="text-white/55 text-sm mt-4 max-w-[180px] leading-snug">{c.label}</p>
+              </div>
+            ))}
+          </StaggerChildren>
+        </div>
+      </section>
+
+      {/* 5 Â· SERVICIOS DESTACADOS */}
+      <section className="py-24 md:py-36 bg-[var(--paper)]">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 md:mb-20 gap-8">
+            <div className="max-w-xl">
+              <RevealOnScroll direction="none">
+                <p className="text-[var(--brand-red)] text-[11px] font-semibold tracking-[0.32em] uppercase mb-5">
+                  {t("home.serviciosEyebrow")}
+                </p>
+              </RevealOnScroll>
+              <TextReveal as="h2" className="font-display text-[var(--ink)] text-4xl md:text-5xl font-bold leading-[1.05] tracking-[-0.03em] text-balance">
+                {t("home.serviciosTitulo")}
+              </TextReveal>
+            </div>
+            <RevealOnScroll direction="right" delay={0.2}>
+              <Link
+                href="/servicios"
+                className="cursor-grow inline-flex items-center gap-3 text-[12px] font-semibold tracking-[0.18em] uppercase text-[var(--ink)] hover:text-[var(--brand-red)] transition-colors duration-300 group"
+              >
+                <span>{t("servicios.verTodos")}</span>
+                <span className="w-9 h-[1px] bg-current transition-all duration-300 group-hover:w-12" />
+              </Link>
+            </RevealOnScroll>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {mainServices.map((slug) => {
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[var(--line)]" stagger={0.1}>
+            {mainServices.map((slug, i) => {
               const key = serviceKeyMap[slug];
               return (
                 <Link
                   key={slug}
                   href={{ pathname: "/servicios/[slug]", params: { slug } }}
-                  className="group p-8 rounded-xl border border-gray-100 hover:border-[var(--color-primary)] hover:shadow-lg transition-all duration-300"
+                  className="cursor-grow group relative bg-[var(--paper)] p-10 md:p-12 transition-colors duration-500 hover:bg-[var(--ink)] flex flex-col min-h-[420px]"
                 >
-                  <div className="w-16 h-16 mb-6 flex items-center justify-center bg-amber-50 rounded-lg group-hover:bg-[var(--color-primary)] transition-colors">
-                    <img
-                      src={serviceIcons[slug]}
-                      alt=""
-                      className="w-8 h-8"
-                    />
-                  </div>
-                  <h3 className="text-xl font-bold text-[var(--color-dark)] mb-3 group-hover:text-[var(--color-primary)] transition-colors">
+                  <span className="font-display text-[var(--mute-soft)] group-hover:text-[var(--brand-red)] text-[11px] font-semibold tracking-[0.32em] uppercase transition-colors duration-500">
+                    0{i + 1}
+                  </span>
+
+                  <h3 className="mt-auto font-display text-[var(--ink)] group-hover:text-white text-3xl md:text-4xl font-bold leading-[1.05] tracking-[-0.025em] transition-colors duration-500">
                     {t(`servicios.items.${key}.nombre`)}
                   </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <p className="mt-5 text-[var(--ink-soft)] group-hover:text-white/65 text-sm leading-relaxed transition-colors duration-500 max-w-sm">
                     {t(`servicios.items.${key}.descripcion`)}
                   </p>
+
+                  <div className="mt-8 inline-flex items-center gap-3 text-[11px] font-semibold tracking-[0.22em] uppercase text-[var(--brand-red)] group-hover:text-white">
+                    <span>{t("portfolio.verMas")}</span>
+                    <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </div>
                 </Link>
               );
             })}
-          </div>
-
-          <div className="text-center mt-10">
-            <Link
-              href="/servicios"
-              className="inline-block px-6 py-3 border-2 border-[var(--color-primary)] text-[var(--color-dark)] font-semibold rounded-md hover:bg-[var(--color-primary)] transition-colors"
-            >
-              {t("servicios.verTodos")}
-            </Link>
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
-      {/* Why Choose Us */}
-      <section className="py-16 md:py-24 bg-[var(--color-gray-light)]">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-dark)] mb-4">
-              {t("porqueElegirnos.titulo")}
-            </h2>
-            <p className="text-gray-600">{t("porqueElegirnos.subtitulo")}</p>
+      {/* 6 Â· PROCESO */}
+      <section className="py-24 md:py-36 bg-[var(--bone)]">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="max-w-2xl mb-20">
+            <RevealOnScroll direction="none">
+              <p className="text-[var(--brand-red)] text-[11px] font-semibold tracking-[0.32em] uppercase mb-5">
+                {t("home.procesoEyebrow")}
+              </p>
+            </RevealOnScroll>
+            <TextReveal as="h2" className="font-display text-[var(--ink)] text-4xl md:text-5xl font-bold leading-[1.05] tracking-[-0.03em] text-balance">
+              {t("home.procesoTitulo")}
+            </TextReveal>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {(["experiencia", "financiacion", "subvencion", "garantia"] as const).map((item) => (
-              <div key={item} className="text-center p-6">
-                <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-[var(--color-primary)] rounded-full">
-                  <span className="text-2xl font-bold text-[var(--color-dark)]">
-                    {item === "experiencia" && "25+"}
-                    {item === "financiacion" && "0%"}
-                    {item === "subvencion" && "€"}
-                    {item === "garantia" && "✓"}
-                  </span>
-                </div>
-                <h3 className="text-lg font-bold text-[var(--color-dark)] mb-2">
-                  {t(`porqueElegirnos.items.${item}.titulo`)}
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-px bg-[var(--line)]" stagger={0.08}>
+            {procesoPasos.map((paso) => (
+              <div key={paso.num} className="bg-[var(--bone)] p-8 md:p-10 flex flex-col min-h-[300px] relative group hover:bg-[var(--paper)] transition-colors duration-500">
+                <span className="font-display text-[var(--brand-red)] text-5xl md:text-6xl font-bold tracking-[-0.04em]">
+                  {paso.num}
+                </span>
+                <h3 className="mt-auto font-display text-[var(--ink)] text-xl md:text-2xl font-semibold tracking-[-0.015em]">
+                  {paso.titulo}
                 </h3>
-                <p className="text-gray-600 text-sm">
-                  {t(`porqueElegirnos.items.${item}.texto`)}
-                </p>
+                <p className="mt-4 text-[var(--ink-soft)] text-sm leading-relaxed">{paso.texto}</p>
               </div>
             ))}
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 md:py-24 bg-[var(--color-dark)] text-white">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            {t("cta.titulo")}
-          </h2>
-          <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-            {t("cta.texto")}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contacto"
-              className="px-8 py-4 bg-[var(--color-primary)] text-[var(--color-dark)] font-bold rounded-md hover:bg-[var(--color-primary-dark)] transition-colors"
-            >
-              {t("cta.boton")}
-            </Link>
-            <Link
-              href="/servicios"
-              className="px-8 py-4 border-2 border-white text-white font-bold rounded-md hover:bg-white hover:text-[var(--color-dark)] transition-colors"
-            >
-              {t("servicios.verTodos")}
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Projects Section */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-dark)] mb-4">
-              {t("portfolio.titulo")}
-            </h2>
-            <p className="text-gray-600">{t("portfolio.subtitulo")}</p>
+      {/* 7 Â· PORTFOLIO */}
+      <section className="py-24 md:py-36 bg-[var(--paper)]">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 md:mb-20 gap-8">
+            <div className="max-w-xl">
+              <RevealOnScroll direction="none">
+                <p className="text-[var(--brand-red)] text-[11px] font-semibold tracking-[0.32em] uppercase mb-5">
+                  {t("home.portfolioEyebrow")}
+                </p>
+              </RevealOnScroll>
+              <TextReveal as="h2" className="font-display text-[var(--ink)] text-4xl md:text-5xl font-bold leading-[1.05] tracking-[-0.03em] text-balance">
+                {t("home.portfolioTitulo")}
+              </TextReveal>
+            </div>
+            <RevealOnScroll direction="right" delay={0.2}>
+              <Link
+                href="/portfolio"
+                className="cursor-grow inline-flex items-center gap-3 text-[12px] font-semibold tracking-[0.18em] uppercase text-[var(--ink)] hover:text-[var(--brand-red)] transition-colors duration-300 group"
+              >
+                <span>{t("portfolio.verTodos")}</span>
+                <span className="w-9 h-[1px] bg-current transition-all duration-300 group-hover:w-12" />
+              </Link>
+            </RevealOnScroll>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {projects.map((project) => {
-              const name = projectNames[project.slug]?.[locale] ?? project.slug;
+          <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5" stagger={0.1}>
+            {projects.slice(0, 4).map((project, i) => {
+              const name = locale === "ca" ? project.nameCa : project.nameEs;
               return (
                 <Link
                   key={project.slug}
                   href={{ pathname: "/portfolio/[slug]", params: { slug: project.slug } }}
-                  className="group relative overflow-hidden rounded-xl aspect-[4/3] bg-gray-200"
+                  className="cursor-grow group relative overflow-hidden bg-[var(--ink)] aspect-[4/3]"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10 opacity-80 group-hover:opacity-100 transition-opacity" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
-                    <h3 className="text-white text-lg font-bold mb-1">{name}</h3>
-                    <span className="text-[var(--color-primary)] text-sm font-medium">
-                      {t("portfolio.verMas")} →
+                  <img
+                    src={project.images[0]}
+                    alt={name}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.07]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/80 via-[var(--ink)]/20 to-transparent" />
+                  <div className="absolute inset-0 bg-[var(--ink)]/0 group-hover:bg-[var(--ink)]/15 transition-colors duration-700" />
+                  <div className="absolute top-6 left-6">
+                    <span className="text-white/40 text-[10px] font-semibold tracking-[0.3em] tabular-nums">
+                      {String(i + 1).padStart(2, "0")}
                     </span>
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 p-7 md:p-8">
+                    <p className="text-[var(--brand-red-soft)] text-[10px] font-semibold tracking-[0.32em] uppercase mb-2">
+                      {project.category}
+                    </p>
+                    <div className="flex items-end justify-between gap-4">
+                      <h3 className="font-display text-white text-xl md:text-2xl font-bold tracking-[-0.02em] leading-tight">
+                        {name}
+                      </h3>
+                      <span className="shrink-0 w-8 h-8 rounded-full border border-white/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
+                        <svg className="w-3.5 h-3.5 text-white -rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                      </span>
+                    </div>
                   </div>
                 </Link>
               );
             })}
+          </StaggerChildren>
+        </div>
+      </section>
+
+      {/* 8 Â· CERTIFICACIONES */}
+      <section className="py-16 bg-[var(--bone-deep)] border-y border-[var(--line)]">
+        <p className="text-center text-[var(--mute)] text-[11px] font-semibold tracking-[0.32em] uppercase mb-8">
+          {t("home.certEyebrow")}
+        </p>
+        <MarqueeText speed={55} reverse>
+          {certItems.map((item, i) => (
+            <span key={i} className="inline-flex items-center gap-8 px-8 text-[var(--ink-soft)] text-base md:text-lg font-medium uppercase tracking-[0.15em]">
+              {item}
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand-red)] inline-block" />
+            </span>
+          ))}
+        </MarqueeText>
+      </section>
+
+      {/* 9 Â· MAPA */}
+      <section className="py-24 md:py-36 bg-[var(--paper)]">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div className="lg:col-span-5">
+            <RevealOnScroll direction="none">
+              <p className="text-[var(--brand-red)] text-[11px] font-semibold tracking-[0.32em] uppercase mb-5">
+                {t("home.mapaEyebrow")}
+              </p>
+            </RevealOnScroll>
+            <TextReveal as="h2" className="font-display text-[var(--ink)] text-3xl md:text-4xl font-bold leading-[1.1] tracking-[-0.025em] mb-8">
+              {t("home.mapaTitulo")}
+            </TextReveal>
+            <RevealOnScroll direction="up" delay={0.2}>
+              <p className="text-[var(--ink-soft)] text-base md:text-lg leading-relaxed max-w-md">{t("home.mapaTexto")}</p>
+            </RevealOnScroll>
+
+            <RevealOnScroll direction="up" delay={0.35}>
+              <ul className="mt-10 grid grid-cols-2 gap-y-3 gap-x-6 max-w-sm">
+                {["BarcelonÃ¨s", "VallÃ¨s", "Maresme", "Baix Llobregat", "Tarragona", "Girona", "Lleida", "PenedÃ¨s"].map((zona) => (
+                  <li key={zona} className="flex items-center gap-2 text-[var(--ink)] text-sm">
+                    <span className="w-1.5 h-1.5 bg-[var(--brand-red)]" />
+                    {zona}
+                  </li>
+                ))}
+              </ul>
+            </RevealOnScroll>
           </div>
 
-          <div className="text-center mt-10">
-            <Link
-              href="/portfolio"
-              className="inline-block px-6 py-3 border-2 border-[var(--color-primary)] text-[var(--color-dark)] font-semibold rounded-md hover:bg-[var(--color-primary)] transition-colors"
-            >
-              {t("portfolio.verTodos")}
-            </Link>
+          <div className="lg:col-span-7">
+            <RevealOnScroll direction="left" delay={0.2}>
+              <CatalunyaMap />
+            </RevealOnScroll>
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-16 md:py-20 bg-[var(--color-gray-light)]">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-[var(--color-dark)] mb-10">
-            {t("testimonios.titulo")}
-          </h2>
-          <blockquote className="text-xl text-gray-700 italic leading-relaxed mb-6">
-            &ldquo;{t("testimonios.items.0.texto")}&rdquo;
-          </blockquote>
-          <p className="text-[var(--color-primary)] font-bold">
-            — {t("testimonios.items.0.autor")}
-          </p>
+      {/* 10 Â· TESTIMONIO */}
+      <section className="py-32 md:py-44 bg-[var(--ink)] text-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <RevealOnScroll direction="none">
+            <p className="text-white/40 text-[11px] font-semibold tracking-[0.32em] uppercase mb-12 flex items-center gap-4">
+              <span className="w-8 h-[1px] bg-white/40" />
+              Testimonio
+            </p>
+          </RevealOnScroll>
+          <TextReveal as="p" className="font-display text-white text-[clamp(1.75rem,4vw,3.5rem)] font-medium leading-[1.18] tracking-[-0.02em] text-balance">
+            {t("home.testimonioMega")}
+          </TextReveal>
+          <RevealOnScroll direction="up" delay={0.3}>
+            <footer className="mt-12 flex items-center gap-4">
+              <span className="w-12 h-[1px] bg-[var(--brand-red)]" />
+              <cite className="not-italic text-white/60 text-sm font-medium tracking-[0.15em] uppercase">{t("home.testimonioAutor")}</cite>
+            </footer>
+          </RevealOnScroll>
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-16 bg-[var(--color-primary)]">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-[var(--color-dark)] mb-6">
-            {t("cta.presupuesto")}
-          </h2>
-          <Link
-            href="/contacto"
-            className="inline-block px-8 py-4 bg-[var(--color-dark)] text-white font-bold rounded-md hover:bg-[var(--color-dark-lighter)] transition-colors"
-          >
-            {t("cta.boton")}
-          </Link>
+      {/* 11 Â· FAQ */}
+      <section className="py-24 md:py-36 bg-[var(--paper)]">
+        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          <div className="lg:col-span-4">
+            <RevealOnScroll direction="none">
+              <p className="text-[var(--brand-red)] text-[11px] font-semibold tracking-[0.32em] uppercase mb-5">
+                {t("home.faqEyebrow")}
+              </p>
+            </RevealOnScroll>
+            <TextReveal as="h2" className="font-display text-[var(--ink)] text-3xl md:text-4xl font-bold leading-[1.1] tracking-[-0.025em]">
+              {t("home.faqTitulo")}
+            </TextReveal>
+          </div>
+          <div className="lg:col-span-8">
+            <HomeFAQ items={faqItems} />
+          </div>
+        </div>
+      </section>
+
+      {/* 12 Â· CTA FINAL */}
+      <section className="relative py-32 md:py-48 bg-[var(--brand-red)] text-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <RevealOnScroll direction="none">
+            <p className="text-white/70 text-[11px] font-semibold tracking-[0.32em] uppercase mb-10">
+              {t("home.ctaFinalEyebrow")}
+            </p>
+          </RevealOnScroll>
+          <TextReveal as="h2" className="font-display text-white text-[clamp(2.5rem,8vw,7rem)] font-bold leading-[0.95] tracking-[-0.035em] mb-12 max-w-5xl text-balance">
+            {t("home.ctaFinalTitulo")}
+          </TextReveal>
+          <RevealOnScroll direction="up" delay={0.2}>
+            <p className="text-white/80 text-lg md:text-xl leading-relaxed max-w-xl mb-12">{t("home.ctaFinalSub")}</p>
+          </RevealOnScroll>
+          <RevealOnScroll direction="up" delay={0.35}>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Magnetic strength={0.18}>
+                <Link
+                  href="/contacto"
+                  className="cursor-grow inline-flex items-center justify-center px-10 py-5 bg-white text-[var(--ink)] text-[12px] font-semibold tracking-[0.18em] uppercase transition-colors duration-300 hover:bg-[var(--ink)] hover:text-white"
+                >
+                  {t("home.ctaFinalBoton")}
+                </Link>
+              </Magnetic>
+              <Magnetic strength={0.15}>
+                <Link
+                  href="/servicios"
+                  className="cursor-grow inline-flex items-center justify-center px-10 py-5 border border-white/40 text-white text-[12px] font-medium tracking-[0.18em] uppercase transition-all duration-300 hover:border-white hover:bg-white/5"
+                >
+                  {t("home.ctaFinalSecundario")}
+                </Link>
+              </Magnetic>
+            </div>
+          </RevealOnScroll>
+        </div>
+
+        <div
+          aria-hidden="true"
+          className="absolute -bottom-20 -right-10 font-display font-bold text-white/10 leading-none tracking-[-0.05em] select-none pointer-events-none hidden lg:block"
+          style={{ fontSize: "28rem" }}
+        >
+          P
         </div>
       </section>
     </>
+  );
+}
+
+function CatalunyaMap() {
+  return (
+    <div className="relative aspect-[5/4] w-full">
+      <svg viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" aria-hidden="true">
+        <defs>
+          <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="var(--line)" strokeWidth="0.4" />
+          </pattern>
+        </defs>
+        <rect width="500" height="400" fill="url(#grid)" opacity="0.5" />
+        <path
+          d="M85 95 L130 70 L185 65 L240 55 L295 70 L355 80 L405 100 L435 130 L450 175 L445 220 L420 260 L385 285 L340 305 L295 320 L260 340 L235 365 L215 350 L195 320 L165 290 L130 270 L100 245 L80 215 L70 175 L75 135 Z"
+          stroke="var(--ink)"
+          strokeWidth="1.5"
+          fill="var(--bone)"
+        />
+        <g>
+          <circle cx="320" cy="295" r="22" fill="var(--brand-red)" opacity="0.15">
+            <animate attributeName="r" values="22;32;22" dur="3s" repeatCount="indefinite" />
+            <animate attributeName="opacity" values="0.3;0;0.3" dur="3s" repeatCount="indefinite" />
+          </circle>
+          <circle cx="320" cy="295" r="8" fill="var(--brand-red)" />
+          <text x="335" y="300" fill="var(--ink)" fontSize="14" fontWeight="700">Barcelona</text>
+          <text x="335" y="316" fill="var(--mute)" fontSize="9" fontWeight="500" letterSpacing="2">BASE Â· OFICINA</text>
+        </g>
+        {[
+          { x: 220, y: 110, label: "Lleida" },
+          { x: 410, y: 130, label: "Girona" },
+          { x: 280, y: 360, label: "Tarragona" },
+        ].map((zone) => (
+          <g key={zone.label}>
+            <circle cx={zone.x} cy={zone.y} r="4" fill="var(--ink)" />
+            <text x={zone.x + 10} y={zone.y + 4} fill="var(--ink-soft)" fontSize="11" fontWeight="500">
+              {zone.label}
+            </text>
+          </g>
+        ))}
+      </svg>
+    </div>
   );
 }

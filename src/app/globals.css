@@ -1,28 +1,196 @@
 @import "tailwindcss";
 
 :root {
-  --color-primary: #ffc107;
-  --color-primary-dark: #e6ac00;
-  --color-dark: #1a1a2e;
-  --color-dark-lighter: #16213e;
-  --color-gray-light: #f8f9fa;
-  --color-text: #333333;
-  --color-text-light: #6c757d;
+  /* Brand — black, white, red */
+  --brand-red: #B83232;
+  --brand-red-deep: #7A1F1F;
+  --brand-red-soft: #E8B5B5;
+
+  /* Ink scale */
+  --ink: #0E0E0E;
+  --ink-soft: #2C2C2C;
+  --mute: #6B6B6B;
+  --mute-soft: #A3A3A3;
+
+  /* Surfaces */
+  --paper: #FFFFFF;
+  --bone: #F5F2EC;
+  --bone-deep: #ECE8DF;
+  --line: #E5E5E5;
+  --line-soft: #F0F0F0;
+
+  /* Legacy aliases — keep until pages refactored */
+  --color-primary: var(--brand-red);
+  --color-primary-dark: var(--brand-red-deep);
+  --color-primary-light: var(--brand-red-soft);
+  --color-accent: var(--brand-red);
+  --color-accent-hover: var(--brand-red-deep);
+  --color-dark: var(--ink);
+  --color-dark-lighter: var(--ink-soft);
+  --color-dark-surface: #111111;
+  --color-gray-light: var(--bone);
+  --color-gray-warm: var(--bone-deep);
+  --color-text: var(--ink-soft);
+  --color-text-light: var(--mute);
+  --color-text-muted: var(--mute-soft);
+  --color-border: var(--line);
+
+  /* Easings */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+  --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 @theme inline {
-  --color-primary: var(--color-primary);
-  --color-primary-dark: var(--color-primary-dark);
-  --color-dark: var(--color-dark);
-  --color-dark-lighter: var(--color-dark-lighter);
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --color-primary: var(--brand-red);
+  --color-primary-dark: var(--brand-red-deep);
+  --color-accent: var(--brand-red);
+  --color-accent-hover: var(--brand-red-deep);
+  --color-dark: var(--ink);
+  --color-dark-lighter: var(--ink-soft);
+  --font-sans: var(--font-inter-tight), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-inter-tight), system-ui, sans-serif;
 }
 
-body {
-  color: var(--color-text);
-  font-family: var(--font-sans);
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
 }
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  color: var(--ink-soft);
+  font-family: var(--font-sans);
+  background: var(--paper);
+  line-height: 1.55;
+  letter-spacing: -0.011em;
+  font-feature-settings: "ss01", "cv11";
+}
+
+/* Typography utilities */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.035em;
+  font-weight: 700;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Premium hover cursor zone (used by CustomCursor) */
+.cursor-grow {
+  cursor: none;
+}
+
+@media (hover: none) {
+  .cursor-grow {
+    cursor: pointer;
+  }
+}
+
+::selection {
+  background: var(--brand-red);
+  color: white;
+}
+
+/* Premium button press effect */
+.btn-press {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+/* Smooth image loading */
+img {
+  transition: opacity 0.4s ease;
+}
+
+/* Line reveal */
+.line-reveal {
+  transform-origin: left;
+  animation: lineGrow 0.8s var(--ease-out-expo) forwards;
+}
+@keyframes lineGrow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Grain overlay */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: multiply;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { transform: translateY(-100%); }
+  50% { transform: translateY(100%); }
+}
+
+/* Marquee */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 40s linear infinite;
+}
+
+/* Hero Ken Burns (fallback when no video) */
+@keyframes kenburns {
+  0% { transform: scale(1.05) translate(0, 0); }
+  50% { transform: scale(1.18) translate(-1.5%, -2%); }
+  100% { transform: scale(1.05) translate(0, 0); }
+}
+.hero-kenburns {
+  animation: kenburns 24s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Page transition overlay */
+.page-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--ink);
+  z-index: 100;
+  transform: translateY(100%);
+  pointer-events: none;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .marquee-track { animation: none; }
+}
+

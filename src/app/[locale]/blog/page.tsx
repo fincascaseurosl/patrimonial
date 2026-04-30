@@ -64,20 +64,17 @@ export default async function BlogPage({ params }: Props) {
 
   return (
     <>
-      <section className="bg-[var(--color-dark)] text-white py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-4">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Blog</h1>
-          <p className="text-gray-300 text-lg max-w-2xl">
-            {locale === "ca"
-              ? "Consells i novetats sobre construcció, reformes i rehabilitació a Barcelona."
-              : "Consejos y novedades sobre construcción, reformas y rehabilitación en Barcelona."}
-          </p>
+      <section className="relative bg-[var(--color-dark)] text-white pt-32 pb-16 md:pb-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="text-[var(--color-primary)] text-[12px] font-semibold tracking-[0.3em] uppercase mb-4">Blog</p>
+          <h1 className="text-4xl md:text-5xl font-bold leading-[1.1] tracking-[-0.02em] mb-4">Blog</h1>
+          <div className="w-12 h-[2px] bg-[var(--color-primary)] mt-2" />
         </div>
       </section>
 
-      <section className="py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <section className="py-24 md:py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {blogPosts.map((post) => {
               const title =
                 postTitles[post.slug]?.[locale as "es" | "ca"] ||
@@ -88,21 +85,21 @@ export default async function BlogPage({ params }: Props) {
               return (
                 <article
                   key={post.slug}
-                  className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                  className="group bg-white overflow-hidden"
                 >
-                  <div className="aspect-[16/9] bg-gray-200">
+                  <div className="aspect-[16/9] bg-[var(--color-gray-light)] overflow-hidden">
                     <img
                       src={post.image}
                       alt={title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
-                  <div className="p-6">
-                    <time className="text-sm text-gray-400">{post.date}</time>
-                    <h2 className="text-xl font-bold text-[var(--color-dark)] mt-2 mb-3">
+                  <div className="pt-6">
+                    <time className="text-[11px] text-[var(--color-text-muted)] tracking-wider uppercase">{post.date}</time>
+                    <h2 className="text-xl font-semibold text-[var(--color-dark)] mt-2 mb-3 tracking-[-0.01em]">
                       {title}
                     </h2>
-                    <p className="text-gray-600 text-sm leading-relaxed">
+                    <p className="text-[var(--color-text-light)] text-sm leading-relaxed">
                       {excerpt}
                     </p>
                   </div>

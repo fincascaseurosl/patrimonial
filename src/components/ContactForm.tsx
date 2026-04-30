@@ -42,8 +42,13 @@ export default function ContactForm() {
 
   if (status === "sent") {
     return (
-      <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center">
-        <p className="text-green-800 font-semibold text-lg">{t("enviado")}</p>
+      <div className="bg-[var(--color-gray-light)] p-12 text-center">
+        <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center bg-[var(--color-primary)]">
+          <svg className="w-6 h-6 text-[var(--color-dark)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <p className="text-[var(--color-dark)] font-semibold text-lg">{t("enviado")}</p>
       </div>
     );
   }
@@ -54,7 +59,7 @@ export default function ContactForm() {
         <div>
           <label
             htmlFor="nombre"
-            className="block text-sm font-medium text-gray-700 mb-2"
+            className="block text-[11px] font-semibold text-[var(--color-text-muted)] uppercase tracking-wider mb-3"
           >
             {t("nombre")} *
           </label>
@@ -63,13 +68,13 @@ export default function ContactForm() {
             id="nombre"
             name="nombre"
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none transition-all"
+            className="w-full px-0 py-3 bg-transparent border-0 border-b border-[var(--color-border)] text-[var(--color-dark)] text-sm focus:border-[var(--color-primary)] focus:ring-0 outline-none transition-colors duration-300"
           />
         </div>
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-700 mb-2"
+            className="block text-[11px] font-semibold text-[var(--color-text-muted)] uppercase tracking-wider mb-3"
           >
             {t("email")} *
           </label>
@@ -78,14 +83,14 @@ export default function ContactForm() {
             id="email"
             name="email"
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none transition-all"
+            className="w-full px-0 py-3 bg-transparent border-0 border-b border-[var(--color-border)] text-[var(--color-dark)] text-sm focus:border-[var(--color-primary)] focus:ring-0 outline-none transition-colors duration-300"
           />
         </div>
       </div>
       <div>
         <label
           htmlFor="telefono"
-          className="block text-sm font-medium text-gray-700 mb-2"
+          className="block text-[11px] font-semibold text-[var(--color-text-muted)] uppercase tracking-wider mb-3"
         >
           {t("telefono")}
         </label>
@@ -93,13 +98,13 @@ export default function ContactForm() {
           type="tel"
           id="telefono"
           name="telefono"
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none transition-all"
+          className="w-full px-0 py-3 bg-transparent border-0 border-b border-[var(--color-border)] text-[var(--color-dark)] text-sm focus:border-[var(--color-primary)] focus:ring-0 outline-none transition-colors duration-300"
         />
       </div>
       <div>
         <label
           htmlFor="mensaje"
-          className="block text-sm font-medium text-gray-700 mb-2"
+          className="block text-[11px] font-semibold text-[var(--color-text-muted)] uppercase tracking-wider mb-3"
         >
           {t("mensaje")} *
         </label>
@@ -108,20 +113,20 @@ export default function ContactForm() {
           name="mensaje"
           required
           rows={6}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none transition-all resize-y"
+          className="w-full px-0 py-3 bg-transparent border-0 border-b border-[var(--color-border)] text-[var(--color-dark)] text-sm focus:border-[var(--color-primary)] focus:ring-0 outline-none transition-colors duration-300 resize-y"
         />
       </div>
 
       {status === "error" && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-          <p className="text-red-700 text-sm">{t("error")}</p>
+        <div className="bg-red-50/50 p-4">
+          <p className="text-red-600 text-sm">{t("error")}</p>
         </div>
       )}
 
       <button
         type="submit"
         disabled={status === "sending"}
-        className="px-8 py-4 bg-[var(--color-primary)] text-[var(--color-dark)] font-bold rounded-md hover:bg-amber-400 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+        className="px-10 py-4 bg-[var(--color-dark)] text-white text-[13px] font-semibold tracking-wider uppercase transition-all duration-300 hover:bg-[var(--color-dark-lighter)] disabled:opacity-40 disabled:cursor-not-allowed btn-press"
       >
         {status === "sending" ? "..." : t("enviar")}
       </button>

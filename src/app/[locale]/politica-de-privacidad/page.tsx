@@ -31,16 +31,17 @@ export default async function PrivacyPolicyPage({ params }: Props) {
 
   return (
     <>
-      <section className="bg-[var(--color-dark)] text-white py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-4">
-          <h1 className="text-4xl md:text-5xl font-bold">
+      <section className="relative bg-[var(--color-dark)] text-white pt-32 pb-16 md:pb-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <h1 className="text-4xl md:text-5xl font-bold leading-[1.1] tracking-[-0.02em]">
             {isCA ? "Política de privacitat" : "Política de privacidad"}
           </h1>
+          <div className="w-12 h-[2px] bg-[var(--color-primary)] mt-6" />
         </div>
       </section>
 
-      <section className="py-16 md:py-24">
-        <div className="max-w-3xl mx-auto px-4 prose prose-gray">
+      <section className="py-20 md:py-28 bg-white">
+        <div className="max-w-3xl mx-auto px-6 prose prose-gray">
           {isCA ? (
             <>
               <h2>Responsable del tractament</h2>

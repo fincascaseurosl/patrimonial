@@ -1,26 +1,33 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { projects, projectNames } from "@/lib/site-config";
+import { getProjects, getProjectName } from "@/lib/projects";
+import type { Project } from "@/lib/projects";
 import { notFound } from "next/navigation";
+import {
+  RevealOnScroll,
+  StaggerChildren,
+  TextReveal,
+  Magnetic,
+} from "@/components/animations";
 import type { Metadata } from "next";
 
-type Props = {
-  params: Promise<{ locale: string; slug: string }>;
-};
+export const revalidate = 60;
+export const dynamicParams = true;
 
-export function generateStaticParams() {
+type Props = { params: Promise<{ locale: string; slug: string }> };
+
+export async function generateStaticParams() {
+  const projects = await getProjects();
   return projects.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
+  const projects = await getProjects();
   const project = projects.find((p) => p.slug === slug);
   if (!project) return {};
-
-  const name =
-    projectNames[slug]?.[locale as "es" | "ca"] || slug;
-
+  const name = getProjectName(project, locale);
   return {
     title: name,
     description:
@@ -28,102 +35,101 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         ? `Projecte: ${name}. Veure les fotos del treball realitzat a Barcelona.`
         : `Proyecto: ${name}. Ver las fotos del trabajo realizado en Barcelona.`,
     alternates: {
-      languages: {
-        es: `/es/portfolio/${slug}`,
-        ca: `/ca/portfolio/${slug}`,
-      },
+      languages: { es: `/es/portfolio/${slug}`, ca: `/ca/portfolio/${slug}` },
     },
   };
 }
 
 export default async function ProjectDetailPage({ params }: Props) {
   const { locale, slug } = await params;
+  const projects = await getProjects();
   const project = projects.find((p) => p.slug === slug);
-
-  if (!project) {
-    notFound();
-  }
-
+  if (!project) notFound();
   setRequestLocale(locale);
-
-  return <ProjectContent slug={slug} locale={locale} />;
+  return <ProjectContent project={project} locale={locale} />;
 }
 
-function ProjectContent({
-  slug,
-  locale,
-}: {
-  slug: string;
-  locale: string;
-}) {
+function ProjectContent({ project, locale }: { project: Project; locale: string }) {
   const t = useTranslations();
-  const project = projects.find((p) => p.slug === slug)!;
-  const name =
-    projectNames[slug]?.[locale as "es" | "ca"] || slug;
+  const name = getProjectName(project, locale);
+  const description = locale === "ca" ? project.descriptionCa : project.descriptionEs;
 
   return (
     <>
-      {/* Header */}
-      <section className="bg-[var(--color-dark)] text-white py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-4">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-primary)] mb-2 block">
-            {t(`servicios.items.${project.category}.nombre`)}
-          </span>
-          <h1 className="text-3xl md:text-5xl font-bold mb-4">{name}</h1>
-          <nav className="text-sm text-gray-400">
-            <Link href="/" className="hover:text-white transition-colors">
-              {t("nav.inicio")}
-            </Link>
-            <span className="mx-2">/</span>
-            <Link
-              href="/portfolio"
-              className="hover:text-white transition-colors"
-            >
-              {t("nav.portfolio")}
-            </Link>
-            <span className="mx-2">/</span>
-            <span className="text-[var(--color-primary)]">{name}</span>
-          </nav>
+      {/* Hero */}
+      <section className="relative bg-[var(--color-dark)] text-white pt-32 pb-16 md:pb-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <RevealOnScroll direction="none">
+            <nav className="text-[12px] tracking-wider uppercase text-white/40 mb-8">
+              <Link href="/" className="hover:text-white/70 transition-colors duration-300">
+                {t("nav.inicio")}
+              </Link>
+              <span className="mx-2">/</span>
+              <Link href="/portfolio" className="hover:text-white/70 transition-colors duration-300">
+                {t("nav.portfolio")}
+              </Link>
+              <span className="mx-2">/</span>
+              <span className="text-[var(--color-primary)]">{name}</span>
+            </nav>
+          </RevealOnScroll>
+          <RevealOnScroll direction="none" delay={0.05}>
+            <p className="text-[var(--color-primary)] text-[11px] font-semibold tracking-[0.2em] uppercase mb-3">
+              {t(`servicios.items.${project.category}.nombre`)}
+            </p>
+          </RevealOnScroll>
+          <TextReveal as="h1" className="text-3xl md:text-5xl font-bold tracking-[-0.02em] mb-4">
+            {name}
+          </TextReveal>
+          {description && (
+            <RevealOnScroll direction="up" delay={0.15} distance={10}>
+              <p className="text-white/60 text-base md:text-lg leading-relaxed max-w-2xl mt-4">
+                {description}
+              </p>
+            </RevealOnScroll>
+          )}
+          <RevealOnScroll direction="up" delay={0.2} distance={10}>
+            <div className="w-12 h-[2px] bg-[var(--color-primary)] mt-6" />
+          </RevealOnScroll>
         </div>
       </section>
 
       {/* Gallery */}
-      <section className="py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <section className="py-20 md:py-28 bg-[var(--paper)]">
+        <div className="max-w-7xl mx-auto px-6">
+          <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5" stagger={0.12}>
             {project.images.map((img, i) => (
               <div
                 key={i}
-                className={`rounded-xl overflow-hidden bg-gray-200 ${
-                  i === 0 && project.images.length > 2
-                    ? "md:col-span-2"
-                    : ""
+                className={`overflow-hidden bg-[var(--bone-deep)] ${
+                  i === 0 && project.images.length > 2 ? "sm:col-span-2 aspect-[16/9]" : "aspect-[4/3]"
                 }`}
               >
-                <img
-                  src={img}
-                  alt={`${name} - ${i + 1}`}
-                  className="w-full h-auto"
-                />
+                <img src={img} alt={`${name} – ${i + 1}`} className="w-full h-full object-cover" />
               </div>
             ))}
-          </div>
+          </StaggerChildren>
 
-          {/* Back + CTA */}
-          <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-6 pt-8 border-t">
-            <Link
-              href="/portfolio"
-              className="text-gray-600 hover:text-[var(--color-dark)] transition-colors font-medium"
-            >
-              ← {t("portfolio.volver")}
-            </Link>
-            <Link
-              href="/contacto"
-              className="inline-block px-8 py-3 bg-[var(--color-primary)] text-[var(--color-dark)] font-bold rounded-md hover:bg-amber-400 transition-colors"
-            >
-              {t("cta.boton")}
-            </Link>
-          </div>
+          <RevealOnScroll direction="up" delay={0.1} distance={15}>
+            <div className="mt-16 flex flex-col sm:flex-row items-center justify-between gap-6 pt-8 border-t border-[var(--line)]">
+              <Link
+                href="/portfolio"
+                className="inline-flex items-center gap-2 text-[13px] font-medium tracking-wider uppercase text-[var(--ink-soft)] hover:text-[var(--ink)] transition-colors duration-300 group"
+              >
+                <svg className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+                </svg>
+                <span>{t("portfolio.volver")}</span>
+              </Link>
+              <Magnetic strength={0.15}>
+                <Link
+                  href="/contacto"
+                  className="inline-flex items-center justify-center px-8 py-3.5 bg-[var(--ink)] text-white text-[12px] font-semibold tracking-wider uppercase transition-all duration-300 hover:bg-[var(--color-dark-lighter)] btn-press"
+                >
+                  {t("cta.boton")}
+                </Link>
+              </Magnetic>
+            </div>
+          </RevealOnScroll>
         </div>
       </section>
     </>

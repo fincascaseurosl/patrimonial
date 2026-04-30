@@ -11,6 +11,7 @@
     "contacto": "Contacte",
     "blog": "Blog",
     "presupuesto": "Demanar pressupost",
+    "verTodos": "Veure tots",
     "idioma": "ES"
   },
   "hero": {
@@ -18,9 +19,83 @@
     "subtitulo": "Experts en construcció, reformes i rehabilitació d'edificis amb més de 25 anys d'experiència.",
     "cta": "Obtenir pressupost"
   },
+  "home": {
+    "heroEyebrow": "Patrimonial · Barcelona · Des de 1998",
+    "heroLine1": "Construïm",
+    "heroLine2": "el patrimoni",
+    "heroLine3": "de Barcelona.",
+    "heroSub": "Reformes integrals, obra nova i rehabilitació d'edificis amb la disciplina d'un estudi d'arquitectura i el rigor d'una constructora amb 25 anys a la ciutat.",
+    "heroScroll": "Desplaça per descobrir",
+    "marqueeItems": ["Reformes integrals", "Obra nova", "Rehabilitació d'edificis", "Treballs verticals", "Retirada d'amiant", "Reforços estructurals", "Impermeabilització"],
+    "manifiestoEyebrow": "Manifest",
+    "manifiestoText": "No fem obres. Tornem a Barcelona els edificis que l'han sostingut durant un segle, amb la mateixa exigència amb què es van aixecar.",
+    "cifrasEyebrow": "Xifres que ens sostenen",
+    "cifras": [
+      { "num": 25, "suffix": "+", "label": "anys a Barcelona" },
+      { "num": 480, "suffix": "+", "label": "projectes lliurats" },
+      { "num": 92000, "suffix": " m²", "label": "intervinguts" },
+      { "num": 38, "suffix": "", "label": "professionals en plantilla" }
+    ],
+    "serviciosEyebrow": "Serveis destacats",
+    "serviciosTitulo": "Tres maneres d'intervenir un patrimoni.",
+    "procesoEyebrow": "Com treballem",
+    "procesoTitulo": "Un mètode propi en cinc fases.",
+    "proceso": [
+      { "num": "01", "titulo": "Visita tècnica", "texto": "Reconeixement de l'immoble, aixecament de patologies i entrevista amb la propietat o administració." },
+      { "num": "02", "titulo": "Avantprojecte", "texto": "Memòria valorada, proposta de solucions i estimació de terminis en 7 dies laborables." },
+      { "num": "03", "titulo": "Projecte i llicències", "texto": "Coordinació amb arquitectura, gestió documental i tramitació davant l'Ajuntament." },
+      { "num": "04", "titulo": "Execució", "texto": "Equip propi a l'obra, cap d'obra dedicat i informes setmanals amb fotos a la propietat." },
+      { "num": "05", "titulo": "Lliurament i postvenda", "texto": "Proves finals, llibre de l'edifici i dos anys de garantia sobre les intervencions." }
+    ],
+    "portfolioEyebrow": "Treballs recents",
+    "portfolioTitulo": "Projectes que prefereixen no cridar.",
+    "certEyebrow": "Acreditacions",
+    "certItems": ["RERA · Empresa inscrita amiant", "Gremi de Constructors BCN", "ISO 9001 qualitat", "ISO 14001 medi ambient", "FAD Arquitectura", "Associació Rehabilitació BCN"],
+    "blogEyebrow": "Diari d'obra",
+    "blogTitulo": "Lectura per a qui construeix.",
+    "mapaEyebrow": "On treballem",
+    "mapaTitulo": "Tota Catalunya, amb base a l'Eixample.",
+    "mapaTexto": "Equip propi operant a Barcelona ciutat i desplaçaments coordinats a les quatre províncies. Temps mitjà de resposta: 48 hores.",
+    "testimonioMega": "«Tres reformes en cinc anys. Terminis complerts, pressupost respectat, comunicació impecable. És el més a prop que he vist a contractar un bon amic arquitecte.»",
+    "testimonioAutor": "Marta Vilaró · Administradora de finques",
+    "faqEyebrow": "Preguntes freqüents",
+    "faqTitulo": "El que ens pregunteu abans de començar.",
+    "faq": [
+      { "q": "Quant triga una reforma integral a Barcelona?", "a": "Un habitatge mitjà de 80 m² es lliura en 10-14 setmanes des de la signatura del contracte, incloent tramitació de llicència i proves finals." },
+      { "q": "Treballeu amb comunitats de propietaris?", "a": "Sí. Més del 60% de la nostra cartera són rehabilitacions de façanes, cobertes i zones comunes per a administradors i juntes de propietaris." },
+      { "q": "Gestioneu les subvencions de rehabilitació?", "a": "Sí. Tramitem els Fons Next Generation, ajuts a l'accessibilitat i bonificacions de l'IBI per millora energètica." },
+      { "q": "Teniu finançament per a particulars?", "a": "Oferim finançament al 0% fins a 24 mesos amb entitat bancària col·laboradora, subjecte a estudi." },
+      { "q": "Sou empresa autoritzada per a retirada d'amiant?", "a": "Estem inscrits al RERA amb l'equip certificat i les assegurances per a retirada i transport a abocador autoritzat." },
+      { "q": "Com es controla el pressupost durant l'obra?", "a": "Cada partida addicional s'aprova per escrit abans d'executar-se. No hi ha sorpreses a la factura final." }
+    ],
+    "ctaFinalEyebrow": "Parlem",
+    "ctaFinalTitulo": "Explica'ns quin edifici vols cuidar.",
+    "ctaFinalSub": "Responem en menys de 48 hores amb una primera valoració i proposta de visita tècnica.",
+    "ctaFinalBoton": "Iniciar projecte",
+    "ctaFinalSecundario": "Veure serveis"
+  },
   "servicios": {
-    "titulo": "Construïm el teu somni",
-    "subtitulo": "Entre els nostres clients es troben un gran nombre d'Administradors, Arquitectes, indústries, Empreses i Particulars.",
+    "titulo": "Serveis de construcció, reformes i rehabilitació a Barcelona",
+    "subtitulo": "Reformes integrals, obra nova, rehabilitació i treballs especialitzats amb un equip propi de 38 professionals.",
+    "heroEyebrow": "Els nostres serveis",
+    "heroLine1": "Construïm",
+    "heroLine2": "el teu projecte",
+    "heroLine3": "de principi a fi.",
+    "heroDisciplines": "08 disciplines",
+    "manifiestoEyebrow": "Una sola mà · de l'arquitecte al manyà",
+    "manifiestoTexto": "No subcontractem el que sabem fer. Cada disciplina té un cap d'obra propi i una sola persona que respon davant teu.",
+    "marqueeServiciosItems": ["Reformes", "Obra nova", "Rehabilitació", "Estructures", "Amiant", "Verticals", "Impermeabilització"],
+    "detailEncargo": "L'encàrrec",
+    "detailMetodo": "Mètode · 04 fases",
+    "detailFases": [
+      { "n": "01", "titulo": "Diagnòstic", "descripcion": "Visita tècnica, amidaments i informe d'estat actual." },
+      { "n": "02", "titulo": "Projecte", "descripcion": "Definició d'abast, materials, terminis i pressupost tancat." },
+      { "n": "03", "titulo": "Execució", "descripcion": "Cap d'obra propi i una sola persona com a interlocutor." },
+      { "n": "04", "titulo": "Lliurament", "descripcion": "Repàs final, neteja i garantia escrita per cada partida." }
+    ],
+    "detailPresupuestoLabel": "Pressupost",
+    "detailOtrosServicios": "Altres serveis",
+    "detailSiguiente": "Següent servei",
     "verTodos": "Veure tots els serveis",
     "items": {
       "reformas": {
