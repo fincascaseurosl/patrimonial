@@ -85,7 +85,7 @@ export function ProjectForm({ initial, mode }: Props) {
         body: JSON.stringify(payload),
       });
       if (res.ok) {
-        router.push("/admin/dashboard");
+        router.push("/admin/projects");
         router.refresh();
       } else {
         const data = await res.json();
@@ -270,7 +270,7 @@ export function ProjectForm({ initial, mode }: Props) {
       <div className="flex items-center justify-between pt-2">
         <button
           type="button"
-          onClick={() => router.push("/admin/dashboard")}
+          onClick={() => router.push("/admin/projects")}
           className="px-5 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 transition"
         >
           Cancelar

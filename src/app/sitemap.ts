@@ -1,10 +1,14 @@
 import type { MetadataRoute } from "next";
 import { serviceSlugs } from "@/lib/site-config";
+import { getProjects } from "@/lib/projects";
+import { getPublicPosts } from "@/lib/posts";
 
 const BASE_URL = "https://obrasenbarcelona.es";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const locales = ["es", "ca"];
+export const revalidate = 60;
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const locales = ["es", "ca"] as const;
   const now = new Date();
 
   const staticPages = [
@@ -18,7 +22,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const entries: MetadataRoute.Sitemap = [];
 
-  // Static pages per locale
   for (const page of staticPages) {
     for (const locale of locales) {
       entries.push({
@@ -36,7 +39,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  // Service pages per locale
   for (const slug of serviceSlugs) {
     for (const locale of locales) {
       entries.push({
@@ -44,6 +46,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: now,
         changeFrequency: "monthly",
         priority: 0.8,
+      });
+    }
+  }
+
+  // Proyectos dinámicos
+  const projects = await getProjects();
+  for (const project of projects) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${BASE_URL}/${locale}/portfolio/${project.slug}`,
+        lastModified: now,
+        changeFrequency: "monthly",
+        priority: 0.7,
+      });
+    }
+  }
+
+  // Posts del blog dinámicos
+  const posts = await getPublicPosts();
+  for (const post of posts) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${BASE_URL}/${locale}/blog/${post.slug}`,
+        lastModified: new Date(post.updatedAt),
+        changeFrequency: "monthly",
+        priority: 0.7,
       });
     }
   }
