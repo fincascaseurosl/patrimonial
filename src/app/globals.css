@@ -195,3 +195,83 @@ img {
   .marquee-track { animation: none; }
 }
 
+/* Leaflet portfolio map — custom markers, tooltips, controls */
+.leaflet-container {
+  font-family: inherit;
+  background: var(--bone);
+}
+
+.pp-marker {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.pp-marker-dot {
+  position: absolute;
+  inset: 6px;
+  background: var(--brand-red);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+  transition: transform 0.25s ease;
+}
+.pp-marker-pulse {
+  position: absolute;
+  inset: 0;
+  background: var(--brand-red);
+  border-radius: 50%;
+  opacity: 0.32;
+  animation: pp-pulse 2.6s ease-out infinite;
+}
+@keyframes pp-pulse {
+  0% { transform: scale(0.7); opacity: 0.4; }
+  70% { transform: scale(1.6); opacity: 0; }
+  100% { transform: scale(0.7); opacity: 0; }
+}
+.pp-marker:hover .pp-marker-dot {
+  transform: scale(1.18);
+}
+
+.leaflet-tooltip.pp-tooltip {
+  background: var(--ink);
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  padding: 10px 14px;
+  font-size: 12px;
+  line-height: 1.4;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  white-space: nowrap;
+}
+.leaflet-tooltip.pp-tooltip::before { display: none; }
+.leaflet-tooltip.pp-tooltip strong {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  display: block;
+  margin-bottom: 2px;
+}
+.leaflet-tooltip.pp-tooltip span {
+  color: rgba(255,255,255,0.55);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+
+.leaflet-control-zoom a {
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  font-weight: 400;
+}
+.leaflet-control-zoom a:hover {
+  background: var(--bone);
+  color: var(--brand-red);
+}
+.leaflet-control-attribution {
+  font-size: 10px;
+  background: rgba(255,255,255,0.85);
+}
+.leaflet-control-attribution a { color: var(--mute); }
+

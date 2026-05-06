@@ -16,6 +16,7 @@ import {
 } from "@/components/animations";
 import { HomeFAQ } from "@/components/HomeFAQ";
 import { HeroVideo } from "@/components/HeroVideo";
+import { PortfolioPinned } from "@/components/PortfolioPinned";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -153,13 +154,13 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
             </p>
           </RevealOnScroll>
 
-          <StaggerChildren className="grid grid-cols-2 lg:grid-cols-4 gap-y-14 gap-x-8" stagger={0.12}>
+          <StaggerChildren className="grid grid-cols-4 gap-x-3 sm:gap-x-6 md:gap-x-8" stagger={0.12}>
             {cifras.map((c, i) => (
-              <div key={i} className="border-l border-white/15 pl-6">
-                <div className="font-display text-[clamp(3rem,7vw,6rem)] font-bold leading-none tracking-[-0.04em] text-white">
+              <div key={i} className="border-l border-white/15 pl-2 sm:pl-4 md:pl-6">
+                <div className="font-display text-[clamp(1.25rem,3.6vw,3.25rem)] font-bold leading-none tracking-[-0.04em] text-white whitespace-nowrap">
                   <Counter end={c.num} suffix={c.suffix} duration={2.4} />
                 </div>
-                <p className="text-white/55 text-sm mt-4 max-w-[180px] leading-snug">{c.label}</p>
+                <p className="text-white/55 text-[11px] sm:text-sm mt-3 sm:mt-4 max-w-[180px] leading-snug">{c.label}</p>
               </div>
             ))}
           </StaggerChildren>
@@ -254,73 +255,15 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
         </div>
       </section>
 
-      {/* 7 Â· PORTFOLIO */}
-      <section className="py-24 md:py-36 bg-[var(--paper)]">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 md:mb-20 gap-8">
-            <div className="max-w-xl">
-              <RevealOnScroll direction="none">
-                <p className="text-[var(--brand-red)] text-[11px] font-semibold tracking-[0.32em] uppercase mb-5">
-                  {t("home.portfolioEyebrow")}
-                </p>
-              </RevealOnScroll>
-              <TextReveal as="h2" className="font-display text-[var(--ink)] text-4xl md:text-5xl font-bold leading-[1.05] tracking-[-0.03em] text-balance">
-                {t("home.portfolioTitulo")}
-              </TextReveal>
-            </div>
-            <RevealOnScroll direction="right" delay={0.2}>
-              <Link
-                href="/portfolio"
-                className="cursor-grow inline-flex items-center gap-3 text-[12px] font-semibold tracking-[0.18em] uppercase text-[var(--ink)] hover:text-[var(--brand-red)] transition-colors duration-300 group"
-              >
-                <span>{t("portfolio.verTodos")}</span>
-                <span className="w-9 h-[1px] bg-current transition-all duration-300 group-hover:w-12" />
-              </Link>
-            </RevealOnScroll>
-          </div>
-
-          <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5" stagger={0.1}>
-            {projects.slice(0, 4).map((project, i) => {
-              const name = locale === "ca" ? project.nameCa : project.nameEs;
-              return (
-                <Link
-                  key={project.slug}
-                  href={{ pathname: "/portfolio/[slug]", params: { slug: project.slug } }}
-                  className="cursor-grow group relative overflow-hidden bg-[var(--ink)] aspect-[4/3]"
-                >
-                  <img
-                    src={project.images[0]}
-                    alt={name}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.07]"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/80 via-[var(--ink)]/20 to-transparent" />
-                  <div className="absolute inset-0 bg-[var(--ink)]/0 group-hover:bg-[var(--ink)]/15 transition-colors duration-700" />
-                  <div className="absolute top-6 left-6">
-                    <span className="text-white/40 text-[10px] font-semibold tracking-[0.3em] tabular-nums">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-7 md:p-8">
-                    <p className="text-[var(--brand-red-soft)] text-[10px] font-semibold tracking-[0.32em] uppercase mb-2">
-                      {project.category}
-                    </p>
-                    <div className="flex items-end justify-between gap-4">
-                      <h3 className="font-display text-white text-xl md:text-2xl font-bold tracking-[-0.02em] leading-tight">
-                        {name}
-                      </h3>
-                      <span className="shrink-0 w-8 h-8 rounded-full border border-white/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
-                        <svg className="w-3.5 h-3.5 text-white -rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
-          </StaggerChildren>
-        </div>
-      </section>
+      {/* 7 Â· PORTFOLIO — pinned horizontal cinematic */}
+      <PortfolioPinned
+        projects={projects}
+        locale={locale}
+        eyebrow={t("home.portfolioEyebrow")}
+        titulo={t("home.portfolioTitulo")}
+        verTodos={t("portfolio.verTodos")}
+        verMas={t("portfolio.verMas")}
+      />
 
       {/* 8 Â· CERTIFICACIONES */}
       <section className="py-16 bg-[var(--bone-deep)] border-y border-[var(--line)]">
@@ -355,7 +298,7 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
 
             <RevealOnScroll direction="up" delay={0.35}>
               <ul className="mt-10 grid grid-cols-2 gap-y-3 gap-x-6 max-w-sm">
-                {["BarcelonÃ¨s", "VallÃ¨s", "Maresme", "Baix Llobregat", "Tarragona", "Girona", "Lleida", "PenedÃ¨s"].map((zona) => (
+                {["Barcelonès", "Vallès", "Maresme", "Baix Llobregat", "Tarragona", "Girona", "Lleida", "Penedès"].map((zona) => (
                   <li key={zona} className="flex items-center gap-2 text-[var(--ink)] text-sm">
                     <span className="w-1.5 h-1.5 bg-[var(--brand-red)]" />
                     {zona}
@@ -463,41 +406,42 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
 
 function CatalunyaMap() {
   return (
-    <div className="relative aspect-[5/4] w-full">
-      <svg viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" aria-hidden="true">
-        <defs>
-          <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
-            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="var(--line)" strokeWidth="0.4" />
-          </pattern>
-        </defs>
-        <rect width="500" height="400" fill="url(#grid)" opacity="0.5" />
-        <path
-          d="M85 95 L130 70 L185 65 L240 55 L295 70 L355 80 L405 100 L435 130 L450 175 L445 220 L420 260 L385 285 L340 305 L295 320 L260 340 L235 365 L215 350 L195 320 L165 290 L130 270 L100 245 L80 215 L70 175 L75 135 Z"
-          stroke="var(--ink)"
-          strokeWidth="1.5"
-          fill="var(--bone)"
-        />
-        <g>
-          <circle cx="320" cy="295" r="22" fill="var(--brand-red)" opacity="0.15">
-            <animate attributeName="r" values="22;32;22" dur="3s" repeatCount="indefinite" />
-            <animate attributeName="opacity" values="0.3;0;0.3" dur="3s" repeatCount="indefinite" />
-          </circle>
-          <circle cx="320" cy="295" r="8" fill="var(--brand-red)" />
-          <text x="335" y="300" fill="var(--ink)" fontSize="14" fontWeight="700">Barcelona</text>
-          <text x="335" y="316" fill="var(--mute)" fontSize="9" fontWeight="500" letterSpacing="2">BASE Â· OFICINA</text>
-        </g>
+    <div className="relative aspect-square w-full">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/images/catalunya.svg"
+        alt="Mapa de Catalunya"
+        className="absolute inset-0 w-full h-full object-contain select-none pointer-events-none"
+        draggable={false}
+      />
+      <svg
+        viewBox="0 0 1100 1100"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="absolute inset-0 w-full h-full"
+        aria-hidden="true"
+      >
         {[
-          { x: 220, y: 110, label: "Lleida" },
-          { x: 410, y: 130, label: "Girona" },
-          { x: 280, y: 360, label: "Tarragona" },
+          { x: 340, y: 510, label: "Lleida" },
+          { x: 920, y: 410, label: "Girona" },
+          { x: 580, y: 745, label: "Tarragona" },
         ].map((zone) => (
           <g key={zone.label}>
-            <circle cx={zone.x} cy={zone.y} r="4" fill="var(--ink)" />
-            <text x={zone.x + 10} y={zone.y + 4} fill="var(--ink-soft)" fontSize="11" fontWeight="500">
+            <circle cx={zone.x} cy={zone.y} r="10" fill="var(--ink)" />
+            <text x={zone.x + 24} y={zone.y + 10} fill="var(--ink-soft)" fontSize="28" fontWeight="500">
               {zone.label}
             </text>
           </g>
         ))}
+        <g>
+          <circle cx="800" cy="665" r="50" fill="var(--brand-red)" opacity="0.18">
+            <animate attributeName="r" values="50;72;50" dur="3s" repeatCount="indefinite" />
+            <animate attributeName="opacity" values="0.32;0;0.32" dur="3s" repeatCount="indefinite" />
+          </circle>
+          <circle cx="800" cy="665" r="18" fill="var(--brand-red)" />
+          <text x="876" y="668" fill="var(--ink)" fontSize="34" fontWeight="700">Barcelona</text>
+          <text x="876" y="702" fill="var(--mute)" fontSize="22" fontWeight="500" letterSpacing="4">BASE · OFICINA</text>
+        </g>
       </svg>
     </div>
   );

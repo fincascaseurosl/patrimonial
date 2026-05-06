@@ -48,7 +48,7 @@
       { "num": "05", "titulo": "Entrega y postventa", "texto": "Pruebas finales, libro del edificio y dos años de garantía sobre las intervenciones." }
     ],
     "portfolioEyebrow": "Trabajos recientes",
-    "portfolioTitulo": "Proyectos que prefieren no gritar.",
+    "portfolioTitulo": "Una década interviniendo Barcelona, edificio a edificio.",
     "certEyebrow": "Acreditaciones",
     "certItems": ["RERA · Empresa inscrita amianto", "Gremi de Constructors BCN", "ISO 9001 calidad", "ISO 14001 medio ambiente", "FAD Arquitectura", "Asociación Rehabilitación BCN"],
     "blogEyebrow": "Diario de obra",
@@ -175,7 +175,27 @@
     "verMas": "Ver más",
     "verTodos": "Ver todos los proyectos",
     "verProyecto": "Ver proyecto",
-    "volver": "Volver a proyectos"
+    "volver": "Volver a proyectos",
+    "page": {
+      "eyebrow": "Cartera",
+      "titulo": "Cada obra es una coordenada en Barcelona.",
+      "intro": "Recorrido por las intervenciones que hemos firmado en la ciudad. Selecciona una pin sobre el mapa para abrir su ficha o consulta el listado completo abajo.",
+      "statObras": "Obras entregadas",
+      "statBarrios": "Distritos",
+      "statSuperficie": "Superficie intervenida",
+      "statAnos": "Años activos",
+      "mapaInstruccion": "Pulsa un punto del mapa",
+      "listadoEyebrow": "Cartera completa",
+      "listadoTitulo": "Listado por orden cronológico.",
+      "fichaBarrio": "Distrito",
+      "fichaAno": "Año",
+      "fichaCategoria": "Categoría",
+      "fichaSuperficie": "Superficie",
+      "fichaDuracion": "Plazo",
+      "fichaDireccion": "Dirección",
+      "abrirFicha": "Abrir ficha completa",
+      "cerrarPanel": "Cerrar"
+    }
   },
   "testimonios": {
     "titulo": "Testimonios",

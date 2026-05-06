@@ -48,7 +48,7 @@
       { "num": "05", "titulo": "Lliurament i postvenda", "texto": "Proves finals, llibre de l'edifici i dos anys de garantia sobre les intervencions." }
     ],
     "portfolioEyebrow": "Treballs recents",
-    "portfolioTitulo": "Projectes que prefereixen no cridar.",
+    "portfolioTitulo": "Una dècada intervenint Barcelona, edifici a edifici.",
     "certEyebrow": "Acreditacions",
     "certItems": ["RERA · Empresa inscrita amiant", "Gremi de Constructors BCN", "ISO 9001 qualitat", "ISO 14001 medi ambient", "FAD Arquitectura", "Associació Rehabilitació BCN"],
     "blogEyebrow": "Diari d'obra",
@@ -175,7 +175,27 @@
     "verMas": "Veure més",
     "verTodos": "Veure tots els projectes",
     "verProyecto": "Veure projecte",
-    "volver": "Tornar a projectes"
+    "volver": "Tornar a projectes",
+    "page": {
+      "eyebrow": "Cartera",
+      "titulo": "Cada obra és una coordenada a Barcelona.",
+      "intro": "Recorregut per les intervencions que hem signat a la ciutat. Selecciona un punt sobre el mapa per obrir-ne la fitxa o consulta el llistat complet a sota.",
+      "statObras": "Obres lliurades",
+      "statBarrios": "Districtes",
+      "statSuperficie": "Superfície intervinguda",
+      "statAnos": "Anys actius",
+      "mapaInstruccion": "Prem un punt del mapa",
+      "listadoEyebrow": "Cartera completa",
+      "listadoTitulo": "Llistat per ordre cronològic.",
+      "fichaBarrio": "Districte",
+      "fichaAno": "Any",
+      "fichaCategoria": "Categoria",
+      "fichaSuperficie": "Superfície",
+      "fichaDuracion": "Termini",
+      "fichaDireccion": "Adreça",
+      "abrirFicha": "Obrir fitxa completa",
+      "cerrarPanel": "Tancar"
+    }
   },
   "testimonios": {
     "titulo": "Testimonis",

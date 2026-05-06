@@ -91,3 +91,42 @@ export const projectNames: Record<string, { es: string; ca: string }> = {
     ca: "Col·locació de gespa artificial en una comunitat",
   },
 };
+
+export type ProjectLocation = {
+  neighborhood: string;
+  address?: string;
+  year: number;
+  area?: string;
+  duration?: string;
+  lat: number;
+  lng: number;
+};
+
+export const projectLocations: Record<string, ProjectLocation> = {
+  "reforma-rambla": {
+    neighborhood: "Ciutat Vella",
+    address: "La Rambla",
+    year: 2024,
+    area: "120 m²",
+    duration: "4 meses",
+    lat: 41.3823,
+    lng: 2.1717,
+  },
+  "piso-balmes": {
+    neighborhood: "Eixample",
+    address: "C/ Balmes",
+    year: 2024,
+    area: "95 m²",
+    duration: "3 meses",
+    lat: 41.3963,
+    lng: 2.1543,
+  },
+  "cesped-artificial-comunidad": {
+    neighborhood: "Sant Andreu",
+    year: 2023,
+    area: "320 m²",
+    duration: "1 mes",
+    lat: 41.4341,
+    lng: 2.1903,
+  },
+};
