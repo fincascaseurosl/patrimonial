@@ -1,8 +1,9 @@
-import { setRequestLocale, getTranslations } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getProjects, getProjectName } from "@/lib/projects";
 import type { Project } from "@/lib/projects";
+import { serviceKeyMap } from "@/lib/site-config";
 import { notFound } from "next/navigation";
 import {
   RevealOnScroll,
@@ -74,7 +75,7 @@ function ProjectContent({ project, locale }: { project: Project; locale: string 
           </RevealOnScroll>
           <RevealOnScroll direction="none" delay={0.05}>
             <p className="text-[var(--color-primary)] text-[11px] font-semibold tracking-[0.2em] uppercase mb-3">
-              {t(`servicios.items.${project.category}.nombre`)}
+              {t(`servicios.items.${serviceKeyMap[project.category] ?? project.category}.nombre`)}
             </p>
           </RevealOnScroll>
           <TextReveal as="h1" className="text-3xl md:text-5xl font-bold tracking-[-0.02em] mb-4">

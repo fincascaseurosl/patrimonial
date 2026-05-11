@@ -186,6 +186,13 @@ export function PortfolioMap({ projects, locale, strings, categoryLabels }: Prop
     };
   }, [selectedSlug]);
 
+  // Safety: ensure body overflow is reset if the component unmounts mid-navigation
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
   return (
     <>
       {/* Stats bar */}
@@ -398,6 +405,10 @@ export function PortfolioMap({ projects, locale, strings, categoryLabels }: Prop
 
               <Link
                 href={{ pathname: "/portfolio/[slug]", params: { slug: selectedProject.slug } }}
+                onClick={() => {
+                  document.body.style.overflow = "";
+                  setSelectedSlug(null);
+                }}
                 className="cursor-grow inline-flex items-center gap-3 text-[12px] font-semibold tracking-[0.18em] uppercase text-[var(--ink)] hover:text-[var(--brand-red)] transition-colors duration-300 group"
               >
                 <span>{strings.abrirFicha}</span>
