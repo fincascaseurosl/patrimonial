@@ -30,7 +30,9 @@ export function PageTransition() {
         duration: reduced ? 0.01 : 0.65,
         ease: "expo.inOut",
         delay: 0.04,
-        onComplete: () => gsap.set(el, { yPercent: -100 }),
+        onComplete: () => {
+          gsap.set(el, { yPercent: -100 });
+        },
       }
     );
 
