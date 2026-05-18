@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import type { ContactRequest, RequestStatus } from "@/lib/requests";
+import { getServicioLabel } from "@/lib/site-config";
 
 const STATUS_LABELS: Record<RequestStatus, string> = {
   new: "Nuevas",
@@ -90,6 +91,11 @@ export function RequestsList({ initial }: { initial: ContactRequest[] }) {
                     <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${STATUS_BADGE[req.status]}`}>
                       {STATUS_LABELS[req.status].slice(0, -1) /* Singular */}
                     </span>
+                    {req.servicio && (
+                      <span className="text-[10px] font-semibold tracking-wider px-2 py-0.5 rounded bg-gray-100 text-gray-700">
+                        {getServicioLabel(req.servicio)}
+                      </span>
+                    )}
                     <span className="text-xs text-gray-400">{relativeTime(req.receivedAt)}</span>
                   </div>
                   <p className="font-semibold text-gray-900 truncate">{req.nombre}</p>

@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { addRequest } from "@/lib/requests";
 import { Resend } from "resend";
-import { siteConfig } from "@/lib/site-config";
+import { siteConfig, serviceSlugs, getServicioLabel } from "@/lib/site-config";
+
+const VALID_SERVICIOS = new Set<string>([...serviceSlugs, "otro"]);
 
 const RATE_LIMIT_WINDOW = 60_000;
 const MAX_REQUESTS = 3;
@@ -30,6 +32,7 @@ async function sendNotificationEmail(data: {
   nombre: string;
   email: string;
   telefono: string;
+  servicio: string;
   mensaje: string;
   receivedAt: string;
 }) {
@@ -71,6 +74,11 @@ async function sendNotificationEmail(data: {
                 <td style="padding: 8px 0; color: #666; font-size: 13px;">Teléfono</td>
                 <td style="padding: 8px 0;"><a href="tel:${escapeHtml(data.telefono)}" style="color: #B83232;">${escapeHtml(data.telefono)}</a></td>
               </tr>` : ""}
+              ${data.servicio ? `
+              <tr>
+                <td style="padding: 8px 0; color: #666; font-size: 13px;">Servicio</td>
+                <td style="padding: 8px 0; font-weight: 600;">${escapeHtml(getServicioLabel(data.servicio))}</td>
+              </tr>` : ""}
             </table>
             <hr style="border: 0; border-top: 1px solid #e5e5e5; margin: 20px 0;">
             <p style="color: #666; font-size: 13px; margin: 0 0 8px;">Mensaje</p>
@@ -103,7 +111,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json();
-    const { nombre, email, telefono, mensaje } = body;
+    const { nombre, email, telefono, servicio, mensaje } = body;
 
     if (
       !nombre || typeof nombre !== "string" || nombre.length > 200 ||
@@ -118,6 +126,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid email" }, { status: 400 });
     }
 
+    const cleanServicio =
+      typeof servicio === "string" && VALID_SERVICIOS.has(servicio) ? servicio : "";
+
     const cleanTelefono =
       telefono && typeof telefono === "string"
         ? telefono.replace(/[^\d\s+\-()]/g, "").slice(0, 20)
@@ -131,6 +142,7 @@ export async function POST(req: NextRequest) {
       nombre: nombre.trim(),
       email: email.trim(),
       telefono: cleanTelefono,
+      servicio: cleanServicio || undefined,
       mensaje: mensaje.trim(),
       sourcePath,
       ip,
@@ -142,6 +154,7 @@ export async function POST(req: NextRequest) {
       nombre: newReq.nombre,
       email: newReq.email,
       telefono: newReq.telefono,
+      servicio: newReq.servicio ?? "",
       mensaje: newReq.mensaje,
       receivedAt: newReq.receivedAt,
     });

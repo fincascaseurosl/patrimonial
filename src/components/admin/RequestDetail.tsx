@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import type { ContactRequest, RequestStatus } from "@/lib/requests";
+import { getServicioLabel } from "@/lib/site-config";
 
 const STATUS_LABELS: Record<RequestStatus, string> = {
   new: "Nueva",
@@ -123,6 +124,17 @@ export function RequestDetail({ initial }: { initial: ContactRequest }) {
             </a>
           )}
         </div>
+
+        {/* Servicio solicitado */}
+        {req.servicio && (
+          <div className="mb-5">
+            <p className="text-[10px] text-gray-500 uppercase tracking-wider font-semibold mb-2">Servicio solicitado</p>
+            <div className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-red-50 border border-red-200">
+              <span className="w-2 h-2 rounded-full bg-red-600" />
+              <span className="text-sm font-semibold text-red-900">{getServicioLabel(req.servicio)}</span>
+            </div>
+          </div>
+        )}
 
         {/* Mensaje */}
         <div>

@@ -2,9 +2,11 @@
 
 import { useState, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
+import { serviceSlugs, serviceKeyMap } from "@/lib/site-config";
 
-export default function ContactForm() {
+export default function ContactForm({ defaultServicio }: { defaultServicio?: string } = {}) {
   const t = useTranslations("contacto.formulario");
+  const tServicios = useTranslations("servicios.items");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle"
   );
@@ -18,6 +20,7 @@ export default function ContactForm() {
       nombre: (form.elements.namedItem("nombre") as HTMLInputElement).value,
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
       telefono: (form.elements.namedItem("telefono") as HTMLInputElement).value,
+      servicio: (form.elements.namedItem("servicio") as HTMLSelectElement).value,
       mensaje: (form.elements.namedItem("mensaje") as HTMLTextAreaElement)
         .value,
     };
@@ -87,19 +90,46 @@ export default function ContactForm() {
           />
         </div>
       </div>
-      <div>
-        <label
-          htmlFor="telefono"
-          className="block text-[11px] font-semibold text-[var(--color-text-muted)] uppercase tracking-wider mb-3"
-        >
-          {t("telefono")}
-        </label>
-        <input
-          type="tel"
-          id="telefono"
-          name="telefono"
-          className="w-full px-0 py-3 bg-transparent border-0 border-b border-[var(--color-border)] text-[var(--color-dark)] text-sm focus:border-[var(--color-primary)] focus:ring-0 outline-none transition-colors duration-300"
-        />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div>
+          <label
+            htmlFor="telefono"
+            className="block text-[11px] font-semibold text-[var(--color-text-muted)] uppercase tracking-wider mb-3"
+          >
+            {t("telefono")}
+          </label>
+          <input
+            type="tel"
+            id="telefono"
+            name="telefono"
+            className="w-full px-0 py-3 bg-transparent border-0 border-b border-[var(--color-border)] text-[var(--color-dark)] text-sm focus:border-[var(--color-primary)] focus:ring-0 outline-none transition-colors duration-300"
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="servicio"
+            className="block text-[11px] font-semibold text-[var(--color-text-muted)] uppercase tracking-wider mb-3"
+          >
+            {t("servicio")} *
+          </label>
+          <select
+            id="servicio"
+            name="servicio"
+            required
+            defaultValue={defaultServicio ?? ""}
+            className="w-full px-0 py-3 bg-transparent border-0 border-b border-[var(--color-border)] text-[var(--color-dark)] text-sm focus:border-[var(--color-primary)] focus:ring-0 outline-none transition-colors duration-300 cursor-pointer"
+          >
+            <option value="" disabled>
+              {t("servicioPlaceholder")}
+            </option>
+            {serviceSlugs.map((slug) => (
+              <option key={slug} value={slug}>
+                {tServicios(`${serviceKeyMap[slug]}.nombre`)}
+              </option>
+            ))}
+            <option value="otro">{t("servicioOtro")}</option>
+          </select>
+        </div>
       </div>
       <div>
         <label

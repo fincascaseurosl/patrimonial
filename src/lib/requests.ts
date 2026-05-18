@@ -10,6 +10,7 @@ export type ContactRequest = {
   nombre: string;
   email: string;
   telefono: string;
+  servicio?: string;
   mensaje: string;
   status: RequestStatus;
   receivedAt: string;

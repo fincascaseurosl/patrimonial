@@ -39,6 +39,25 @@ export const serviceKeyMap: Record<ServiceSlug, string> = {
   impermeabilizacion: "impermeabilizacion",
 };
 
+// Etiquetas en español para usar en el panel de admin y notificaciones de email
+// (donde no hay contexto next-intl disponible).
+export const servicioLabelsEs: Record<string, string> = {
+  reformas: "Reformas Barcelona",
+  "obra-nueva": "Obra nueva",
+  rehabilitacion: "Rehabilitación",
+  instalaciones: "Instalaciones de luz, agua y gas",
+  amianto: "Retirada de amianto",
+  "trabajos-verticales": "Trabajos verticales",
+  refuerzos: "Refuerzos estructurales",
+  impermeabilizacion: "Impermeabilización de terrados",
+  otro: "Otro / no especificado",
+};
+
+export function getServicioLabel(slug: string | null | undefined): string {
+  if (!slug) return "";
+  return servicioLabelsEs[slug] ?? slug;
+}
+
 export const serviceIcons: Record<ServiceSlug, string> = {
   reformas: "/images/services/construccion.png",
   "obra-nueva": "/images/services/bosquejo.png",
