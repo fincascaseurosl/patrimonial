@@ -88,10 +88,10 @@
     "detailEncargo": "L'encàrrec",
     "detailMetodo": "Mètode · 04 fases",
     "detailFases": [
-      { "n": "01", "titulo": "Diagnòstic", "descripcion": "Visita tècnica, amidaments i informe d'estat actual." },
+      { "n": "01", "titulo": "Auditoria del projecte", "descripcion": "Permisos i tràmits." },
       { "n": "02", "titulo": "Projecte", "descripcion": "Definició d'abast, materials, terminis i pressupost tancat." },
       { "n": "03", "titulo": "Execució", "descripcion": "Cap d'obra propi i una sola persona com a interlocutor." },
-      { "n": "04", "titulo": "Lliurament", "descripcion": "Repàs final, neteja i garantia escrita per cada partida." }
+      { "n": "04", "titulo": "Lliurament", "descripcion": "Repàs final i neteja." }
     ],
     "detailPresupuestoLabel": "Pressupost",
     "detailOtrosServicios": "Altres serveis",

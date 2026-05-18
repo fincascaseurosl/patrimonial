@@ -422,9 +422,9 @@ function CatalunyaMap() {
         aria-hidden="true"
       >
         {[
-          { x: 340, y: 510, label: "Lleida" },
-          { x: 920, y: 410, label: "Girona" },
-          { x: 580, y: 745, label: "Tarragona" },
+          { x: 240, y: 320, label: "Lleida" },
+          { x: 820, y: 240, label: "Girona" },
+          { x: 220, y: 920, label: "Tarragona" },
         ].map((zone) => (
           <g key={zone.label}>
             <circle cx={zone.x} cy={zone.y} r="10" fill="var(--ink)" />
@@ -434,13 +434,13 @@ function CatalunyaMap() {
           </g>
         ))}
         <g>
-          <circle cx="800" cy="665" r="50" fill="var(--brand-red)" opacity="0.18">
+          <circle cx="780" cy="620" r="50" fill="var(--brand-red)" opacity="0.18">
             <animate attributeName="r" values="50;72;50" dur="3s" repeatCount="indefinite" />
             <animate attributeName="opacity" values="0.32;0;0.32" dur="3s" repeatCount="indefinite" />
           </circle>
-          <circle cx="800" cy="665" r="18" fill="var(--brand-red)" />
-          <text x="876" y="668" fill="var(--ink)" fontSize="34" fontWeight="700">Barcelona</text>
-          <text x="876" y="702" fill="var(--mute)" fontSize="22" fontWeight="500" letterSpacing="4">BASE · OFICINA</text>
+          <circle cx="780" cy="620" r="18" fill="var(--brand-red)" />
+          <text x="816" y="623" fill="var(--ink)" fontSize="34" fontWeight="700">Barcelona</text>
+          <text x="816" y="657" fill="var(--mute)" fontSize="22" fontWeight="500" letterSpacing="4">BASE · OFICINA</text>
         </g>
       </svg>
     </div>

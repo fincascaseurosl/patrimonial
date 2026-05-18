@@ -88,10 +88,10 @@
     "detailEncargo": "El encargo",
     "detailMetodo": "Método · 04 fases",
     "detailFases": [
-      { "n": "01", "titulo": "Diagnóstico", "descripcion": "Visita técnica, mediciones e informe del estado actual." },
+      { "n": "01", "titulo": "Auditoría del proyecto", "descripcion": "Permisos y trámites." },
       { "n": "02", "titulo": "Proyecto", "descripcion": "Definición de alcance, materiales, plazos y presupuesto cerrado." },
       { "n": "03", "titulo": "Ejecución", "descripcion": "Jefe de obra propio y una sola persona como interlocutor." },
-      { "n": "04", "titulo": "Entrega", "descripcion": "Repaso final, limpieza y garantía escrita para cada partida." }
+      { "n": "04", "titulo": "Entrega", "descripcion": "Repaso final y limpieza." }
     ],
     "detailPresupuestoLabel": "Presupuesto",
     "detailOtrosServicios": "Otros servicios",
@@ -136,7 +136,7 @@
       "impermeabilizacion": {
         "nombre": "Impermeabilización de terrados",
         "descripcion": "Impermeabilización profesional de terrados, cubiertas y azoteas con las mejores técnicas y materiales del mercado.",
-        "descripcionLarga": "Ofrecemos soluciones profesionales de impermeabilización para terrados, cubiertas planas, azoteas y balcones. Trabajamos con tela asfáltica, membranas de PVC, poliuretano proyectado y láminas EPDM, seleccionando la solución óptima según las características de cada cubierta y las necesidades del cliente."
+        "descripcionLarga": "Ofrecemos soluciones profesionales de impermeabilización para terrados, cubiertas planas, azoteas y balcones."
       }
     }
   },
