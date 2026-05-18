@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useRef, useEffect, useMemo } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import { Link } from "@/i18n/navigation";
 import type { Project } from "@/lib/projects";
 import { projectLocations } from "@/lib/site-config";
@@ -40,8 +38,7 @@ type Props = {
 
 export function PortfolioMap({ projects, locale, strings, categoryLabels }: Props) {
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
-  const panelRef = useRef<HTMLDivElement>(null);
-  const backdropRef = useRef<HTMLDivElement>(null);
+  const [lastSlug, setLastSlug] = useState<string | null>(null);
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<LeafletMap | null>(null);
   const markersRef = useRef<LeafletMarker[]>([]);
@@ -73,8 +70,15 @@ export function PortfolioMap({ projects, locale, strings, categoryLabels }: Prop
     });
   }, [projects]);
 
-  const selectedProject = selectedSlug ? projects.find((p) => p.slug === selectedSlug) ?? null : null;
-  const selectedLocation = selectedSlug ? projectLocations[selectedSlug] : null;
+  // Keep the previous project rendered while the panel slides out so the
+  // close transition shows content instead of a blank panel.
+  const activeSlug = selectedSlug ?? lastSlug;
+  const selectedProject = activeSlug ? projects.find((p) => p.slug === activeSlug) ?? null : null;
+  const selectedLocation = activeSlug ? projectLocations[activeSlug] : null;
+
+  useEffect(() => {
+    if (selectedSlug) setLastSlug(selectedSlug);
+  }, [selectedSlug]);
 
   // Init Leaflet map (client-only via dynamic import)
   useEffect(() => {
@@ -142,35 +146,6 @@ export function PortfolioMap({ projects, locale, strings, categoryLabels }: Prop
       }
     };
   }, [projects, locale]);
-
-  // Side panel slide animation
-  useGSAP(() => {
-    if (!panelRef.current || !backdropRef.current) return;
-
-    if (selectedProject) {
-      gsap.set(backdropRef.current, { display: "block" });
-      gsap.to(backdropRef.current, { opacity: 1, duration: 0.4, ease: "power2.out" });
-      gsap.fromTo(
-        panelRef.current,
-        { xPercent: 100 },
-        { xPercent: 0, duration: 0.65, ease: "power3.out" }
-      );
-    } else {
-      gsap.to(panelRef.current, {
-        xPercent: 100,
-        duration: 0.45,
-        ease: "power3.in",
-      });
-      gsap.to(backdropRef.current, {
-        opacity: 0,
-        duration: 0.35,
-        ease: "power2.in",
-        onComplete: () => {
-          if (backdropRef.current) gsap.set(backdropRef.current, { display: "none" });
-        },
-      });
-    }
-  }, { dependencies: [selectedSlug] });
 
   // ESC to close + body scroll lock
   useEffect(() => {
@@ -303,16 +278,16 @@ export function PortfolioMap({ projects, locale, strings, categoryLabels }: Prop
 
       {/* Side panel + backdrop */}
       <div
-        ref={backdropRef}
         onClick={() => setSelectedSlug(null)}
-        className="fixed inset-0 z-40 bg-[var(--ink)]/60 backdrop-blur-sm"
-        style={{ opacity: 0, display: "none" }}
+        className={`fixed inset-0 z-40 bg-[var(--ink)]/60 backdrop-blur-sm transition-opacity duration-300 ${
+          selectedSlug ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
         aria-hidden={!selectedSlug}
       />
       <aside
-        ref={panelRef}
-        className="fixed top-0 right-0 z-50 h-screen w-full sm:w-[480px] md:w-[560px] bg-[var(--paper)] shadow-2xl overflow-y-auto"
-        style={{ transform: "translateX(100%)" }}
+        className={`fixed top-0 right-0 z-50 h-screen w-full sm:w-[480px] md:w-[560px] bg-[var(--paper)] shadow-2xl overflow-y-auto transition-transform duration-500 ease-out ${
+          selectedSlug ? "translate-x-0" : "translate-x-full"
+        }`}
         aria-hidden={!selectedSlug}
       >
         {selectedProject && selectedLocation && (
@@ -335,12 +310,25 @@ export function PortfolioMap({ projects, locale, strings, categoryLabels }: Prop
             </div>
 
             {selectedProject.images?.[0] && (
-              <div className="relative aspect-[4/3] bg-[var(--ink)] overflow-hidden">
+              <div className="relative aspect-[4/3] bg-[var(--bone-deep)] overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={selectedProject.images[0]}
                   alt={locale === "ca" ? selectedProject.nameCa : selectedProject.nameEs}
                   className="absolute inset-0 w-full h-full object-cover"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    target.style.display = "none";
+                    const parent = target.parentElement;
+                    if (parent && !parent.querySelector("[data-img-fallback]")) {
+                      const fb = document.createElement("div");
+                      fb.setAttribute("data-img-fallback", "");
+                      fb.className =
+                        "absolute inset-0 flex items-center justify-center text-[var(--mute)] text-[10px] font-semibold tracking-[0.32em] uppercase";
+                      fb.textContent = "Imagen no disponible";
+                      parent.appendChild(fb);
+                    }
+                  }}
                 />
               </div>
             )}

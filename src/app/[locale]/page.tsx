@@ -406,43 +406,14 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
 
 function CatalunyaMap() {
   return (
-    <div className="relative aspect-square w-full">
+    <div className="relative aspect-[3/2] w-full">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/images/catalunya.svg"
+        src="/images/catalunya-map.png"
         alt="Mapa de Catalunya"
         className="absolute inset-0 w-full h-full object-contain select-none pointer-events-none"
         draggable={false}
       />
-      <svg
-        viewBox="0 0 1100 1100"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="absolute inset-0 w-full h-full"
-        aria-hidden="true"
-      >
-        {[
-          { x: 240, y: 320, label: "Lleida" },
-          { x: 820, y: 240, label: "Girona" },
-          { x: 220, y: 920, label: "Tarragona" },
-        ].map((zone) => (
-          <g key={zone.label}>
-            <circle cx={zone.x} cy={zone.y} r="10" fill="var(--ink)" />
-            <text x={zone.x + 24} y={zone.y + 10} fill="var(--ink-soft)" fontSize="28" fontWeight="500">
-              {zone.label}
-            </text>
-          </g>
-        ))}
-        <g>
-          <circle cx="780" cy="620" r="50" fill="var(--brand-red)" opacity="0.18">
-            <animate attributeName="r" values="50;72;50" dur="3s" repeatCount="indefinite" />
-            <animate attributeName="opacity" values="0.32;0;0.32" dur="3s" repeatCount="indefinite" />
-          </circle>
-          <circle cx="780" cy="620" r="18" fill="var(--brand-red)" />
-          <text x="816" y="623" fill="var(--ink)" fontSize="34" fontWeight="700">Barcelona</text>
-          <text x="816" y="657" fill="var(--mute)" fontSize="22" fontWeight="500" letterSpacing="4">BASE · OFICINA</text>
-        </g>
-      </svg>
     </div>
   );
 }
