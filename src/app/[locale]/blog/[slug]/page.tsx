@@ -47,6 +47,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         es: `/es/blog/${slug}`,
         ca: `/ca/blog/${slug}`,
+        en: `/en/blog/${slug}`,
+        "x-default": `/es/blog/${slug}`,
       },
     },
     openGraph: {
@@ -95,7 +97,8 @@ function PostContent({ post, related, categories, locale }: {
   const category = categories.find((c) => c.slug === post.categorySlug);
   const minutes = readingTime(body);
   const date = new Date(post.publishedAt);
-  const formattedDate = date.toLocaleDateString(locale === "ca" ? "ca-ES" : "es-ES", {
+  const dateLocale = locale === "ca" ? "ca-ES" : locale === "en" ? "en-GB" : "es-ES";
+  const formattedDate = date.toLocaleDateString(dateLocale, {
     day: "numeric",
     month: "long",
     year: "numeric",
@@ -166,7 +169,14 @@ function PostContent({ post, related, categories, locale }: {
             <div className="flex items-center gap-4 text-[12px] text-white/50 tracking-wider uppercase">
               <time dateTime={post.publishedAt}>{formattedDate}</time>
               <span className="w-1 h-1 rounded-full bg-white/30" />
-              <span>{minutes} min {locale === "ca" ? "de lectura" : "de lectura"}</span>
+              <span>
+                {minutes} min{" "}
+                {locale === "ca"
+                  ? "de lectura"
+                  : locale === "en"
+                  ? "read"
+                  : "de lectura"}
+              </span>
             </div>
           </div>
         </header>
@@ -194,7 +204,17 @@ function PostContent({ post, related, categories, locale }: {
             )}
             <div
               className="prose prose-lg max-w-none prose-headings:font-display prose-headings:tracking-[-0.02em] prose-h2:text-3xl prose-h2:font-bold prose-h2:mt-12 prose-h3:text-2xl prose-h3:font-semibold prose-a:text-[var(--brand-red)] prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-blockquote:border-l-[var(--brand-red)] prose-blockquote:not-italic prose-blockquote:font-medium"
-              dangerouslySetInnerHTML={{ __html: body || `<p class="text-[var(--mute)] italic">${locale === "ca" ? "Aquest article encara no té contingut." : "Este artículo todavía no tiene contenido."}</p>` }}
+              dangerouslySetInnerHTML={{
+                __html:
+                  body ||
+                  `<p class="text-[var(--mute)] italic">${
+                    locale === "ca"
+                      ? "Aquest article encara no té contingut."
+                      : locale === "en"
+                      ? "This article does not have content yet."
+                      : "Este artículo todavía no tiene contenido."
+                  }</p>`,
+              }}
             />
           </div>
         </div>
@@ -205,7 +225,11 @@ function PostContent({ post, related, categories, locale }: {
         <section className="bg-[var(--bone-deep)] py-16 md:py-24 border-t border-[var(--line)]">
           <div className="max-w-7xl mx-auto px-6">
             <h2 className="font-display text-[var(--ink)] text-2xl md:text-3xl font-bold tracking-[-0.02em] mb-10">
-              {locale === "ca" ? "Articles relacionats" : "Artículos relacionados"}
+              {locale === "ca"
+                ? "Articles relacionats"
+                : locale === "en"
+                ? "Related articles"
+                : "Artículos relacionados"}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {related.map((rp) => {

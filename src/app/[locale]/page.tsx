@@ -406,7 +406,7 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
 
 function CatalunyaMap() {
   return (
-    <div className="relative aspect-[3/2] w-full">
+    <div className="relative aspect-[3/2] w-full scale-[1.15] origin-center">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/images/catalunya-map.png"

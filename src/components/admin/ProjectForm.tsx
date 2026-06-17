@@ -26,10 +26,12 @@ export function ProjectForm({ initial, mode }: Props) {
   const [slug, setSlug] = useState(initial?.slug ?? "");
   const [nameEs, setNameEs] = useState(initial?.nameEs ?? "");
   const [nameCa, setNameCa] = useState(initial?.nameCa ?? "");
+  const [nameEn, setNameEn] = useState(initial?.nameEn ?? "");
   const [category, setCategory] = useState<string>(initial?.category ?? serviceSlugs[0]);
   const [images, setImages] = useState<string[]>(initial?.images ?? []);
   const [descriptionEs, setDescriptionEs] = useState(initial?.descriptionEs ?? "");
   const [descriptionCa, setDescriptionCa] = useState(initial?.descriptionCa ?? "");
+  const [descriptionEn, setDescriptionEn] = useState(initial?.descriptionEn ?? "");
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -74,7 +76,17 @@ export function ProjectForm({ initial, mode }: Props) {
     setError("");
     setSaving(true);
 
-    const payload = { slug, nameEs, nameCa, category, images, descriptionEs, descriptionCa };
+    const payload = {
+      slug,
+      nameEs,
+      nameCa,
+      nameEn,
+      category,
+      images,
+      descriptionEs,
+      descriptionCa,
+      descriptionEn,
+    };
     const url = mode === "new" ? "/api/admin/projects" : `/api/admin/projects/${initial?.slug}`;
     const method = mode === "new" ? "POST" : "PUT";
 
@@ -105,7 +117,7 @@ export function ProjectForm({ initial, mode }: Props) {
       <section className="bg-white rounded-xl border border-gray-200 p-6 space-y-5">
         <h2 className="font-semibold text-gray-900">Información básica</h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1.5">
               Nombre (Español) <span className="text-red-500">*</span>
@@ -130,6 +142,18 @@ export function ProjectForm({ initial, mode }: Props) {
               required
               className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
               placeholder="Reforma pis a Barcelona"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              Name (English)
+            </label>
+            <input
+              type="text"
+              value={nameEn}
+              onChange={(e) => setNameEn(e.target.value)}
+              className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+              placeholder="Apartment renovation in Barcelona"
             />
           </div>
         </div>
@@ -169,7 +193,7 @@ export function ProjectForm({ initial, mode }: Props) {
       {/* Descripciones */}
       <section className="bg-white rounded-xl border border-gray-200 p-6 space-y-5">
         <h2 className="font-semibold text-gray-900">Descripción <span className="text-gray-400 font-normal text-sm">(opcional)</span></h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1.5">Descripción (Español)</label>
             <textarea
@@ -188,6 +212,16 @@ export function ProjectForm({ initial, mode }: Props) {
               rows={4}
               className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none"
               placeholder="Reforma completa d'un pis de 90m²…"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">Description (English)</label>
+            <textarea
+              value={descriptionEn}
+              onChange={(e) => setDescriptionEn(e.target.value)}
+              rows={4}
+              className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none"
+              placeholder="Full renovation of a 90 m² apartment…"
             />
           </div>
         </div>

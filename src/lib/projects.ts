@@ -8,10 +8,12 @@ export type Project = {
   slug: string;
   nameEs: string;
   nameCa: string;
+  nameEn: string;
   category: ServiceSlug;
   images: string[];
   descriptionEs: string;
   descriptionCa: string;
+  descriptionEn: string;
   order: number;
 };
 
@@ -24,10 +26,12 @@ function defaults(): Project[] {
     slug: p.slug,
     nameEs: projectNames[p.slug]?.es ?? p.slug,
     nameCa: projectNames[p.slug]?.ca ?? p.slug,
+    nameEn: projectNames[p.slug]?.en ?? projectNames[p.slug]?.es ?? p.slug,
     category: p.category as ServiceSlug,
     images: [...p.images],
     descriptionEs: "",
     descriptionCa: "",
+    descriptionEn: "",
     order: i,
   }));
 }
@@ -65,6 +69,4 @@ export async function saveProjects(projects: Project[]): Promise<void> {
   }
 }
 
-export function getProjectName(project: Project, locale: string): string {
-  return locale === "ca" ? project.nameCa : project.nameEs;
-}
+export { getProjectName, getProjectDescription } from "./project-helpers";

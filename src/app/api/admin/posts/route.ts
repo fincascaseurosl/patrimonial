@@ -24,16 +24,21 @@ export async function POST(req: NextRequest) {
     slug: body.slug,
     titleEs: body.titleEs.trim(),
     titleCa: (body.titleCa ?? "").trim(),
+    titleEn: (body.titleEn ?? "").trim(),
     excerptEs: (body.excerptEs ?? "").trim(),
     excerptCa: (body.excerptCa ?? "").trim(),
+    excerptEn: (body.excerptEn ?? "").trim(),
     bodyEs: body.bodyEs ?? "",
     bodyCa: body.bodyCa ?? "",
+    bodyEn: body.bodyEn ?? "",
     featuredImage: body.featuredImage ?? "",
     categorySlug: body.categorySlug ?? "",
     metaTitleEs: (body.metaTitleEs ?? "").trim(),
     metaTitleCa: (body.metaTitleCa ?? "").trim(),
+    metaTitleEn: (body.metaTitleEn ?? "").trim(),
     metaDescriptionEs: (body.metaDescriptionEs ?? "").trim(),
     metaDescriptionCa: (body.metaDescriptionCa ?? "").trim(),
+    metaDescriptionEn: (body.metaDescriptionEn ?? "").trim(),
     status: body.status === "published" ? "published" : "draft",
     publishedAt: body.publishedAt || now,
     createdAt: now,
@@ -55,7 +60,7 @@ function isValid(b: unknown): b is Partial<Post> & { slug: string; titleEs: stri
 }
 
 function revalidateAll() {
-  for (const locale of ["es", "ca"]) {
+  for (const locale of ["es", "ca", "en"]) {
     revalidatePath(`/${locale}/blog`);
     revalidatePath(`/${locale}`);
   }

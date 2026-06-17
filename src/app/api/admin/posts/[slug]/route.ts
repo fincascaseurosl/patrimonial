@@ -28,16 +28,21 @@ export async function PUT(req: NextRequest, { params }: Params) {
     ...posts[idx],
     titleEs: body.titleEs.trim(),
     titleCa: (body.titleCa ?? "").trim(),
+    titleEn: (body.titleEn ?? "").trim(),
     excerptEs: (body.excerptEs ?? "").trim(),
     excerptCa: (body.excerptCa ?? "").trim(),
+    excerptEn: (body.excerptEn ?? "").trim(),
     bodyEs: body.bodyEs ?? "",
     bodyCa: body.bodyCa ?? "",
+    bodyEn: body.bodyEn ?? "",
     featuredImage: body.featuredImage ?? "",
     categorySlug: body.categorySlug ?? "",
     metaTitleEs: (body.metaTitleEs ?? "").trim(),
     metaTitleCa: (body.metaTitleCa ?? "").trim(),
+    metaTitleEn: (body.metaTitleEn ?? "").trim(),
     metaDescriptionEs: (body.metaDescriptionEs ?? "").trim(),
     metaDescriptionCa: (body.metaDescriptionCa ?? "").trim(),
+    metaDescriptionEn: (body.metaDescriptionEn ?? "").trim(),
     status: body.status === "published" ? "published" : "draft",
     publishedAt: body.publishedAt || posts[idx].publishedAt,
     updatedAt: new Date().toISOString(),
@@ -61,7 +66,7 @@ export async function DELETE(_req: NextRequest, { params }: Params) {
 }
 
 function revalidateAll(slug: string) {
-  for (const locale of ["es", "ca"]) {
+  for (const locale of ["es", "ca", "en"]) {
     revalidatePath(`/${locale}/blog`);
     revalidatePath(`/${locale}/blog/${slug}`);
     revalidatePath(`/${locale}`);

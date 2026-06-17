@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "@/i18n/navigation";
 import type { Project } from "@/lib/projects";
+import { getProjectName } from "@/lib/project-helpers";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -148,7 +149,7 @@ export function PortfolioPinned({ projects, locale, eyebrow, titulo, verTodos, v
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {projects.slice(0, 4).map((project, i) => {
-              const name = locale === "ca" ? project.nameCa : project.nameEs;
+              const name = getProjectName(project, locale);
               return (
                 <Link
                   key={project.slug}
@@ -234,7 +235,7 @@ export function PortfolioPinned({ projects, locale, eyebrow, titulo, verTodos, v
             style={{ willChange: "transform" }}
           >
             {projects.map((project, i) => {
-              const name = locale === "ca" ? project.nameCa : project.nameEs;
+              const name = getProjectName(project, locale);
               return (
                 <Link
                   key={project.slug}

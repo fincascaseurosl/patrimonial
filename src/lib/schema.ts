@@ -9,6 +9,8 @@ export function getLocalBusinessSchema(locale: string) {
     description:
       locale === "ca"
         ? "Empresa de construcció, reformes integrals i rehabilitació d'edificis a Barcelona amb més de 25 anys d'experiència."
+        : locale === "en"
+        ? "Construction, full renovations and building refurbishment in Barcelona with over 25 years of experience."
         : "Empresa de construcción, reformas integrales y rehabilitación de edificios en Barcelona con más de 25 años de experiencia.",
     url: siteConfig.url,
     telephone: siteConfig.telefonoFijo,
@@ -32,15 +34,38 @@ export function getLocalBusinessSchema(locale: string) {
     },
     image: `${siteConfig.url}/images/logos/patrimonial-logo.png`,
     priceRange: "$$",
-    serviceType: [
-      "Construcción",
-      "Reformas integrales",
-      "Rehabilitación de edificios",
-      "Instalaciones",
-      "Retirada de amianto",
-      "Trabajos verticales",
-      "Refuerzos estructurales",
-      "Impermeabilización",
-    ],
+    serviceType:
+      locale === "ca"
+        ? [
+            "Construcció",
+            "Reformes integrals",
+            "Rehabilitació d'edificis",
+            "Instal·lacions",
+            "Retirada d'amiant",
+            "Treballs verticals",
+            "Reforços estructurals",
+            "Impermeabilització",
+          ]
+        : locale === "en"
+        ? [
+            "Construction",
+            "Full renovations",
+            "Building refurbishment",
+            "Installations",
+            "Asbestos removal",
+            "Rope access",
+            "Structural reinforcement",
+            "Waterproofing",
+          ]
+        : [
+            "Construcción",
+            "Reformas integrales",
+            "Rehabilitación de edificios",
+            "Instalaciones",
+            "Retirada de amianto",
+            "Trabajos verticales",
+            "Refuerzos estructurales",
+            "Impermeabilización",
+          ],
   };
 }

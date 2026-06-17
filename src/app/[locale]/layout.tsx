@@ -44,6 +44,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         es: "/es",
         ca: "/ca",
+        en: "/en",
+        "x-default": "/es",
       },
     },
     openGraph: {
@@ -51,7 +53,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: t("description"),
       url: siteConfig.url,
       siteName: siteConfig.nombre,
-      locale: locale === "ca" ? "ca_ES" : "es_ES",
+      locale:
+        locale === "ca" ? "ca_ES" : locale === "en" ? "en_US" : "es_ES",
       type: "website",
     },
     robots: {
@@ -64,7 +67,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
 
-  if (!routing.locales.includes(locale as "es" | "ca")) {
+  if (!routing.locales.includes(locale as "es" | "ca" | "en")) {
     notFound();
   }
 

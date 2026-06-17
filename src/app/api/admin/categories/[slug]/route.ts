@@ -21,6 +21,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
     slug,
     nameEs: body.nameEs.trim(),
     nameCa: (body.nameCa ?? body.nameEs).trim(),
+    nameEn: (body.nameEn ?? body.nameEs).trim(),
   };
 
   await saveCategories(cats);
@@ -53,7 +54,7 @@ export async function DELETE(_req: NextRequest, { params }: Params) {
 }
 
 function revalidate() {
-  for (const locale of ["es", "ca"]) {
+  for (const locale of ["es", "ca", "en"]) {
     revalidatePath(`/${locale}/blog`);
   }
 }

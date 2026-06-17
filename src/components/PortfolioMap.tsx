@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { Link } from "@/i18n/navigation";
 import type { Project } from "@/lib/projects";
+import { getProjectName, getProjectDescription } from "@/lib/project-helpers";
 import { projectLocations } from "@/lib/site-config";
 import { Counter } from "@/components/animations";
 import "leaflet/dist/leaflet.css";
@@ -106,7 +107,7 @@ export function PortfolioMap({ projects, locale, strings, categoryLabels }: Prop
       projects.forEach((p) => {
         const loc = projectLocations[p.slug];
         if (!loc) return;
-        const name = locale === "ca" ? p.nameCa : p.nameEs;
+        const name = getProjectName(p, locale);
 
         const icon = L.divIcon({
           className: "pp-marker",
@@ -229,7 +230,7 @@ export function PortfolioMap({ projects, locale, strings, categoryLabels }: Prop
           <ul className="border-t border-[var(--line)]">
             {sortedByYear.map((project, i) => {
               const loc = projectLocations[project.slug];
-              const name = locale === "ca" ? project.nameCa : project.nameEs;
+              const name = getProjectName(project, locale);
               const cat = categoryLabels[project.category] ?? project.category;
               return (
                 <li key={project.slug} className="border-b border-[var(--line)] group">
@@ -314,7 +315,7 @@ export function PortfolioMap({ projects, locale, strings, categoryLabels }: Prop
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={selectedProject.images[0]}
-                  alt={locale === "ca" ? selectedProject.nameCa : selectedProject.nameEs}
+                  alt={getProjectName(selectedProject, locale)}
                   className="absolute inset-0 w-full h-full object-cover"
                   onError={(e) => {
                     const target = e.currentTarget;
@@ -335,7 +336,7 @@ export function PortfolioMap({ projects, locale, strings, categoryLabels }: Prop
 
             <div className="p-6 md:p-10 flex-1">
               <h2 className="font-display text-[var(--ink)] text-3xl md:text-4xl font-bold tracking-[-0.025em] leading-[1.05] mb-8">
-                {locale === "ca" ? selectedProject.nameCa : selectedProject.nameEs}
+                {getProjectName(selectedProject, locale)}
               </h2>
 
               <dl className="grid grid-cols-2 gap-y-6 gap-x-8 mb-10 pb-10 border-b border-[var(--line)]">
@@ -385,9 +386,9 @@ export function PortfolioMap({ projects, locale, strings, categoryLabels }: Prop
                 )}
               </dl>
 
-              {(locale === "ca" ? selectedProject.descriptionCa : selectedProject.descriptionEs) && (
+              {getProjectDescription(selectedProject, locale) && (
                 <p className="text-[var(--ink-soft)] text-base leading-relaxed mb-10">
-                  {locale === "ca" ? selectedProject.descriptionCa : selectedProject.descriptionEs}
+                  {getProjectDescription(selectedProject, locale)}
                 </p>
               )}
 

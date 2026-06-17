@@ -25,10 +25,12 @@ export async function POST(req: NextRequest) {
     slug: body.slug,
     nameEs: body.nameEs.trim(),
     nameCa: body.nameCa.trim(),
+    nameEn: (body.nameEn ?? body.nameEs).trim(),
     category: body.category,
     images: body.images,
     descriptionEs: body.descriptionEs?.trim() ?? "",
     descriptionCa: body.descriptionCa?.trim() ?? "",
+    descriptionEn: body.descriptionEn?.trim() ?? "",
     order: projects.length,
   };
 
@@ -52,7 +54,7 @@ function isValidProject(b: unknown): b is Omit<Project, "order"> {
 }
 
 function revalidateAll() {
-  for (const locale of ["es", "ca"]) {
+  for (const locale of ["es", "ca", "en"]) {
     revalidatePath(`/${locale}`);
     revalidatePath(`/${locale}/portfolio`);
   }

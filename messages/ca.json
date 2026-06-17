@@ -41,7 +41,7 @@
     "procesoEyebrow": "Com treballem",
     "procesoTitulo": "Un mètode propi en cinc fases.",
     "proceso": [
-      { "num": "01", "titulo": "Visita tècnica", "texto": "Reconeixement de l'immoble, aixecament de patologies i entrevista amb la propietat o administració." },
+      { "num": "01", "titulo": "Auditoria del projecte", "texto": "Reconeixement de l'immoble, aixecament de patologies i gestió de permisos i tràmits amb la propietat o administració." },
       { "num": "02", "titulo": "Avantprojecte", "texto": "Memòria valorada, proposta de solucions i estimació de terminis en 7 dies laborables." },
       { "num": "03", "titulo": "Projecte i llicències", "texto": "Coordinació amb arquitectura, gestió documental i tramitació davant l'Ajuntament." },
       { "num": "04", "titulo": "Execució", "texto": "Equip propi a l'obra, cap d'obra dedicat i informes setmanals amb fotos a la propietat." },
@@ -211,6 +211,11 @@
     "subtitulo": "Patrimonial Obres Barcelona",
     "descripcion": "Empresa de serveis immobiliaris integrals experta en la gestió del patrimoni amb més de 25 anys d'experiència.",
     "contenido": "Des dels nostres inicis, a Patrimonial ens hem dedicat a oferir un servei integral de construcció, reformes i rehabilitació d'edificis a Barcelona. La nostra filosofia es basa en la proximitat amb el client, la transparència en els pressupostos i la màxima qualitat en cadascun dels nostres treballs.\n\nEntre els nostres clients es troben un gran nombre d'Administradors de finques, Arquitectes, indústries, empreses i particulars que confien en la nostra experiència i professionalitat.\n\nComptem amb un equip de professionals qualificats en totes les especialitats de la construcció: paleta, electricitat, lampisteria, gas, climatització, pintura, fusteria i treballs verticals. Tots els nostres instal·ladors estan autoritzats i agremiats.\n\nEstem inscrits al RERA (Registre d'Empreses amb Risc d'Amiant) i comptem amb les certificacions necessàries per realitzar qualsevol tipus d'intervenció constructiva.",
+    "stats": {
+      "anos": "Anys",
+      "proyectos": "Projectes",
+      "garantia": "Garantia"
+    },
     "valores": {
       "titulo": "Els nostres valors",
       "items": [

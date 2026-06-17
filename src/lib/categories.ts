@@ -6,6 +6,7 @@ export type Category = {
   slug: string;
   nameEs: string;
   nameCa: string;
+  nameEn: string;
 };
 
 const BLOB_KEY = "categories.json";
@@ -13,9 +14,9 @@ const LOCAL_DIR = join(process.cwd(), "data");
 const LOCAL_FILE = join(LOCAL_DIR, "categories.json");
 
 const DEFAULTS: Category[] = [
-  { slug: "amianto", nameEs: "Amianto", nameCa: "Amiant" },
-  { slug: "reformas", nameEs: "Reformas", nameCa: "Reformes" },
-  { slug: "consejos", nameEs: "Consejos", nameCa: "Consells" },
+  { slug: "amianto", nameEs: "Amianto", nameCa: "Amiant", nameEn: "Asbestos" },
+  { slug: "reformas", nameEs: "Reformas", nameCa: "Reformes", nameEn: "Renovations" },
+  { slug: "consejos", nameEs: "Consejos", nameCa: "Consells", nameEn: "Advice" },
 ];
 
 export async function getCategories(): Promise<Category[]> {
@@ -51,5 +52,7 @@ export async function saveCategories(categories: Category[]): Promise<void> {
 }
 
 export function getCategoryName(category: Category, locale: string): string {
-  return locale === "ca" ? category.nameCa : category.nameEs;
+  if (locale === "ca") return category.nameCa || category.nameEs;
+  if (locale === "en") return category.nameEn || category.nameEs;
+  return category.nameEs;
 }

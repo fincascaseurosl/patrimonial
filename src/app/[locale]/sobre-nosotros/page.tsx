@@ -27,6 +27,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         es: "/es/sobre-nosotros",
         ca: "/ca/sobre-nosaltres",
+        en: "/en/about-us",
+        "x-default": "/es/sobre-nosotros",
       },
     },
   };
@@ -71,7 +73,7 @@ function SobreNosotrosContent() {
         <div className="grid grid-cols-1 lg:grid-cols-2">
           <ImageReveal
             src="/images/hero/hero.jpg"
-            alt="Equipo de Patrimonial Barcelona"
+            alt={t("subtitulo")}
             className="aspect-[4/3] lg:aspect-auto lg:min-h-[500px]"
             direction="left"
           />
@@ -89,17 +91,17 @@ function SobreNosotrosContent() {
                   <div className="text-[var(--color-dark)] text-2xl font-bold mb-1">
                     <Counter end={25} suffix="+" />
                   </div>
-                  <p className="text-[var(--color-text-muted)] text-xs uppercase tracking-wider">Años</p>
+                  <p className="text-[var(--color-text-muted)] text-xs uppercase tracking-wider">{t("stats.anos")}</p>
                 </div>
                 <div>
                   <div className="text-[var(--color-dark)] text-2xl font-bold mb-1">
                     <Counter end={500} suffix="+" />
                   </div>
-                  <p className="text-[var(--color-text-muted)] text-xs uppercase tracking-wider">Proyectos</p>
+                  <p className="text-[var(--color-text-muted)] text-xs uppercase tracking-wider">{t("stats.proyectos")}</p>
                 </div>
                 <div>
                   <div className="text-[var(--color-dark)] text-2xl font-bold mb-1">100%</div>
-                  <p className="text-[var(--color-text-muted)] text-xs uppercase tracking-wider">Garantía</p>
+                  <p className="text-[var(--color-text-muted)] text-xs uppercase tracking-wider">{t("stats.garantia")}</p>
                 </div>
               </StaggerChildren>
             </div>

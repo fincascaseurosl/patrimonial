@@ -32,22 +32,27 @@ export function PostForm({ initial, categories, mode }: Props) {
   const router = useRouter();
   const fileRef = useRef<HTMLInputElement>(null);
 
-  const [lang, setLang] = useState<"es" | "ca">("es");
+  const [lang, setLang] = useState<"es" | "ca" | "en">("es");
   const [slug, setSlug] = useState(initial?.slug ?? "");
   const [titleEs, setTitleEs] = useState(initial?.titleEs ?? "");
   const [titleCa, setTitleCa] = useState(initial?.titleCa ?? "");
+  const [titleEn, setTitleEn] = useState(initial?.titleEn ?? "");
   const [excerptEs, setExcerptEs] = useState(initial?.excerptEs ?? "");
   const [excerptCa, setExcerptCa] = useState(initial?.excerptCa ?? "");
+  const [excerptEn, setExcerptEn] = useState(initial?.excerptEn ?? "");
   const [bodyEs, setBodyEs] = useState(initial?.bodyEs ?? "");
   const [bodyCa, setBodyCa] = useState(initial?.bodyCa ?? "");
+  const [bodyEn, setBodyEn] = useState(initial?.bodyEn ?? "");
   const [featuredImage, setFeaturedImage] = useState(initial?.featuredImage ?? "");
   const [categorySlug, setCategorySlug] = useState(initial?.categorySlug ?? categories[0]?.slug ?? "");
   const [status, setStatus] = useState<"draft" | "published">(initial?.status ?? "draft");
   const [publishedAt, setPublishedAt] = useState(toLocalInput(initial?.publishedAt ?? new Date().toISOString()));
   const [metaTitleEs, setMetaTitleEs] = useState(initial?.metaTitleEs ?? "");
   const [metaTitleCa, setMetaTitleCa] = useState(initial?.metaTitleCa ?? "");
+  const [metaTitleEn, setMetaTitleEn] = useState(initial?.metaTitleEn ?? "");
   const [metaDescriptionEs, setMetaDescriptionEs] = useState(initial?.metaDescriptionEs ?? "");
   const [metaDescriptionCa, setMetaDescriptionCa] = useState(initial?.metaDescriptionCa ?? "");
+  const [metaDescriptionEn, setMetaDescriptionEn] = useState(initial?.metaDescriptionEn ?? "");
   const [showSeo, setShowSeo] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -55,8 +60,33 @@ export function PostForm({ initial, categories, mode }: Props) {
 
   function handleTitleChange(val: string) {
     if (lang === "es") setTitleEs(val);
-    else setTitleCa(val);
+    else if (lang === "ca") setTitleCa(val);
+    else setTitleEn(val);
     if (mode === "new" && lang === "es") setSlug(slugify(val));
+  }
+
+  function handleExcerptChange(val: string) {
+    if (lang === "es") setExcerptEs(val);
+    else if (lang === "ca") setExcerptCa(val);
+    else setExcerptEn(val);
+  }
+
+  function handleBodyChange(html: string) {
+    if (lang === "es") setBodyEs(html);
+    else if (lang === "ca") setBodyCa(html);
+    else setBodyEn(html);
+  }
+
+  function handleMetaTitleChange(val: string) {
+    if (lang === "es") setMetaTitleEs(val);
+    else if (lang === "ca") setMetaTitleCa(val);
+    else setMetaTitleEn(val);
+  }
+
+  function handleMetaDescriptionChange(val: string) {
+    if (lang === "es") setMetaDescriptionEs(val);
+    else if (lang === "ca") setMetaDescriptionCa(val);
+    else setMetaDescriptionEn(val);
   }
 
   async function handleFeaturedUpload(file: File) {
@@ -85,15 +115,15 @@ export function PostForm({ initial, categories, mode }: Props) {
 
     const payload = {
       slug,
-      titleEs, titleCa,
-      excerptEs, excerptCa,
-      bodyEs, bodyCa,
+      titleEs, titleCa, titleEn,
+      excerptEs, excerptCa, excerptEn,
+      bodyEs, bodyCa, bodyEn,
       featuredImage,
       categorySlug,
       status: targetStatus,
       publishedAt: new Date(publishedAt).toISOString(),
-      metaTitleEs, metaTitleCa,
-      metaDescriptionEs, metaDescriptionCa,
+      metaTitleEs, metaTitleCa, metaTitleEn,
+      metaDescriptionEs, metaDescriptionCa, metaDescriptionEn,
     };
 
     const url = mode === "new" ? "/api/admin/posts" : `/api/admin/posts/${initial?.slug}`;
@@ -119,16 +149,19 @@ export function PostForm({ initial, categories, mode }: Props) {
     }
   }
 
-  const currentTitle = lang === "es" ? titleEs : titleCa;
-  const currentExcerpt = lang === "es" ? excerptEs : excerptCa;
-  const currentBody = lang === "es" ? bodyEs : bodyCa;
+  const currentTitle = lang === "es" ? titleEs : lang === "ca" ? titleCa : titleEn;
+  const currentExcerpt = lang === "es" ? excerptEs : lang === "ca" ? excerptCa : excerptEn;
+  const currentBody = lang === "es" ? bodyEs : lang === "ca" ? bodyCa : bodyEn;
+  const currentMetaTitle = lang === "es" ? metaTitleEs : lang === "ca" ? metaTitleCa : metaTitleEn;
+  const currentMetaDescription = lang === "es" ? metaDescriptionEs : lang === "ca" ? metaDescriptionCa : metaDescriptionEn;
+  const langCode = lang.toUpperCase();
 
   return (
     <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
 
       {/* Tabs idioma */}
       <div className="flex border-b border-gray-200">
-        {(["es", "ca"] as const).map((l) => (
+        {(["es", "ca", "en"] as const).map((l) => (
           <button
             key={l}
             type="button"
@@ -137,7 +170,7 @@ export function PostForm({ initial, categories, mode }: Props) {
               lang === l ? "border-red-600 text-red-600" : "border-transparent text-gray-500 hover:text-gray-900"
             }`}
           >
-            {l === "es" ? "Español" : "Català"}
+            {l === "es" ? "Español" : l === "ca" ? "Català" : "English"}
           </button>
         ))}
       </div>
@@ -153,7 +186,13 @@ export function PostForm({ initial, categories, mode }: Props) {
           onChange={(e) => handleTitleChange(e.target.value)}
           required={lang === "es"}
           className="w-full px-3.5 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
-          placeholder={lang === "es" ? "Cómo elegir empresa de reformas en Barcelona" : "Com triar empresa de reformes a Barcelona"}
+          placeholder={
+            lang === "es"
+              ? "Cómo elegir empresa de reformas en Barcelona"
+              : lang === "ca"
+              ? "Com triar empresa de reformes a Barcelona"
+              : "How to choose a renovation firm in Barcelona"
+          }
         />
       </div>
 
@@ -244,7 +283,7 @@ export function PostForm({ initial, categories, mode }: Props) {
         </label>
         <textarea
           value={currentExcerpt}
-          onChange={(e) => lang === "es" ? setExcerptEs(e.target.value) : setExcerptCa(e.target.value)}
+          onChange={(e) => handleExcerptChange(e.target.value)}
           rows={2}
           className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none"
           placeholder="Una frase que invite a leer el artículo completo…"
@@ -259,8 +298,14 @@ export function PostForm({ initial, categories, mode }: Props) {
         <RichTextEditor
           key={lang}
           value={currentBody}
-          onChange={(html) => lang === "es" ? setBodyEs(html) : setBodyCa(html)}
-          placeholder={lang === "es" ? "Empieza a escribir tu artículo aquí…" : "Comença a escriure el teu article aquí…"}
+          onChange={handleBodyChange}
+          placeholder={
+            lang === "es"
+              ? "Empieza a escribir tu artículo aquí…"
+              : lang === "ca"
+              ? "Comença a escriure el teu article aquí…"
+              : "Start writing your article here…"
+          }
         />
       </div>
 
@@ -288,23 +333,23 @@ export function PostForm({ initial, categories, mode }: Props) {
             </p>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                Meta título ({lang === "es" ? "ES" : "CA"})
+                Meta título ({langCode})
               </label>
               <input
                 type="text"
-                value={lang === "es" ? metaTitleEs : metaTitleCa}
-                onChange={(e) => lang === "es" ? setMetaTitleEs(e.target.value) : setMetaTitleCa(e.target.value)}
+                value={currentMetaTitle}
+                onChange={(e) => handleMetaTitleChange(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 placeholder="50-60 caracteres recomendado"
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                Meta descripción ({lang === "es" ? "ES" : "CA"})
+                Meta descripción ({langCode})
               </label>
               <textarea
-                value={lang === "es" ? metaDescriptionEs : metaDescriptionCa}
-                onChange={(e) => lang === "es" ? setMetaDescriptionEs(e.target.value) : setMetaDescriptionCa(e.target.value)}
+                value={currentMetaDescription}
+                onChange={(e) => handleMetaDescriptionChange(e.target.value)}
                 rows={2}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none"
                 placeholder="150-160 caracteres recomendado"

@@ -8,6 +8,8 @@ import { LogoutButton } from "./LogoutButton";
 const TABS = [
   { href: "/admin/projects", label: "Proyectos", match: "/admin/projects" },
   { href: "/admin/blog", label: "Blog", match: "/admin/blog" },
+  { href: "/admin/blog/queue", label: "Cola IA", match: "/admin/blog/queue" },
+  { href: "/admin/blog/sources", label: "Fuentes RSS", match: "/admin/blog/sources" },
   { href: "/admin/categories", label: "Categorías", match: "/admin/categories" },
   { href: "/admin/requests", label: "Solicitudes", match: "/admin/requests" },
 ];
@@ -45,7 +47,14 @@ export function AdminNav() {
       </div>
       <nav className="max-w-6xl mx-auto px-6 flex gap-1 overflow-x-auto">
         {TABS.map((tab) => {
-          const active = pathname.startsWith(tab.match);
+          // El tab Blog solo se ilumina en /admin/blog y /admin/blog/<slug>/edit y /admin/blog/new,
+          // no en las subrutas queue/sources que tienen su propio tab.
+          const isBlogRoot = tab.match === "/admin/blog";
+          const active = isBlogRoot
+            ? pathname === "/admin/blog" ||
+              pathname.startsWith("/admin/blog/new") ||
+              /^\/admin\/blog\/[^/]+\/edit/.test(pathname)
+            : pathname.startsWith(tab.match);
           const showBadge = tab.match === "/admin/requests" && newCount !== null && newCount > 0;
           return (
             <Link

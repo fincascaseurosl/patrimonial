@@ -20,8 +20,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description:
       locale === "ca"
         ? "Consells i novetats sobre construcció, reformes i rehabilitació a Barcelona."
+        : locale === "en"
+        ? "Advice and updates on construction, renovations and building refurbishment in Barcelona."
         : "Consejos y novedades sobre construcción, reformas y rehabilitación en Barcelona.",
-    alternates: { languages: { es: "/es/blog", ca: "/ca/blog" } },
+    alternates: {
+      languages: {
+        es: "/es/blog",
+        ca: "/ca/blog",
+        en: "/en/blog",
+        "x-default": "/es/blog",
+      },
+    },
   };
 }
 
@@ -42,7 +51,13 @@ export default async function BlogPage({ params, searchParams }: Props) {
         <div className="max-w-7xl mx-auto px-6">
           <p className="text-[var(--color-primary)] text-[12px] font-semibold tracking-[0.3em] uppercase mb-4">Blog</p>
           <h1 className="text-4xl md:text-5xl font-bold leading-[1.1] tracking-[-0.02em] mb-4">
-            {activeCategory ? getCategoryName(activeCategory, locale) : (locale === "ca" ? "Articles del blog" : "Artículos del blog")}
+            {activeCategory
+              ? getCategoryName(activeCategory, locale)
+              : locale === "ca"
+              ? "Articles del blog"
+              : locale === "en"
+              ? "Blog articles"
+              : "Artículos del blog"}
           </h1>
           <div className="w-12 h-[2px] bg-[var(--color-primary)] mt-2" />
         </div>
@@ -53,7 +68,7 @@ export default async function BlogPage({ params, searchParams }: Props) {
         <section className="border-b border-[var(--line)] bg-[var(--paper)] sticky top-0 z-20 backdrop-blur-md bg-[var(--paper)]/90">
           <div className="max-w-7xl mx-auto px-6 flex gap-1 overflow-x-auto">
             <CategoryTab href="/blog" active={!cat} count={allPosts.length}>
-              {locale === "ca" ? "Tots" : "Todos"}
+              {locale === "ca" ? "Tots" : locale === "en" ? "All" : "Todos"}
             </CategoryTab>
             {categories.map((c) => {
               const count = allPosts.filter((p) => p.categorySlug === c.slug).length;
@@ -74,7 +89,11 @@ export default async function BlogPage({ params, searchParams }: Props) {
           {filtered.length === 0 ? (
             <div className="text-center py-20 text-[var(--ink-soft)]">
               <p className="text-lg font-medium">
-                {locale === "ca" ? "Encara no hi ha articles" : "Aún no hay artículos"}
+                {locale === "ca"
+                  ? "Encara no hi ha articles"
+                  : locale === "en"
+                  ? "No articles yet"
+                  : "Aún no hay artículos"}
               </p>
             </div>
           ) : (
@@ -121,7 +140,8 @@ function PostCard({ post, locale, categories }: {
   const title = getPostTitle(post, locale);
   const excerpt = getPostExcerpt(post, locale);
   const category = categories.find((c) => c.slug === post.categorySlug);
-  const date = new Date(post.publishedAt).toLocaleDateString(locale === "ca" ? "ca-ES" : "es-ES", {
+  const dateLocale = locale === "ca" ? "ca-ES" : locale === "en" ? "en-GB" : "es-ES";
+  const date = new Date(post.publishedAt).toLocaleDateString(dateLocale, {
     day: "numeric",
     month: "long",
     year: "numeric",

@@ -1,4 +1,7 @@
 {
+  "crons": [
+    { "path": "/api/cron/blog-ingest", "schedule": "0 7 * * *" }
+  ],
   "redirects": [
     { "source": "/reformas-integrales-barcelona/", "destination": "/es/servicios/reformas", "permanent": true },
     { "source": "/reformas-integrales-barcelona", "destination": "/es/servicios/reformas", "permanent": true },

@@ -19,11 +19,18 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
-  const otherLocale = locale === "es" ? "ca" : "es";
+  const [langOpen, setLangOpen] = useState(false);
+  const allLocales = ["es", "ca", "en"] as const;
+  const localeLabels: Record<(typeof allLocales)[number], string> = {
+    es: "Español",
+    ca: "Català",
+    en: "English",
+  };
   const headerRef = useRef<HTMLElement>(null);
   const navRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const servicesTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const langTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -106,7 +113,7 @@ export function Header() {
           <Link
             href="/"
             className={`relative flex items-center h-[72px] px-1 transition-all duration-500 cursor-grow`}
-            aria-label="Patrimonial — Inicio"
+            aria-label={`Patrimonial — ${t("inicio")}`}
           >
             <Logo variant={scrolled ? "dark" : "light"} />
           </Link>
@@ -205,18 +212,74 @@ export function Header() {
             )}
 
             <div className="flex items-center gap-3 ml-4 pl-4 border-l border-current/10">
-              <button
-                onClick={() =>
-                  router.replace(pathname as "/", { locale: otherLocale })
-                }
-                className={`text-[12px] font-medium tracking-wider uppercase transition-colors duration-300 ${
-                  scrolled
-                    ? "text-[var(--color-text-muted)] hover:text-[var(--color-dark)]"
-                    : "text-white/80 hover:text-white"
-                }`}
+              {/* Language dropdown */}
+              <div
+                className="relative"
+                onMouseEnter={() => {
+                  if (langTimeoutRef.current) clearTimeout(langTimeoutRef.current);
+                  setLangOpen(true);
+                }}
+                onMouseLeave={() => {
+                  langTimeoutRef.current = setTimeout(() => setLangOpen(false), 150);
+                }}
               >
-                {otherLocale.toUpperCase()}
-              </button>
+                <button
+                  type="button"
+                  onClick={() => setLangOpen((v) => !v)}
+                  className={`flex items-center gap-1 text-[12px] font-medium tracking-wider uppercase transition-colors duration-300 ${
+                    scrolled
+                      ? "text-[var(--color-text-muted)] hover:text-[var(--color-dark)]"
+                      : "text-white/80 hover:text-white"
+                  }`}
+                  aria-haspopup="menu"
+                  aria-expanded={langOpen}
+                >
+                  {locale.toUpperCase()}
+                  <svg
+                    className={`w-3 h-3 transition-transform duration-200 ${langOpen ? "rotate-180" : ""}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                <div
+                  className={`absolute top-full right-0 pt-2 transition-all duration-200 ${
+                    langOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-1"
+                  }`}
+                  role="menu"
+                >
+                  <div className="bg-white shadow-lg border border-gray-100 py-2 min-w-[140px]">
+                    {allLocales.map((l) => {
+                      const active = l === locale;
+                      return (
+                        <button
+                          key={l}
+                          type="button"
+                          role="menuitem"
+                          onClick={() => {
+                            router.replace(pathname as "/", { locale: l });
+                            setLangOpen(false);
+                          }}
+                          className={`flex items-center justify-between w-full px-4 py-2 text-[12px] tracking-wider uppercase transition-colors duration-200 ${
+                            active
+                              ? "text-[var(--color-primary)] font-semibold"
+                              : "text-[var(--color-text-light)] hover:text-[var(--color-dark)] hover:bg-[var(--color-gray-light)]"
+                          }`}
+                        >
+                          <span>{l.toUpperCase()}</span>
+                          <span className="text-[10px] normal-case tracking-normal text-[var(--color-text-muted)]">
+                            {localeLabels[l]}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
 
               <Link
                 href="/contacto"
@@ -237,7 +300,13 @@ export function Header() {
             className={`lg:hidden p-2 transition-colors duration-300 ${
               scrolled ? "text-[var(--color-dark)]" : "text-white"
             }`}
-            aria-label="Abrir menú"
+            aria-label={
+              locale === "ca"
+                ? "Obrir menú"
+                : locale === "en"
+                ? "Open menu"
+                : "Abrir menú"
+            }
           >
             <div className="w-6 h-5 flex flex-col justify-between">
               <span
@@ -328,16 +397,30 @@ export function Header() {
                   </Link>
                 )
               )}
-              <div className="pt-4 mt-4 border-t border-gray-100 flex items-center justify-between">
-                <button
-                  onClick={() => {
-                    router.replace(pathname as "/", { locale: otherLocale });
-                    setMobileMenuOpen(false);
-                  }}
-                  className="text-[12px] font-medium tracking-wider uppercase text-[var(--color-text-muted)]"
-                >
-                  {otherLocale === "ca" ? "Català" : "Español"}
-                </button>
+              <div className="pt-4 mt-4 border-t border-gray-100 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-1">
+                  {allLocales.map((l) => {
+                    const active = l === locale;
+                    return (
+                      <button
+                        key={l}
+                        type="button"
+                        onClick={() => {
+                          router.replace(pathname as "/", { locale: l });
+                          setMobileMenuOpen(false);
+                        }}
+                        className={`px-3 py-1.5 text-[12px] font-medium tracking-wider uppercase transition-colors duration-200 ${
+                          active
+                            ? "text-[var(--color-primary)] border-b-2 border-[var(--color-primary)]"
+                            : "text-[var(--color-text-muted)] hover:text-[var(--color-dark)]"
+                        }`}
+                        aria-current={active ? "true" : undefined}
+                      >
+                        {l.toUpperCase()}
+                      </button>
+                    );
+                  })}
+                </div>
                 <Link
                   href="/contacto"
                   onClick={() => setMobileMenuOpen(false)}

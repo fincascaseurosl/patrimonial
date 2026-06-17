@@ -18,6 +18,7 @@ export function CategoriesManager({ initial }: { initial: Category[] }) {
   const [categories, setCategories] = useState(initial);
   const [newNameEs, setNewNameEs] = useState("");
   const [newNameCa, setNewNameCa] = useState("");
+  const [newNameEn, setNewNameEn] = useState("");
   const [adding, setAdding] = useState(false);
   const [error, setError] = useState("");
 
@@ -34,6 +35,7 @@ export function CategoriesManager({ initial }: { initial: Category[] }) {
           slug: slugify(newNameEs),
           nameEs: newNameEs,
           nameCa: newNameCa || newNameEs,
+          nameEn: newNameEn || newNameEs,
         }),
       });
       if (res.ok) {
@@ -41,6 +43,7 @@ export function CategoriesManager({ initial }: { initial: Category[] }) {
         setCategories([...categories, cat]);
         setNewNameEs("");
         setNewNameCa("");
+        setNewNameEn("");
         router.refresh();
       } else {
         const data = await res.json();
@@ -51,15 +54,16 @@ export function CategoriesManager({ initial }: { initial: Category[] }) {
     }
   }
 
-  async function handleEdit(slug: string, nameEs: string, nameCa: string) {
-    const newNameEs = prompt("Nombre en español:", nameEs);
-    if (!newNameEs?.trim()) return;
-    const newNameCa = prompt("Nom en català:", nameCa) ?? newNameEs;
+  async function handleEdit(slug: string, nameEs: string, nameCa: string, nameEn: string) {
+    const editedEs = prompt("Nombre en español:", nameEs);
+    if (!editedEs?.trim()) return;
+    const editedCa = prompt("Nom en català:", nameCa) ?? editedEs;
+    const editedEn = prompt("Name (English):", nameEn) ?? editedEs;
 
     const res = await fetch(`/api/admin/categories/${slug}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nameEs: newNameEs, nameCa: newNameCa }),
+      body: JSON.stringify({ nameEs: editedEs, nameCa: editedCa, nameEn: editedEn }),
     });
     if (res.ok) {
       const updated = await res.json();
@@ -88,7 +92,7 @@ export function CategoriesManager({ initial }: { initial: Category[] }) {
       {/* Form alta rápida */}
       <form onSubmit={handleAdd} className="bg-white border border-gray-200 rounded-xl p-5">
         <h2 className="font-semibold text-gray-900 mb-4">Nueva categoría</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
           <input
             type="text"
             value={newNameEs}
@@ -102,6 +106,13 @@ export function CategoriesManager({ initial }: { initial: Category[] }) {
             value={newNameCa}
             onChange={(e) => setNewNameCa(e.target.value)}
             placeholder="Nom en català (opcional)"
+            className="px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+          />
+          <input
+            type="text"
+            value={newNameEn}
+            onChange={(e) => setNewNameEn(e.target.value)}
+            placeholder="Name in English (optional)"
             className="px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
           />
           <button
@@ -131,12 +142,12 @@ export function CategoriesManager({ initial }: { initial: Category[] }) {
               <div className="flex-1 min-w-0">
                 <p className="font-semibold text-gray-900 truncate">{cat.nameEs}</p>
                 <p className="text-xs text-gray-500 truncate">
-                  <span className="text-gray-400">CA:</span> {cat.nameCa} · <span className="font-mono">{cat.slug}</span>
+                  <span className="text-gray-400">CA:</span> {cat.nameCa} · <span className="text-gray-400">EN:</span> {cat.nameEn || cat.nameEs} · <span className="font-mono">{cat.slug}</span>
                 </p>
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 <button
-                  onClick={() => handleEdit(cat.slug, cat.nameEs, cat.nameCa)}
+                  onClick={() => handleEdit(cat.slug, cat.nameEs, cat.nameCa, cat.nameEn ?? "")}
                   className="px-3 py-1.5 text-xs font-semibold text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition"
                 >
                   Editar

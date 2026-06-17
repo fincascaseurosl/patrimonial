@@ -1,5 +1,5 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { siteConfig } from "@/lib/site-config";
+import { siteConfig, getHorario } from "@/lib/site-config";
 import ContactForm from "@/components/ContactForm";
 import type { Metadata } from "next";
 
@@ -18,6 +18,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         es: "/es/contacto",
         ca: "/ca/contacte",
+        en: "/en/contact",
+        "x-default": "/es/contacto",
       },
     },
   };
@@ -110,7 +112,7 @@ export default async function ContactoPage({ params }: Props) {
                       <p className="text-[11px] font-semibold text-[var(--color-text-muted)] uppercase tracking-wider mb-2">
                         {t("info.horarioLabel")}
                       </p>
-                      <p className="text-[var(--color-text)] text-sm">{siteConfig.horario}</p>
+                      <p className="text-[var(--color-text)] text-sm">{getHorario(locale)}</p>
                     </div>
                   </div>
                 </div>

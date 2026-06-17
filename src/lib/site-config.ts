@@ -15,6 +15,12 @@ export const siteConfig = {
   colorPrimario: "#ffc107",
 } as const;
 
+export function getHorario(locale: string): string {
+  if (locale === "ca") return "Dl. - Dv. 9:00 - 18:00";
+  if (locale === "en") return "Mon - Fri 9:00 - 18:00";
+  return siteConfig.horario;
+}
+
 export const serviceSlugs = [
   "reformas",
   "obra-nueva",
@@ -96,18 +102,21 @@ export const projects = [
   },
 ] as const;
 
-export const projectNames: Record<string, { es: string; ca: string }> = {
+export const projectNames: Record<string, { es: string; ca: string; en: string }> = {
   "reforma-rambla": {
     es: "Piso en Rambla Barcelona",
     ca: "Pis a la Rambla de Barcelona",
+    en: "Apartment on La Rambla, Barcelona",
   },
   "piso-balmes": {
     es: "Piso en C/ Balmes",
     ca: "Pis al C/ Balmes",
+    en: "Apartment on Balmes Street",
   },
   "cesped-artificial-comunidad": {
     es: "Colocación del césped artificial en una comunidad",
     ca: "Col·locació de gespa artificial en una comunitat",
+    en: "Artificial turf installation in a residential complex",
   },
 };
 

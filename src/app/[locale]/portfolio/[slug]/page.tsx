@@ -1,7 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { getProjects, getProjectName } from "@/lib/projects";
+import { getProjects, getProjectName, getProjectDescription } from "@/lib/projects";
 import type { Project } from "@/lib/projects";
 import { serviceKeyMap } from "@/lib/site-config";
 import { notFound } from "next/navigation";
@@ -34,9 +34,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description:
       locale === "ca"
         ? `Projecte: ${name}. Veure les fotos del treball realitzat a Barcelona.`
+        : locale === "en"
+        ? `Project: ${name}. See photos of the work completed in Barcelona.`
         : `Proyecto: ${name}. Ver las fotos del trabajo realizado en Barcelona.`,
     alternates: {
-      languages: { es: `/es/portfolio/${slug}`, ca: `/ca/portfolio/${slug}` },
+      languages: {
+        es: `/es/portfolio/${slug}`,
+        ca: `/ca/portfolio/${slug}`,
+        en: `/en/portfolio/${slug}`,
+        "x-default": `/es/portfolio/${slug}`,
+      },
     },
   };
 }
@@ -53,7 +60,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 function ProjectContent({ project, locale }: { project: Project; locale: string }) {
   const t = useTranslations();
   const name = getProjectName(project, locale);
-  const description = locale === "ca" ? project.descriptionCa : project.descriptionEs;
+  const description = getProjectDescription(project, locale);
 
   return (
     <>

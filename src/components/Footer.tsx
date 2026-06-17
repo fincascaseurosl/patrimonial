@@ -1,10 +1,11 @@
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { siteConfig, serviceSlugs, serviceKeyMap } from "@/lib/site-config";
+import { siteConfig, serviceSlugs, serviceKeyMap, getHorario } from "@/lib/site-config";
 import { Logo } from "./Logo";
 
 export function Footer() {
   const t = useTranslations();
+  const locale = useLocale();
 
   return (
     <footer className="bg-[var(--color-dark)] text-white/40">
@@ -110,7 +111,7 @@ export function Footer() {
                   {siteConfig.email}
                 </a>
               </li>
-              <li>{siteConfig.horario}</li>
+              <li>{getHorario(locale)}</li>
             </ul>
           </div>
         </div>

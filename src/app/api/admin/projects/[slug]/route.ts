@@ -34,10 +34,12 @@ export async function PUT(req: NextRequest, { params }: Params) {
     ...projects[idx],
     nameEs: body.nameEs.trim(),
     nameCa: body.nameCa.trim(),
+    nameEn: (body.nameEn ?? body.nameEs).trim(),
     category: body.category,
     images: body.images,
     descriptionEs: body.descriptionEs?.trim() ?? "",
     descriptionCa: body.descriptionCa?.trim() ?? "",
+    descriptionEn: body.descriptionEn?.trim() ?? "",
   };
 
   await saveProjects(projects);
@@ -59,7 +61,7 @@ export async function DELETE(_req: NextRequest, { params }: Params) {
 }
 
 function revalidateAll(slug?: string) {
-  for (const locale of ["es", "ca"]) {
+  for (const locale of ["es", "ca", "en"]) {
     revalidatePath(`/${locale}`);
     revalidatePath(`/${locale}/portfolio`);
     if (slug) revalidatePath(`/${locale}/portfolio/${slug}`);

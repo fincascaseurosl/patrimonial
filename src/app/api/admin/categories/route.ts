@@ -24,6 +24,7 @@ export async function POST(req: NextRequest) {
     slug: body.slug,
     nameEs: body.nameEs.trim(),
     nameCa: (body.nameCa ?? body.nameEs).trim(),
+    nameEn: (body.nameEn ?? body.nameEs).trim(),
   };
 
   await saveCategories([...cats, newCat]);
@@ -32,7 +33,7 @@ export async function POST(req: NextRequest) {
 }
 
 function revalidate() {
-  for (const locale of ["es", "ca"]) {
+  for (const locale of ["es", "ca", "en"]) {
     revalidatePath(`/${locale}/blog`);
   }
 }

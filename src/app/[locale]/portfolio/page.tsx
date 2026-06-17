@@ -23,7 +23,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: t("titulo"),
     description: t("intro"),
-    alternates: { languages: { es: "/es/portfolio", ca: "/ca/portfolio" } },
+    alternates: {
+      languages: {
+        es: "/es/portfolio",
+        ca: "/ca/portfolio",
+        en: "/en/portfolio",
+        "x-default": "/es/portfolio",
+      },
+    },
   };
 }
 

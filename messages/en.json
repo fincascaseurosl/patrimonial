@@ -1,0 +1,264 @@
+{
+  "meta": {
+    "title": "Construction in Barcelona | Patrimonial - Renovations, New Builds & Refurbishment",
+    "description": "Construction, full renovations and building refurbishment in Barcelona with over 25 years of experience. Free, no-obligation quote."
+  },
+  "nav": {
+    "inicio": "Home",
+    "servicios": "Services",
+    "portfolio": "Projects",
+    "sobreNosotros": "About us",
+    "contacto": "Contact",
+    "blog": "Blog",
+    "presupuesto": "Request a quote",
+    "verTodos": "See all",
+    "idioma": "ES"
+  },
+  "hero": {
+    "titulo": "Construction in Barcelona",
+    "subtitulo": "Experts in construction, renovations and building refurbishment with over 25 years of experience.",
+    "cta": "Get a quote"
+  },
+  "home": {
+    "heroEyebrow": "Patrimonial · Barcelona · Since 1998",
+    "heroLine1": "We build",
+    "heroLine2": "the heritage",
+    "heroLine3": "of Barcelona.",
+    "heroSub": "Full renovations, new builds and building refurbishment with the discipline of an architecture studio and the rigour of a construction firm with 25 years in the city.",
+    "heroScroll": "Scroll to discover",
+    "marqueeItems": ["Full renovations", "New builds", "Building refurbishment", "Rope access", "Asbestos removal", "Structural reinforcement", "Waterproofing"],
+    "manifiestoEyebrow": "Manifesto",
+    "manifiestoText": "We don't just do works. We give back to Barcelona the buildings that have supported it for a century, with the same standards with which they were raised.",
+    "cifrasEyebrow": "The numbers behind us",
+    "cifras": [
+      { "num": 25, "suffix": "+", "label": "years in Barcelona" },
+      { "num": 480, "suffix": "+", "label": "projects delivered" },
+      { "num": 92000, "suffix": " m²", "label": "of work completed" },
+      { "num": 38, "suffix": "", "label": "in-house professionals" }
+    ],
+    "serviciosEyebrow": "Featured services",
+    "serviciosTitulo": "Three ways to care for a building.",
+    "procesoEyebrow": "How we work",
+    "procesoTitulo": "Our own method, in five phases.",
+    "proceso": [
+      { "num": "01", "titulo": "Project audit", "texto": "Building survey, pathology assessment and management of permits and paperwork with the owner or property administrator." },
+      { "num": "02", "titulo": "Preliminary study", "texto": "Costed report, proposed solutions and an estimated schedule within 7 working days." },
+      { "num": "03", "titulo": "Project & permits", "texto": "Coordination with the architect, document management and council paperwork." },
+      { "num": "04", "titulo": "Execution", "texto": "In-house crew on site, a dedicated site manager and weekly photo reports to the client." },
+      { "num": "05", "titulo": "Handover & aftercare", "texto": "Final tests, building logbook and two-year warranty on our work." }
+    ],
+    "portfolioEyebrow": "Recent work",
+    "portfolioTitulo": "A decade restoring Barcelona, building by building.",
+    "certEyebrow": "Accreditations",
+    "certItems": ["RERA · Registered asbestos firm", "Gremi de Constructors BCN", "ISO 9001 quality", "ISO 14001 environment", "FAD Architecture", "Barcelona Refurbishment Association"],
+    "blogEyebrow": "Field notes",
+    "blogTitulo": "Reading for those who build.",
+    "mapaEyebrow": "Where we work",
+    "mapaTitulo": "All of Catalonia, based in the Eixample.",
+    "mapaTexto": "An in-house team operating across Barcelona city, with coordinated travel across the four provinces. Average response time: 48 hours.",
+    "testimonioMega": "«Three renovations in five years. Deadlines met, budget respected, communication impeccable. It's the closest thing I've seen to hiring a trusted architect friend.»",
+    "testimonioAutor": "Marta Vilaró · Property administrator",
+    "faqEyebrow": "Frequently asked questions",
+    "faqTitulo": "What you ask us before we begin.",
+    "faq": [
+      { "q": "How long does a full renovation in Barcelona take?", "a": "An average 80 m² home is delivered in 10-14 weeks from contract signing, including permit processing and final tests." },
+      { "q": "Do you work with residents' associations?", "a": "Yes. Over 60% of our portfolio is refurbishment of façades, roofs and common areas for property administrators and residents' boards." },
+      { "q": "Do you handle refurbishment grants?", "a": "Yes. We process Next Generation EU funds, accessibility subsidies and council tax reductions for energy improvements." },
+      { "q": "Do you offer financing for private clients?", "a": "We offer 0% financing up to 24 months through a partner bank, subject to approval." },
+      { "q": "Are you authorised to remove asbestos?", "a": "We are registered with RERA, with a certified crew and full insurance for removal and transport to an authorised landfill." },
+      { "q": "How is the budget controlled during the works?", "a": "Every additional item is approved in writing before being executed. No surprises in the final invoice." }
+    ],
+    "ctaFinalEyebrow": "Let's talk",
+    "ctaFinalTitulo": "Tell us which building you want to look after.",
+    "ctaFinalSub": "We respond within 48 hours with an initial assessment and a proposed site visit.",
+    "ctaFinalBoton": "Start a project",
+    "ctaFinalSecundario": "View services"
+  },
+  "servicios": {
+    "titulo": "Construction, renovation and refurbishment services in Barcelona",
+    "subtitulo": "Full renovations, new builds, refurbishment and specialist works with an in-house team of 38 professionals.",
+    "heroEyebrow": "Our services",
+    "heroLine1": "We build",
+    "heroLine2": "your project",
+    "heroLine3": "from start to finish.",
+    "heroDisciplines": "08 disciplines",
+    "manifiestoEyebrow": "One team · from architect to locksmith",
+    "manifiestoTexto": "We don't subcontract what we know how to do. Each discipline has its own site manager and one single person who answers to you.",
+    "marqueeServiciosItems": ["Renovations", "New builds", "Refurbishment", "Structures", "Asbestos", "Rope access", "Waterproofing"],
+    "detailEncargo": "The brief",
+    "detailMetodo": "Method · 04 phases",
+    "detailFases": [
+      { "n": "01", "titulo": "Project audit", "descripcion": "Permits and paperwork." },
+      { "n": "02", "titulo": "Project", "descripcion": "Scope, materials, schedule and a closed budget." },
+      { "n": "03", "titulo": "Execution", "descripcion": "In-house site manager and a single point of contact." },
+      { "n": "04", "titulo": "Handover", "descripcion": "Final inspection and cleaning." }
+    ],
+    "detailPresupuestoLabel": "Quote",
+    "detailOtrosServicios": "Other services",
+    "detailSiguiente": "Next service",
+    "verTodos": "See all services",
+    "items": {
+      "reformas": {
+        "nombre": "Renovations Barcelona",
+        "descripcion": "We carry out full and partial renovations in homes, offices and commercial premises. Authorised, registered installers for gas, electricity, water and more. Asbestos removal.",
+        "descripcionLarga": "At Patrimonial we specialise in full renovations in Barcelona. We take care of the entire process, from design to final execution, including gas, electricity, water, telecoms and HVAC installations. Our installers are authorised and registered, ensuring the highest quality and full compliance with current regulations. We also carry out partial renovations tailored to each client's needs and budget, whether in private homes, offices or commercial premises."
+      },
+      "obraNueva": {
+        "nombre": "New builds",
+        "descripcion": "We deliver new-build construction projects for office buildings, homes, commercial premises and more, from start to finish.",
+        "descripcionLarga": "We deliver new-build projects from start to finish. From foundations to finishes, we coordinate every trade and phase of construction: structure, masonry, MEP installations, flooring, claddings and carpentry. We work on residential buildings, offices, commercial premises and industrial facilities, always honouring the agreed schedule and budget."
+      },
+      "rehabilitacion": {
+        "nombre": "Refurbishment",
+        "descripcion": "Full refurbishment of buildings, façades, entrance halls, pavements and more. Rope access, structural reinforcement and beyond.",
+        "descripcionLarga": "We are experts in the full refurbishment of buildings in Barcelona. We carry out work on façades, entrance halls, communal staircases, roofs and rooftops. Our team specialises in rope access, structural reinforcement and the consolidation of construction elements, ensuring the safety and durability of every intervention."
+      },
+      "instalaciones": {
+        "nombre": "Electrical, water and gas installations",
+        "descripcion": "Authorised, registered installers for every type of installation: electrical, plumbing, natural gas and HVAC.",
+        "descripcionLarga": "We have authorised installers for every type of installation in homes, offices and commercial premises. We handle electrical, plumbing, natural gas, air conditioning and heating installations, always meeting current regulations and providing the necessary certificates and bulletins."
+      },
+      "amianto": {
+        "nombre": "Asbestos removal",
+        "descripcion": "A RERA-registered firm for the safe, legal removal of asbestos-containing materials in any kind of building.",
+        "descripcionLarga": "We are registered with the Spanish Asbestos Risk Companies Register (RERA) and have all the training and equipment required for the safe removal of asbestos-containing materials. We manage the whole process: assessment, work plan, removal, transport and disposal at authorised landfills, ensuring the safety of workers and neighbours."
+      },
+      "trabajosVerticales": {
+        "nombre": "Rope access",
+        "descripcion": "Work on façades, roofs and hard-to-reach areas using rope-access techniques.",
+        "descripcionLarga": "Our team is trained and certified to carry out rope-access work on façades, roofs, light wells and any hard-to-reach area. This technique allows us to work on buildings without scaffolding, reducing cost and time. We carry out façade repairs, waterproofing, painting, the installation of protection nets and anchor points."
+      },
+      "refuerzos": {
+        "nombre": "Structural reinforcement",
+        "descripcion": "Consolidation and reinforcement of structures: beams, columns, slabs and foundations using the most advanced techniques.",
+        "descripcionLarga": "We carry out structural reinforcement studies and projects for buildings showing pathologies or being adapted to new uses. We work with techniques for reinforcing beams, columns, slabs and foundations, using materials such as carbon fibre, epoxy resins, steel sections and shotcrete."
+      },
+      "impermeabilizacion": {
+        "nombre": "Roof waterproofing",
+        "descripcion": "Professional waterproofing of flat roofs, rooftops and terraces.",
+        "descripcionLarga": "We offer professional waterproofing solutions for flat roofs, rooftops, terraces and balconies."
+      }
+    }
+  },
+  "porqueElegirnos": {
+    "titulo": "Why choose us?",
+    "subtitulo": "What our clients are looking for",
+    "items": {
+      "experiencia": {
+        "titulo": "Experience",
+        "texto": "Over 25 years in the construction sector"
+      },
+      "financiacion": {
+        "titulo": "Financing",
+        "texto": "0% interest and up to 100% financing"
+      },
+      "subvencion": {
+        "titulo": "Grants",
+        "texto": "We handle all the grant paperwork for you"
+      },
+      "garantia": {
+        "titulo": "Guarantee",
+        "texto": "The highest standards and discipline in every job"
+      }
+    }
+  },
+  "cta": {
+    "titulo": "Renovations, new builds and building refurbishment",
+    "texto": "We understand that projects represent not just buildings, but our clients' plans for the future. Ask us anything, with no obligation. We'll get back to you as soon as possible.",
+    "boton": "Contact us",
+    "presupuesto": "Get a no-obligation quote",
+    "subtexto": "Tell us about your project and we'll advise you with no commitment."
+  },
+  "portfolio": {
+    "titulo": "Our projects",
+    "subtitulo": "Every job is delivered with the highest quality controls",
+    "verMas": "See more",
+    "verTodos": "See all projects",
+    "verProyecto": "View project",
+    "volver": "Back to projects",
+    "page": {
+      "eyebrow": "Portfolio",
+      "titulo": "Every project is a coordinate in Barcelona.",
+      "intro": "A tour of the work we have signed across the city. Select a pin on the map to open its profile or browse the full list below.",
+      "statObras": "Projects delivered",
+      "statBarrios": "Districts",
+      "statSuperficie": "Surface area worked on",
+      "statAnos": "Years active",
+      "mapaInstruccion": "Tap a point on the map",
+      "listadoEyebrow": "Full portfolio",
+      "listadoTitulo": "Listed in chronological order.",
+      "fichaBarrio": "District",
+      "fichaAno": "Year",
+      "fichaCategoria": "Category",
+      "fichaSuperficie": "Surface area",
+      "fichaDuracion": "Duration",
+      "fichaDireccion": "Address",
+      "abrirFicha": "Open full profile",
+      "cerrarPanel": "Close"
+    }
+  },
+  "testimonios": {
+    "titulo": "Testimonials",
+    "items": [
+      {
+        "texto": "I needed a renovation of my living room and Patrimonial did an excellent job throughout, with great cleanliness and professionalism.",
+        "autor": "Carlos"
+      }
+    ]
+  },
+  "sobreNosotros": {
+    "titulo": "About us",
+    "subtitulo": "Patrimonial Obras Barcelona",
+    "descripcion": "A full-service real-estate firm with expertise in heritage management and over 25 years of experience.",
+    "contenido": "From day one, at Patrimonial we have been dedicated to offering an end-to-end service in construction, renovations and building refurbishment in Barcelona. Our philosophy is built on closeness with the client, transparency in budgets and the highest quality in every job we deliver.\n\nOur clients include a large number of property administrators, architects, industrial firms, businesses and private individuals who trust our experience and professionalism.\n\nWe have a team of qualified professionals across every construction discipline: masonry, electrical, plumbing, gas, HVAC, painting, carpentry and rope access. All our installers are authorised and registered.\n\nWe are registered with RERA (the Spanish Asbestos Risk Companies Register) and hold the certifications required to undertake any kind of construction work.",
+    "stats": {
+      "anos": "Years",
+      "proyectos": "Projects",
+      "garantia": "Guarantee"
+    },
+    "valores": {
+      "titulo": "Our values",
+      "items": [
+        "Professionalism and discipline on every project",
+        "Transparency in budgets and schedules",
+        "Closeness and constant communication with the client",
+        "Strict compliance with current regulations",
+        "Commitment to quality and sustainability"
+      ]
+    }
+  },
+  "contacto": {
+    "titulo": "Contact",
+    "subtitulo": "Get a no-obligation quote",
+    "descripcion": "We'll get back to you as soon as possible.",
+    "formulario": {
+      "nombre": "Name",
+      "email": "Email",
+      "telefono": "Phone",
+      "servicio": "Service you need",
+      "servicioPlaceholder": "Select a service",
+      "servicioOtro": "Other / not sure",
+      "mensaje": "Message",
+      "enviar": "Send message",
+      "enviado": "Message sent successfully!",
+      "error": "Something went wrong, please try again."
+    },
+    "info": {
+      "direccionLabel": "Address",
+      "telefonoLabel": "Phone",
+      "emailLabel": "Email",
+      "horarioLabel": "Hours"
+    }
+  },
+  "footer": {
+    "empresa": "Patrimonial Obras Barcelona",
+    "descripcion": "A full-service real-estate firm with expertise in heritage management and over 25 years of experience.",
+    "menu": "Menu",
+    "serviciosTitle": "Services",
+    "contactoTitle": "Contact",
+    "legal": "All rights reserved.",
+    "privacidad": "Privacy policy",
+    "financiadoUE": "Funded by the European Union",
+    "prtr": "Recovery, Transformation and Resilience Plan"
+  }
+}
