@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { siteConfig } from "@/lib/site-config";
+import { siteConfig, ogMeta } from "@/lib/site-config";
 import {
   RevealOnScroll,
   StaggerChildren,
@@ -23,6 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: t("titulo"),
     description: t("descripcion"),
+    openGraph: ogMeta(locale, t("titulo"), t("descripcion")),
     alternates: {
       canonical:
         locale === "ca"
@@ -101,7 +102,7 @@ function SobreNosotrosContent() {
                 </div>
                 <div>
                   <div className="text-[var(--color-dark)] text-2xl font-bold mb-1">
-                    <Counter end={500} suffix="+" />
+                    <Counter end={480} suffix="+" />
                   </div>
                   <p className="text-[var(--color-text-muted)] text-xs uppercase tracking-wider">{t("stats.proyectos")}</p>
                 </div>
@@ -174,7 +175,7 @@ function SobreNosotrosContent() {
                         href="/contacto"
                         className="inline-flex items-center justify-center mt-7 px-6 py-3 bg-[var(--color-accent)] text-white text-[12px] font-semibold tracking-wider uppercase transition-all duration-300 hover:bg-[var(--color-accent-hover)] btn-press"
                       >
-                        Contactar
+                        {t("contactar")}
                       </Link>
                     </Magnetic>
                   </div>

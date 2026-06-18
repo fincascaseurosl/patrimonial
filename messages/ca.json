@@ -58,6 +58,7 @@
     "mapaTexto": "Equip propi operant a Barcelona ciutat i desplaçaments coordinats a les quatre províncies. Temps mitjà de resposta: 48 hores.",
     "testimonioMega": "«Tres reformes en cinc anys. Terminis complerts, pressupost respectat, comunicació impecable. És el més a prop que he vist a contractar un bon amic arquitecte.»",
     "testimonioAutor": "Marta Vilaró · Administradora de finques",
+    "testimonioEyebrow": "Testimoni",
     "faqEyebrow": "Preguntes freqüents",
     "faqTitulo": "El que ens pregunteu abans de començar.",
     "faq": [
@@ -211,6 +212,7 @@
     "subtitulo": "Patrimonial Obres Barcelona",
     "descripcion": "Empresa de serveis immobiliaris integrals experta en la gestió del patrimoni amb més de 25 anys d'experiència.",
     "contenido": "Des dels nostres inicis, a Patrimonial ens hem dedicat a oferir un servei integral de construcció, reformes i rehabilitació d'edificis a Barcelona. La nostra filosofia es basa en la proximitat amb el client, la transparència en els pressupostos i la màxima qualitat en cadascun dels nostres treballs.\n\nEntre els nostres clients es troben un gran nombre d'Administradors de finques, Arquitectes, indústries, empreses i particulars que confien en la nostra experiència i professionalitat.\n\nComptem amb un equip de professionals qualificats en totes les especialitats de la construcció: paleta, electricitat, lampisteria, gas, climatització, pintura, fusteria i treballs verticals. Tots els nostres instal·ladors estan autoritzats i agremiats.\n\nEstem inscrits al RERA (Registre d'Empreses amb Risc d'Amiant) i comptem amb les certificacions necessàries per realitzar qualsevol tipus d'intervenció constructiva.",
+    "contactar": "Contactar",
     "stats": {
       "anos": "Anys",
       "proyectos": "Projectes",
@@ -240,6 +242,7 @@
       "servicioOtro": "Altre / no n'estic segur",
       "mensaje": "Missatge",
       "enviar": "Enviar missatge",
+      "enviando": "Enviant…",
       "enviado": "Missatge enviat correctament!",
       "error": "S'ha produït un error, torna-ho a intentar."
     },

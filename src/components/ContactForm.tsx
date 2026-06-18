@@ -45,7 +45,7 @@ export default function ContactForm({ defaultServicio }: { defaultServicio?: str
 
   if (status === "sent") {
     return (
-      <div className="bg-[var(--color-gray-light)] p-12 text-center">
+      <div className="bg-[var(--color-gray-light)] p-12 text-center" role="status" aria-live="polite">
         <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center bg-[var(--color-primary)]">
           <svg className="w-6 h-6 text-[var(--color-dark)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -148,7 +148,7 @@ export default function ContactForm({ defaultServicio }: { defaultServicio?: str
       </div>
 
       {status === "error" && (
-        <div className="bg-red-50/50 p-4">
+        <div className="bg-red-50/50 p-4" role="alert">
           <p className="text-red-600 text-sm">{t("error")}</p>
         </div>
       )}
@@ -156,9 +156,10 @@ export default function ContactForm({ defaultServicio }: { defaultServicio?: str
       <button
         type="submit"
         disabled={status === "sending"}
+        aria-busy={status === "sending"}
         className="px-10 py-4 bg-[var(--color-dark)] text-white text-[13px] font-semibold tracking-wider uppercase transition-all duration-300 hover:bg-[var(--color-dark-lighter)] disabled:opacity-40 disabled:cursor-not-allowed btn-press"
       >
-        {status === "sending" ? "..." : t("enviar")}
+        {status === "sending" ? t("enviando") : t("enviar")}
       </button>
     </form>
   );

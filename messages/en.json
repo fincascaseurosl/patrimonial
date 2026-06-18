@@ -58,6 +58,7 @@
     "mapaTexto": "An in-house team operating across Barcelona city, with coordinated travel across the four provinces. Average response time: 48 hours.",
     "testimonioMega": "«Three renovations in five years. Deadlines met, budget respected, communication impeccable. It's the closest thing I've seen to hiring a trusted architect friend.»",
     "testimonioAutor": "Marta Vilaró · Property administrator",
+    "testimonioEyebrow": "Testimonial",
     "faqEyebrow": "Frequently asked questions",
     "faqTitulo": "What you ask us before we begin.",
     "faq": [
@@ -211,6 +212,7 @@
     "subtitulo": "Patrimonial Obras Barcelona",
     "descripcion": "A full-service real-estate firm with expertise in heritage management and over 25 years of experience.",
     "contenido": "From day one, at Patrimonial we have been dedicated to offering an end-to-end service in construction, renovations and building refurbishment in Barcelona. Our philosophy is built on closeness with the client, transparency in budgets and the highest quality in every job we deliver.\n\nOur clients include a large number of property administrators, architects, industrial firms, businesses and private individuals who trust our experience and professionalism.\n\nWe have a team of qualified professionals across every construction discipline: masonry, electrical, plumbing, gas, HVAC, painting, carpentry and rope access. All our installers are authorised and registered.\n\nWe are registered with RERA (the Spanish Asbestos Risk Companies Register) and hold the certifications required to undertake any kind of construction work.",
+    "contactar": "Contact us",
     "stats": {
       "anos": "Years",
       "proyectos": "Projects",
@@ -240,6 +242,7 @@
       "servicioOtro": "Other / not sure",
       "mensaje": "Message",
       "enviar": "Send message",
+      "enviando": "Sending…",
       "enviado": "Message sent successfully!",
       "error": "Something went wrong, please try again."
     },

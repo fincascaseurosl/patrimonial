@@ -1,5 +1,5 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { siteConfig, getHorario } from "@/lib/site-config";
+import { siteConfig, getHorario, ogMeta } from "@/lib/site-config";
 import ContactForm from "@/components/ContactForm";
 import type { Metadata } from "next";
 
@@ -14,6 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: t("titulo"),
     description: t("subtitulo"),
+    openGraph: ogMeta(locale, t("titulo"), t("subtitulo")),
     alternates: {
       canonical:
         locale === "ca" ? "/ca/contacte" : locale === "en" ? "/en/contact" : "/es/contacto",

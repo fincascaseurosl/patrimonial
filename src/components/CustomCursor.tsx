@@ -1,31 +1,25 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 export function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Disable on touch devices or when reduced motion preferred
+    // Desactivado en táctil o con movimiento reducido.
     const isTouch = window.matchMedia("(hover: none)").matches;
     const prefersReduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
     if (isTouch || prefersReduced) return;
 
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
     const dot = dotRef.current;
     const ring = ringRef.current;
     if (!dot || !ring) return;
 
-    gsap.set([dot, ring], { xPercent: -50, yPercent: -50 });
+    gsap.set([dot, ring], { xPercent: -50, yPercent: -50, autoAlpha: 1 });
 
     const moveDot = gsap.quickTo(dot, "x", { duration: 0.15, ease: "power3.out" });
     const moveDotY = gsap.quickTo(dot, "y", { duration: 0.15, ease: "power3.out" });
@@ -62,23 +56,22 @@ export function CustomCursor() {
       document.body.removeEventListener("mouseover", onOver);
       document.body.removeEventListener("mouseout", onOut);
     };
-  }, [mounted]);
+  }, []);
 
-  if (!mounted) return null;
-
+  // Se renderizan siempre pero invisibles (opacity-0) hasta que el effect los
+  // revela en cliente; así evitamos setState en el effect y el doble render.
   return (
     <>
       <div
         ref={ringRef}
-        className="pointer-events-none fixed top-0 left-0 z-[200] w-9 h-9 rounded-full border border-[var(--ink)]/40 mix-blend-difference hidden md:block"
+        className="pointer-events-none fixed top-0 left-0 z-[200] w-9 h-9 rounded-full border border-[var(--ink)]/40 mix-blend-difference hidden md:block opacity-0"
         style={{ willChange: "transform" }}
       />
       <div
         ref={dotRef}
-        className="pointer-events-none fixed top-0 left-0 z-[200] w-1.5 h-1.5 rounded-full bg-[var(--ink)] mix-blend-difference hidden md:block"
+        className="pointer-events-none fixed top-0 left-0 z-[200] w-1.5 h-1.5 rounded-full bg-[var(--ink)] mix-blend-difference hidden md:block opacity-0"
         style={{ willChange: "transform" }}
       />
     </>
   );
 }
-

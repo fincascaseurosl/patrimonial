@@ -1,7 +1,7 @@
 import { useTranslations, useMessages } from "next-intl";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { serviceSlugs, serviceKeyMap } from "@/lib/site-config";
+import { serviceSlugs, serviceKeyMap, ogMeta } from "@/lib/site-config";
 import {
   RevealOnScroll,
   TextReveal,
@@ -18,14 +18,17 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "servicios" });
+  const title = t("titulo");
+  const description =
+    locale === "ca"
+      ? "Tots els serveis de construccio, reformes i rehabilitacio a Barcelona. Pressupost sense compromis."
+      : locale === "en"
+      ? "All our construction, renovation and refurbishment services in Barcelona. No-obligation quote."
+      : "Todos los servicios de construccion, reformas y rehabilitacion en Barcelona. Presupuesto sin compromiso.";
   return {
-    title: t("titulo"),
-    description:
-      locale === "ca"
-        ? "Tots els serveis de construccio, reformes i rehabilitacio a Barcelona. Pressupost sense compromis."
-        : locale === "en"
-        ? "All our construction, renovation and refurbishment services in Barcelona. No-obligation quote."
-        : "Todos los servicios de construccion, reformas y rehabilitacion en Barcelona. Presupuesto sin compromiso.",
+    title,
+    description,
+    openGraph: ogMeta(locale, title, description),
     alternates: {
       canonical:
         locale === "ca" ? "/ca/serveis" : locale === "en" ? "/en/services" : "/es/servicios",

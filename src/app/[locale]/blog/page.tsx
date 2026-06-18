@@ -2,6 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { getPublicPosts, getPostTitle, getPostExcerpt } from "@/lib/posts";
 import { getCategories, getCategoryName } from "@/lib/categories";
+import { ogMeta } from "@/lib/site-config";
 import type { Post } from "@/lib/posts";
 import type { Category } from "@/lib/categories";
 import type { Metadata } from "next";
@@ -15,14 +16,16 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const description =
+    locale === "ca"
+      ? "Consells i novetats sobre construcció, reformes i rehabilitació a Barcelona."
+      : locale === "en"
+      ? "Advice and updates on construction, renovations and building refurbishment in Barcelona."
+      : "Consejos y novedades sobre construcción, reformas y rehabilitación en Barcelona.";
   return {
     title: "Blog",
-    description:
-      locale === "ca"
-        ? "Consells i novetats sobre construcció, reformes i rehabilitació a Barcelona."
-        : locale === "en"
-        ? "Advice and updates on construction, renovations and building refurbishment in Barcelona."
-        : "Consejos y novedades sobre construcción, reformas y rehabilitación en Barcelona.",
+    description,
+    openGraph: ogMeta(locale, "Blog", description),
     alternates: {
       canonical: `/${locale}/blog`,
       languages: {

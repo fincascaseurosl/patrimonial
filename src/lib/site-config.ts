@@ -15,6 +15,23 @@ export const siteConfig = {
   colorPrimario: "#ffc107",
 } as const;
 
+// openGraph completo por página. Necesario porque Next sobrescribe (no fusiona)
+// el openGraph del layout; sin esto las páginas hijas perderían url/siteName/locale.
+export function ogMeta(
+  locale: string,
+  title: string,
+  description: string,
+): import("next").Metadata["openGraph"] {
+  return {
+    title,
+    description,
+    url: siteConfig.url,
+    siteName: siteConfig.nombre,
+    locale: locale === "ca" ? "ca_ES" : locale === "en" ? "en_US" : "es_ES",
+    type: "website",
+  };
+}
+
 export function getHorario(locale: string): string {
   if (locale === "ca") return "Dl. - Dv. 9:00 - 18:00";
   if (locale === "en") return "Mon - Fri 9:00 - 18:00";
@@ -125,7 +142,7 @@ export type ProjectLocation = {
   address?: string;
   year: number;
   area?: string;
-  duration?: string;
+  durationMonths?: number;
   lat: number;
   lng: number;
 };
@@ -136,7 +153,7 @@ export const projectLocations: Record<string, ProjectLocation> = {
     address: "La Rambla",
     year: 2024,
     area: "120 m²",
-    duration: "4 meses",
+    durationMonths: 4,
     lat: 41.3823,
     lng: 2.1717,
   },
@@ -145,7 +162,7 @@ export const projectLocations: Record<string, ProjectLocation> = {
     address: "C/ Balmes",
     year: 2024,
     area: "95 m²",
-    duration: "3 meses",
+    durationMonths: 3,
     lat: 41.3963,
     lng: 2.1543,
   },
@@ -153,7 +170,7 @@ export const projectLocations: Record<string, ProjectLocation> = {
     neighborhood: "Sant Andreu",
     year: 2023,
     area: "320 m²",
-    duration: "1 mes",
+    durationMonths: 1,
     lat: 41.4341,
     lng: 2.1903,
   },

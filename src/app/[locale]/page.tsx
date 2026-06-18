@@ -322,7 +322,7 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
           <RevealOnScroll direction="none">
             <p className="text-white/40 text-[11px] font-semibold tracking-[0.32em] uppercase mb-12 flex items-center gap-4">
               <span className="w-8 h-[1px] bg-white/40" />
-              Testimonio
+              {t("home.testimonioEyebrow")}
             </p>
           </RevealOnScroll>
           <TextReveal as="p" className="font-display text-white text-[clamp(1.75rem,4vw,3.5rem)] font-medium leading-[1.18] tracking-[-0.02em] text-balance">

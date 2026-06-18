@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getProjects } from "@/lib/projects";
 import type { Project } from "@/lib/projects";
-import { serviceKeyMap, serviceSlugs } from "@/lib/site-config";
+import { serviceKeyMap, serviceSlugs, ogMeta } from "@/lib/site-config";
 import {
   RevealOnScroll,
   TextReveal,
@@ -23,6 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: t("titulo"),
     description: t("intro"),
+    openGraph: ogMeta(locale, t("titulo"), t("intro")),
     alternates: {
       canonical: `/${locale}/portfolio`,
       languages: {

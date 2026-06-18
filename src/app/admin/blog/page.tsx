@@ -17,6 +17,9 @@ export default async function BlogAdminPage() {
   const sorted = [...posts].sort(
     (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
   );
+  // Hora de la petición: válida aquí porque es un Server Component dinámico (force-dynamic).
+  // eslint-disable-next-line react-hooks/purity -- Date.now() es correcto en un render de servidor por petición
+  const now = Date.now();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -58,7 +61,7 @@ export default async function BlogAdminPage() {
           <div className="space-y-3">
             {sorted.map((post) => {
               const category = categories.find((c) => c.slug === post.categorySlug);
-              const isScheduled = post.status === "published" && new Date(post.publishedAt).getTime() > Date.now();
+              const isScheduled = post.status === "published" && new Date(post.publishedAt).getTime() > now;
               return (
                 <div
                   key={post.slug}

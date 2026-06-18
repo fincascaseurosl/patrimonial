@@ -30,6 +30,13 @@ type Strings = {
 
 type CategoryLabels = Record<string, string>;
 
+// Formatea la duración (en meses) según el idioma de la ficha.
+function formatMonths(months: number, locale: string): string {
+  if (locale === "en") return `${months} month${months === 1 ? "" : "s"}`;
+  if (locale === "ca") return `${months} ${months === 1 ? "mes" : "mesos"}`;
+  return `${months} ${months === 1 ? "mes" : "meses"}`;
+}
+
 type Props = {
   projects: Project[];
   locale: string;
@@ -376,12 +383,12 @@ export function PortfolioMap({ projects, locale, strings, categoryLabels }: Prop
                     <dd className="text-[var(--ink)] text-sm tabular-nums">{selectedLocation.area}</dd>
                   </div>
                 )}
-                {selectedLocation.duration && (
+                {selectedLocation.durationMonths != null && (
                   <div>
                     <dt className="text-[var(--mute)] text-[10px] font-semibold tracking-[0.32em] uppercase mb-2">
                       {strings.fichaDuracion}
                     </dt>
-                    <dd className="text-[var(--ink)] text-sm">{selectedLocation.duration}</dd>
+                    <dd className="text-[var(--ink)] text-sm">{formatMonths(selectedLocation.durationMonths, locale)}</dd>
                   </div>
                 )}
               </dl>
