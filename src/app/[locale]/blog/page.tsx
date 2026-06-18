@@ -24,6 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         ? "Advice and updates on construction, renovations and building refurbishment in Barcelona."
         : "Consejos y novedades sobre construcción, reformas y rehabilitación en Barcelona.",
     alternates: {
+      canonical: `/${locale}/blog`,
       languages: {
         es: "/es/blog",
         ca: "/ca/blog",

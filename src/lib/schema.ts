@@ -32,7 +32,7 @@ export function getLocalBusinessSchema(locale: string) {
       "@type": "City",
       name: "Barcelona",
     },
-    image: `${siteConfig.url}/images/logos/patrimonial-logo.png`,
+    image: `${siteConfig.url}/images/logo/logo.png`,
     priceRange: "$$",
     serviceType:
       locale === "ca"

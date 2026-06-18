@@ -15,6 +15,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: t("titulo"),
     description: t("subtitulo"),
     alternates: {
+      canonical:
+        locale === "ca" ? "/ca/contacte" : locale === "en" ? "/en/contact" : "/es/contacto",
       languages: {
         es: "/es/contacto",
         ca: "/ca/contacte",

@@ -38,6 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         ? `Project: ${name}. See photos of the work completed in Barcelona.`
         : `Proyecto: ${name}. Ver las fotos del trabajo realizado en Barcelona.`,
     alternates: {
+      canonical: `/${locale}/portfolio/${slug}`,
       languages: {
         es: `/es/portfolio/${slug}`,
         ca: `/ca/portfolio/${slug}`,

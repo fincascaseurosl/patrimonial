@@ -27,6 +27,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         ? "All our construction, renovation and refurbishment services in Barcelona. No-obligation quote."
         : "Todos los servicios de construccion, reformas y rehabilitacion en Barcelona. Presupuesto sin compromiso.",
     alternates: {
+      canonical:
+        locale === "ca" ? "/ca/serveis" : locale === "en" ? "/en/services" : "/es/servicios",
       languages: {
         es: "/es/servicios",
         ca: "/ca/serveis",

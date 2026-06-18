@@ -39,6 +39,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: nombre,
     description: t(`items.${key}.descripcion`),
     alternates: {
+      canonical:
+        locale === "ca"
+          ? `/ca/serveis/${slugCa[slug] || slug}`
+          : locale === "en"
+          ? `/en/services/${slug}`
+          : `/es/servicios/${slug}`,
       languages: {
         es: `/es/servicios/${slug}`,
         ca: `/ca/serveis/${slugCa[slug] || slug}`,

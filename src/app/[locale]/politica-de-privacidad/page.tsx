@@ -16,6 +16,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         : "Política de privacidad",
     robots: { index: false, follow: false },
     alternates: {
+      canonical:
+        locale === "ca"
+          ? "/ca/politica-de-privacitat"
+          : locale === "en"
+          ? "/en/privacy-policy"
+          : "/es/politica-de-privacidad",
       languages: {
         es: "/es/politica-de-privacidad",
         ca: "/ca/politica-de-privacitat",

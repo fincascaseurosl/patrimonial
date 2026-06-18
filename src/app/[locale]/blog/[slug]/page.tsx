@@ -121,7 +121,7 @@ function PostContent({ post, related, categories, locale }: {
     publisher: {
       "@type": "Organization",
       name: siteConfig.nombre,
-      logo: { "@type": "ImageObject", url: `${siteConfig.url}/images/logo.png` },
+      logo: { "@type": "ImageObject", url: `${siteConfig.url}/images/logo/logo.png` },
     },
     mainEntityOfPage: {
       "@type": "WebPage",
