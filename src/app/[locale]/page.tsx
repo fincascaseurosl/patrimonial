@@ -410,7 +410,7 @@ function CatalunyaMap() {
     <div className="relative aspect-[3/2] w-full scale-[1.15] origin-center">
       <Image
         src="/images/catalunya-map.png"
-        alt="Mapa de Catalunya"
+        alt=""
         fill
         sizes="(max-width: 768px) 100vw, 600px"
         className="object-contain select-none pointer-events-none"

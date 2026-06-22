@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter_Tight } from "next/font/google";
-import { NextIntlClientProvider, useMessages } from "next-intl";
+import { NextIntlClientProvider } from "next-intl";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
@@ -31,6 +31,8 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "meta" });
+  const ogLocale =
+    locale === "ca" ? "ca_ES" : locale === "en" ? "en_US" : "es_ES";
 
   return {
     title: {
@@ -53,8 +55,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: t("description"),
       url: siteConfig.url,
       siteName: siteConfig.nombre,
-      locale:
-        locale === "ca" ? "ca_ES" : locale === "en" ? "en_US" : "es_ES",
+      locale: ogLocale,
+      alternateLocale: ["es_ES", "ca_ES", "en_US"].filter((l) => l !== ogLocale),
       type: "website",
     },
     robots: {

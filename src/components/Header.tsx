@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
-import { siteConfig, serviceSlugs, serviceKeyMap } from "@/lib/site-config";
+import { serviceSlugs, serviceKeyMap } from "@/lib/site-config";
 import { useLocale } from "next-intl";
 import { useState, useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";

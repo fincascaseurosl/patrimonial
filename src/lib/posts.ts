@@ -33,8 +33,6 @@ const BLOB_KEY = "posts.json";
 const LOCAL_DIR = join(process.cwd(), "data");
 const LOCAL_FILE = join(LOCAL_DIR, "posts.json");
 
-const NOW = () => new Date().toISOString();
-
 const DEFAULTS: Post[] = [
   {
     slug: "como-detectar-amianto-en-viviendas",

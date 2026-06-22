@@ -140,7 +140,7 @@ export function QueueManager({ initial }: { initial: QueueItem[] }) {
               <Link className="underline" href="/admin/blog/sources">
                 Fuentes RSS
               </Link>{" "}
-              y haz "Ingerir todas ahora" para empezar.
+              y haz «Ingerir todas ahora» para empezar.
             </p>
           )}
         </div>
