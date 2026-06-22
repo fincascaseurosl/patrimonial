@@ -1,6 +1,7 @@
 import { useTranslations, useMessages } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import Image from "next/image";
 import { serviceKeyMap } from "@/lib/site-config";
 import { getProjects } from "@/lib/projects";
 import type { Project } from "@/lib/projects";
@@ -407,11 +408,12 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
 function CatalunyaMap() {
   return (
     <div className="relative aspect-[3/2] w-full scale-[1.15] origin-center">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
         src="/images/catalunya-map.png"
         alt="Mapa de Catalunya"
-        className="absolute inset-0 w-full h-full object-contain select-none pointer-events-none"
+        fill
+        sizes="(max-width: 768px) 100vw, 600px"
+        className="object-contain select-none pointer-events-none"
         draggable={false}
       />
     </div>

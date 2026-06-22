@@ -1,6 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import {
   getPublicPosts,
@@ -185,11 +186,16 @@ function PostContent({ post, related, categories, locale }: {
         {post.featuredImage && (
           <div className="bg-[var(--bone-deep)]">
             <div className="max-w-5xl mx-auto">
-              <img
-                src={post.featuredImage}
-                alt={title}
-                className="w-full aspect-[16/9] object-cover"
-              />
+              <div className="relative w-full aspect-[16/9]">
+                <Image
+                  src={post.featuredImage}
+                  alt={title}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 1024px"
+                  className="object-cover"
+                />
+              </div>
             </div>
           </div>
         )}
@@ -241,12 +247,14 @@ function PostContent({ post, related, categories, locale }: {
                     href={{ pathname: "/blog/[slug]", params: { slug: rp.slug } }}
                     className="cursor-grow group block"
                   >
-                    <div className="aspect-[16/10] bg-[var(--bone-deep)] overflow-hidden mb-4">
+                    <div className="relative aspect-[16/10] bg-[var(--bone-deep)] overflow-hidden mb-4">
                       {rp.featuredImage && (
-                        <img
+                        <Image
                           src={rp.featuredImage}
                           alt={rTitle}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                          fill
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                          className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                         />
                       )}
                     </div>

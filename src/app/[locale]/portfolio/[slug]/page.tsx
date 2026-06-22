@@ -1,6 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import Image from "next/image";
 import { getProjects, getProjectName, getProjectDescription } from "@/lib/projects";
 import type { Project } from "@/lib/projects";
 import { serviceKeyMap } from "@/lib/site-config";
@@ -109,11 +110,17 @@ function ProjectContent({ project, locale }: { project: Project; locale: string 
             {project.images.map((img, i) => (
               <div
                 key={i}
-                className={`overflow-hidden bg-[var(--bone-deep)] ${
+                className={`relative overflow-hidden bg-[var(--bone-deep)] ${
                   i === 0 && project.images.length > 2 ? "sm:col-span-2 aspect-[16/9]" : "aspect-[4/3]"
                 }`}
               >
-                <img src={img} alt={`${name} – ${i + 1}`} className="w-full h-full object-cover" />
+                <Image
+                  src={img}
+                  alt={`${name} – ${i + 1}`}
+                  fill
+                  sizes="(max-width: 640px) 100vw, 50vw"
+                  className="object-cover"
+                />
               </div>
             ))}
           </StaggerChildren>

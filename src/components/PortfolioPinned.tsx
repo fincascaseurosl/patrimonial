@@ -5,6 +5,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "@/i18n/navigation";
+import Image from "next/image";
 import type { Project } from "@/lib/projects";
 import { getProjectName } from "@/lib/project-helpers";
 
@@ -156,12 +157,15 @@ export function PortfolioPinned({ projects, locale, eyebrow, titulo, verTodos, v
                   href={{ pathname: "/portfolio/[slug]", params: { slug: project.slug } }}
                   className="cursor-grow group relative overflow-hidden bg-[var(--ink)] aspect-[4/3]"
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={project.images[0]}
-                    alt={name}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.07]"
-                  />
+                  {project.images[0] && (
+                    <Image
+                      src={project.images[0]}
+                      alt={name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.07]"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/80 via-[var(--ink)]/15 to-transparent" />
                   <div className="absolute top-5 left-5">
                     <span className="text-white/40 text-[10px] font-semibold tracking-[0.3em] tabular-nums">
@@ -244,13 +248,16 @@ export function PortfolioPinned({ projects, locale, eyebrow, titulo, verTodos, v
                   style={{ width: "60vw", maxWidth: "880px" }}
                 >
                   <div className="relative aspect-[4/3] overflow-hidden bg-[var(--ink)]">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={project.images[0]}
-                      alt={name}
-                      className="pp-image absolute inset-0 w-full h-full object-cover"
-                      style={{ willChange: "transform" }}
-                    />
+                    {project.images[0] && (
+                      <Image
+                        src={project.images[0]}
+                        alt={name}
+                        fill
+                        sizes="(max-width: 880px) 60vw, 880px"
+                        className="pp-image object-cover"
+                        style={{ willChange: "transform" }}
+                      />
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/65 via-[var(--ink)]/10 to-transparent" />
                     <div className="absolute inset-0 bg-[var(--ink)]/0 group-hover:bg-[var(--ink)]/10 transition-colors duration-700" />
 

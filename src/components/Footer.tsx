@@ -21,11 +21,14 @@ export function Footer() {
               {t("footer.descripcion")}
             </p>
             <div className="flex gap-4 mt-6">
+              {/* Insignias de financiación oficiales: se muestran tal cual, sin optimizar. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/logo/eu.png"
                 alt={t("footer.financiadoUE")}
                 className="h-8 object-contain opacity-50"
               />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/logo/prtr.png"
                 alt={t("footer.prtr")}
