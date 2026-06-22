@@ -97,6 +97,7 @@ export function CategoriesManager({ initial }: { initial: Category[] }) {
             type="text"
             value={newNameEs}
             onChange={(e) => setNewNameEs(e.target.value)}
+            aria-label="Nombre en español"
             placeholder="Nombre en español"
             required
             className="px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
@@ -105,6 +106,7 @@ export function CategoriesManager({ initial }: { initial: Category[] }) {
             type="text"
             value={newNameCa}
             onChange={(e) => setNewNameCa(e.target.value)}
+            aria-label="Nom en català"
             placeholder="Nom en català (opcional)"
             className="px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
           />
@@ -112,6 +114,7 @@ export function CategoriesManager({ initial }: { initial: Category[] }) {
             type="text"
             value={newNameEn}
             onChange={(e) => setNewNameEn(e.target.value)}
+            aria-label="Name in English"
             placeholder="Name in English (optional)"
             className="px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
           />

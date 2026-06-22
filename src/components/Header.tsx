@@ -128,9 +128,17 @@ export function Header() {
                   className="relative"
                   onMouseEnter={handleServicesEnter}
                   onMouseLeave={handleServicesLeave}
+                  onFocus={handleServicesEnter}
+                  onBlur={handleServicesLeave}
+                  onKeyDown={(e) => {
+                    if (e.key === "Escape") setServicesOpen(false);
+                  }}
                 >
                   <Link
                     href={item.href}
+                    aria-haspopup="menu"
+                    aria-expanded={servicesOpen}
+                    aria-controls="servicios-menu"
                     className={`relative flex items-center gap-1 px-4 py-2 text-[13px] font-medium tracking-wide uppercase transition-all duration-300 ${
                       pathname.startsWith("/servicios")
                         ? scrolled
@@ -158,6 +166,8 @@ export function Header() {
 
                   {/* Dropdown panel */}
                   <div
+                    id="servicios-menu"
+                    role="menu"
                     className={`absolute top-full left-0 pt-2 transition-all duration-200 ${
                       servicesOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-1"
                     }`}
@@ -297,6 +307,8 @@ export function Header() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
             className={`lg:hidden p-2 transition-colors duration-300 ${
               scrolled ? "text-[var(--color-dark)]" : "text-white"
             }`}
@@ -332,6 +344,7 @@ export function Header() {
         {mobileMenuOpen && (
           <div
             ref={mobileMenuRef}
+            id="mobile-menu"
             className="lg:hidden bg-white border-t border-gray-100"
           >
             <div className="px-6 py-6 space-y-1">
@@ -340,6 +353,7 @@ export function Header() {
                   <div key={item.href} className="mobile-services-group">
                     <button
                       onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                      aria-expanded={mobileServicesOpen}
                       className={`flex items-center justify-between w-full px-3 py-3 text-[14px] font-medium tracking-wide uppercase transition-colors duration-300 ${
                         pathname.startsWith("/servicios")
                           ? "text-[var(--color-dark)] border-l-2 border-[var(--color-primary)] pl-4"

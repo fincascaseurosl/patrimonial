@@ -1,6 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 
 async function expectedToken(): Promise<string> {
+  if (
+    process.env.VERCEL_ENV === "production" &&
+    (!process.env.ADMIN_PASSWORD || !process.env.ADMIN_SECRET)
+  ) {
+    throw new Error(
+      "ADMIN_PASSWORD y ADMIN_SECRET deben estar configurados en producción",
+    );
+  }
   const password = process.env.ADMIN_PASSWORD ?? "";
   const secret = process.env.ADMIN_SECRET ?? "dev-secret";
   const enc = new TextEncoder();

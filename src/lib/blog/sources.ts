@@ -1,6 +1,6 @@
-import { put, del, list } from "@vercel/blob";
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "fs";
 import { join } from "path";
+import { readBlobJson, writeBlobJson } from "../blob-json";
 
 export type BlogSource = {
   id: string;
@@ -14,22 +14,13 @@ export type BlogSource = {
 };
 
 const BLOB_KEY = "blog-sources.json";
+const BLOB_PREFIX = "blog-sources";
 const LOCAL_DIR = join(process.cwd(), "data");
 const LOCAL_FILE = join(LOCAL_DIR, "blog-sources.json");
 
 export async function getSources(): Promise<BlogSource[]> {
   if (process.env.BLOB_READ_WRITE_TOKEN) {
-    try {
-      const { blobs } = await list({ prefix: BLOB_KEY });
-      const blob = blobs.find((b) => b.pathname === BLOB_KEY);
-      if (!blob) return [];
-      const res = await fetch(blob.url, {
-        next: { revalidate: 30 },
-      } as RequestInit);
-      return await res.json();
-    } catch {
-      return [];
-    }
+    return readBlobJson<BlogSource[]>(BLOB_PREFIX, []);
   }
   if (!existsSync(LOCAL_FILE)) return [];
   try {
@@ -40,11 +31,8 @@ export async function getSources(): Promise<BlogSource[]> {
 }
 
 export async function saveSources(sources: BlogSource[]): Promise<void> {
-  const body = JSON.stringify(sources);
   if (process.env.BLOB_READ_WRITE_TOKEN) {
-    const { blobs } = await list({ prefix: BLOB_KEY });
-    await Promise.all(blobs.map((b) => del(b.url)));
-    await put(BLOB_KEY, body, { access: "public", addRandomSuffix: false });
+    await writeBlobJson(BLOB_PREFIX, BLOB_KEY, sources);
   } else {
     if (!existsSync(LOCAL_DIR)) mkdirSync(LOCAL_DIR, { recursive: true });
     writeFileSync(LOCAL_FILE, JSON.stringify(sources, null, 2));

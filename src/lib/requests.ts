@@ -1,7 +1,7 @@
-import { put, del, list } from "@vercel/blob";
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "fs";
 import { join } from "path";
 import { randomUUID } from "crypto";
+import { readBlobJson, writeBlobJson } from "./blob-json";
 
 export type RequestStatus = "new" | "read" | "replied" | "archived";
 
@@ -23,21 +23,13 @@ export type ContactRequest = {
 };
 
 const BLOB_KEY = "requests.json";
+const BLOB_PREFIX = "requests";
 const LOCAL_DIR = join(process.cwd(), "data");
 const LOCAL_FILE = join(LOCAL_DIR, "requests.json");
 
 export async function getRequests(): Promise<ContactRequest[]> {
   if (process.env.BLOB_READ_WRITE_TOKEN) {
-    try {
-      const { blobs } = await list({ prefix: BLOB_KEY });
-      const blob = blobs.find((b) => b.pathname === BLOB_KEY);
-      if (!blob) return [];
-      // Sin caché aquí: queremos los datos siempre frescos en admin
-      const res = await fetch(blob.url, { cache: "no-store" });
-      return await res.json();
-    } catch {
-      return [];
-    }
+    return readBlobJson<ContactRequest[]>(BLOB_PREFIX, []);
   }
   if (!existsSync(LOCAL_FILE)) return [];
   try {
@@ -48,11 +40,8 @@ export async function getRequests(): Promise<ContactRequest[]> {
 }
 
 export async function saveRequests(requests: ContactRequest[]): Promise<void> {
-  const body = JSON.stringify(requests);
   if (process.env.BLOB_READ_WRITE_TOKEN) {
-    const { blobs } = await list({ prefix: BLOB_KEY });
-    await Promise.all(blobs.map((b) => del(b.url)));
-    await put(BLOB_KEY, body, { access: "public", addRandomSuffix: false });
+    await writeBlobJson(BLOB_PREFIX, BLOB_KEY, requests);
   } else {
     if (!existsSync(LOCAL_DIR)) mkdirSync(LOCAL_DIR, { recursive: true });
     writeFileSync(LOCAL_FILE, JSON.stringify(requests, null, 2));

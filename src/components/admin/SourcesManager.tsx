@@ -105,6 +105,7 @@ export function SourcesManager({ initial }: { initial: BlogSource[] }) {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            aria-label="Nombre de la fuente"
             placeholder="Nombre (ej. Idealista News)"
             required
             className="px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
@@ -113,6 +114,7 @@ export function SourcesManager({ initial }: { initial: BlogSource[] }) {
             type="url"
             value={feedUrl}
             onChange={(e) => setFeedUrl(e.target.value)}
+            aria-label="URL del feed RSS"
             placeholder="https://...feed.xml"
             required
             className="px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
