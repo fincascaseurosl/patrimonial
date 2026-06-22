@@ -36,6 +36,11 @@ export async function POST(req: NextRequest, { params }: Params) {
   }
 
   const now = new Date().toISOString();
+  // next/image solo optimiza imágenes locales o de hosts permitidos (Vercel Blob).
+  // Las imágenes externas del RSS romperían <Image> en producción, así que se descartan.
+  const src = item.sourceImage ?? "";
+  const featuredImage =
+    src.startsWith("/") || src.includes(".public.blob.vercel-storage.com") ? src : "";
   const newPost: Post = {
     slug: item.aiSlug,
     titleEs: item.aiTitleEs,
@@ -47,7 +52,7 @@ export async function POST(req: NextRequest, { params }: Params) {
     bodyEs: item.aiBodyEs,
     bodyCa: item.aiBodyCa ?? "",
     bodyEn: item.aiBodyEn ?? "",
-    featuredImage: item.sourceImage ?? "",
+    featuredImage,
     categorySlug: item.aiCategorySlug ?? "",
     metaTitleEs: item.aiMetaTitleEs ?? "",
     metaTitleCa: item.aiMetaTitleCa ?? "",

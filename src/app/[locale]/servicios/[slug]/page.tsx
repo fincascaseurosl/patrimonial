@@ -25,29 +25,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const key = serviceKeyMap[slug as ServiceSlug];
   const t = await getTranslations({ locale, namespace: "servicios" });
   const nombre = t(`items.${key}.nombre`);
-  const slugCa: Record<string, string> = {
-    reformas: "reformes",
-    "obra-nueva": "obra-nova",
-    rehabilitacion: "rehabilitacio",
-    instalaciones: "instal-lacions",
-    amianto: "amiant",
-    "trabajos-verticales": "treballs-verticals",
-    refuerzos: "reforcos",
-    impermeabilizacion: "impermeabilitzacio",
-  };
+  // El valor del [slug] NO se traduce (next-intl solo traduce el prefijo /serveis).
+  // Las URLs reales usan siempre el slug en español, igual que enlaces y sitemap.
   return {
     title: nombre,
     description: t(`items.${key}.descripcion`),
     alternates: {
       canonical:
         locale === "ca"
-          ? `/ca/serveis/${slugCa[slug] || slug}`
+          ? `/ca/serveis/${slug}`
           : locale === "en"
           ? `/en/services/${slug}`
           : `/es/servicios/${slug}`,
       languages: {
         es: `/es/servicios/${slug}`,
-        ca: `/ca/serveis/${slugCa[slug] || slug}`,
+        ca: `/ca/serveis/${slug}`,
         en: `/en/services/${slug}`,
         "x-default": `/es/servicios/${slug}`,
       },

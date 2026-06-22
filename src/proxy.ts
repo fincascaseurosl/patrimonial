@@ -24,6 +24,17 @@ async function expectedToken(): Promise<string> {
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // Rutas API de administración: protegidas salvo el endpoint de login.
+  if (pathname.startsWith("/api/admin")) {
+    if (pathname === "/api/admin/auth") return NextResponse.next();
+    const token = request.cookies.get("admin_session")?.value;
+    const expected = await expectedToken();
+    if (token !== expected) {
+      return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+    }
+    return NextResponse.next();
+  }
+
   if (pathname.startsWith("/admin")) {
     if (pathname === "/admin/login") return NextResponse.next();
 
@@ -41,5 +52,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/(es|ca|en)/:path*", "/admin", "/admin/:path*"],
+  matcher: ["/", "/(es|ca|en)/:path*", "/admin", "/admin/:path*", "/api/admin/:path*"],
 };
