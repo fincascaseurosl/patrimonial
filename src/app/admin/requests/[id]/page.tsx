@@ -1,6 +1,5 @@
 import { getRequests } from "@/lib/requests";
 import { notFound } from "next/navigation";
-import { AdminNav } from "@/components/admin/AdminNav";
 import { AdminBackLink } from "@/components/admin/AdminBackLink";
 import { RequestDetail } from "@/components/admin/RequestDetail";
 
@@ -16,12 +15,11 @@ export default async function RequestDetailPage({ params }: Props) {
   if (!req) notFound();
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <AdminNav />
-      <main className="max-w-3xl mx-auto px-6 py-10">
-        <AdminBackLink href="/admin/requests" label="Volver a solicitudes" />
+    <div className="max-w-3xl">
+      <AdminBackLink href="/admin/requests" label="Volver a solicitudes" />
+      <div className="mt-2">
         <RequestDetail initial={req} />
-      </main>
+      </div>
     </div>
   );
 }

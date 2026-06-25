@@ -33,16 +33,27 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-[var(--ink)] px-4">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Panel de Administración</h1>
-          <p className="text-sm text-gray-500 mt-1">Patrimonial Obras Barcelona</p>
+          <span className="mx-auto mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--brand-red)] text-xl font-bold text-white">
+            P
+          </span>
+          <h1 className="font-display text-2xl font-bold tracking-tight text-white">
+            Panel de administración
+          </h1>
+          <p className="mt-1 text-sm text-white/40">Patrimonial Obras Barcelona</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 space-y-5">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-5 rounded-2xl border border-[var(--line)] bg-white p-8 shadow-xl"
+        >
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label
+              htmlFor="password"
+              className="mb-1.5 block text-sm font-medium text-[var(--ink-soft)]"
+            >
               Contraseña
             </label>
             <input
@@ -52,19 +63,21 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
               autoFocus
-              className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition"
+              className="w-full rounded-lg border border-[var(--line)] px-3.5 py-2.5 text-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[var(--brand-red)]"
               placeholder="••••••••"
             />
           </div>
 
           {error && (
-            <p className="text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg">{error}</p>
+            <p className="rounded-lg bg-[var(--brand-red)]/10 px-3 py-2 text-sm text-[var(--brand-red)]">
+              {error}
+            </p>
           )}
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 px-4 bg-red-600 text-white text-sm font-semibold rounded-lg hover:bg-red-700 disabled:opacity-60 transition"
+            className="w-full rounded-lg bg-[var(--brand-red)] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[var(--brand-red-deep)] disabled:opacity-60"
           >
             {loading ? "Accediendo…" : "Acceder"}
           </button>

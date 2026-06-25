@@ -1,14 +1,16 @@
 import { getPosts } from "@/lib/posts";
 import { getCategories } from "@/lib/categories";
 import Link from "next/link";
-import { AdminNav } from "@/components/admin/AdminNav";
 import { DeletePostButton } from "@/components/admin/DeletePostButton";
+import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 
 export const dynamic = "force-dynamic";
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("es-ES", {
-    day: "2-digit", month: "short", year: "numeric",
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
   });
 }
 
@@ -17,96 +19,112 @@ export default async function BlogAdminPage() {
   const sorted = [...posts].sort(
     (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
   );
+  const published = posts.filter((p) => p.status === "published").length;
   // Hora de la petición: válida aquí porque es un Server Component dinámico (force-dynamic).
   // eslint-disable-next-line react-hooks/purity -- Date.now() es correcto en un render de servidor por petición
   const now = Date.now();
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <AdminNav />
+    <>
+      <AdminPageHeader
+        title="Blog"
+        subtitle={`${posts.length} post${posts.length !== 1 ? "s" : ""} · ${published} publicado${published !== 1 ? "s" : ""}`}
+      >
+        <Link
+          href="/admin/blog/new"
+          className="inline-flex items-center gap-2 rounded-lg bg-[var(--brand-red)] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[var(--brand-red-deep)]"
+        >
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+          </svg>
+          Nuevo post
+        </Link>
+      </AdminPageHeader>
 
-      <main className="max-w-6xl mx-auto px-6 py-10">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-xl font-bold text-gray-900">Blog</h1>
-            <p className="text-sm text-gray-500 mt-0.5">
-              {posts.length} post{posts.length !== 1 ? "s" : ""}
-              {" · "}
-              {posts.filter((p) => p.status === "published").length} publicado{posts.filter((p) => p.status === "published").length !== 1 ? "s" : ""}
-            </p>
-          </div>
-          <Link
-            href="/admin/blog/new"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-sm font-semibold rounded-lg hover:bg-red-700 transition"
-          >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-            </svg>
-            Nuevo post
+      {categories.length === 0 && (
+        <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+          No tienes categorías creadas todavía.{" "}
+          <Link href="/admin/categories" className="font-semibold underline">
+            Crear primera categoría →
           </Link>
         </div>
+      )}
 
-        {categories.length === 0 && (
-          <div className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-6 text-sm text-amber-800">
-            No tienes categorías creadas todavía. <Link href="/admin/categories" className="font-semibold underline">Crear primera categoría →</Link>
-          </div>
-        )}
+      {sorted.length === 0 ? (
+        <div className="rounded-2xl border border-dashed border-[var(--line)] bg-white py-20 text-center">
+          <p className="font-display text-lg font-bold text-[var(--ink)]">
+            Aún no hay posts
+          </p>
+          <p className="mt-1 text-sm text-[var(--mute)]">
+            Crea el primero con el botón de arriba.
+          </p>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {sorted.map((post) => {
+            const category = categories.find((c) => c.slug === post.categorySlug);
+            const isScheduled =
+              post.status === "published" &&
+              new Date(post.publishedAt).getTime() > now;
+            return (
+              <div
+                key={post.slug}
+                className="flex items-center gap-4 rounded-xl border border-[var(--line)] bg-white p-3.5 transition hover:shadow-[0_4px_16px_rgba(0,0,0,0.05)]"
+              >
+                <div className="h-14 w-20 shrink-0 overflow-hidden rounded-lg bg-[var(--bone-deep)]">
+                  {post.featuredImage && (
+                    /* eslint-disable-next-line @next/next/no-img-element -- preview interno de admin */
+                    <img
+                      src={post.featuredImage}
+                      alt={post.titleEs}
+                      className="h-full w-full object-cover"
+                    />
+                  )}
+                </div>
 
-        {sorted.length === 0 ? (
-          <div className="text-center py-20 text-gray-400">
-            <p className="text-lg font-medium">Aún no hay posts</p>
-            <p className="text-sm mt-1">Crea el primero con el botón de arriba</p>
-          </div>
-        ) : (
-          <div className="space-y-3">
-            {sorted.map((post) => {
-              const category = categories.find((c) => c.slug === post.categorySlug);
-              const isScheduled = post.status === "published" && new Date(post.publishedAt).getTime() > now;
-              return (
-                <div
-                  key={post.slug}
-                  className="bg-white rounded-xl border border-gray-200 p-4 flex items-center gap-4"
-                >
-                  <div className="w-20 h-14 rounded-lg overflow-hidden bg-gray-100 shrink-0">
-                    {post.featuredImage && (
-                      <img src={post.featuredImage} alt={post.titleEs} className="w-full h-full object-cover" />
+                <div className="min-w-0 flex-1">
+                  <div className="mb-1 flex items-center gap-2">
+                    {post.status === "draft" ? (
+                      <span className="rounded px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-gray-200 text-gray-700">
+                        Borrador
+                      </span>
+                    ) : isScheduled ? (
+                      <span className="rounded px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800">
+                        Programado
+                      </span>
+                    ) : (
+                      <span className="rounded px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-700">
+                        Publicado
+                      </span>
+                    )}
+                    {category && (
+                      <span className="rounded-full bg-[var(--bone)] px-2 py-0.5 text-xs font-medium text-[var(--ink-soft)]">
+                        {category.nameEs}
+                      </span>
                     )}
                   </div>
-
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      {post.status === "draft" ? (
-                        <span className="text-[10px] font-bold uppercase tracking-wider bg-gray-200 text-gray-700 px-2 py-0.5 rounded">Borrador</span>
-                      ) : isScheduled ? (
-                        <span className="text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800 px-2 py-0.5 rounded">Programado</span>
-                      ) : (
-                        <span className="text-[10px] font-bold uppercase tracking-wider bg-green-100 text-green-800 px-2 py-0.5 rounded">Publicado</span>
-                      )}
-                      {category && (
-                        <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
-                          {category.nameEs}
-                        </span>
-                      )}
-                    </div>
-                    <p className="font-semibold text-gray-900 truncate">{post.titleEs}</p>
-                    <p className="text-xs text-gray-400 mt-0.5">{formatDate(post.publishedAt)}</p>
-                  </div>
-
-                  <div className="flex items-center gap-2 shrink-0">
-                    <Link
-                      href={`/admin/blog/${post.slug}/edit`}
-                      className="px-3 py-1.5 text-xs font-semibold text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition"
-                    >
-                      Editar
-                    </Link>
-                    <DeletePostButton slug={post.slug} title={post.titleEs} />
-                  </div>
+                  <p className="truncate font-semibold text-[var(--ink)]">
+                    {post.titleEs}
+                  </p>
+                  <p className="mt-0.5 text-xs text-[var(--mute-soft)]">
+                    {formatDate(post.publishedAt)}
+                  </p>
                 </div>
-              );
-            })}
-          </div>
-        )}
-      </main>
-    </div>
+
+                <div className="flex shrink-0 items-center gap-2">
+                  <Link
+                    href={`/admin/blog/${post.slug}/edit`}
+                    className="rounded-lg bg-[var(--bone)] px-3 py-1.5 text-xs font-semibold text-[var(--ink-soft)] transition hover:bg-[var(--bone-deep)]"
+                  >
+                    Editar
+                  </Link>
+                  <DeletePostButton slug={post.slug} title={post.titleEs} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </>
   );
 }

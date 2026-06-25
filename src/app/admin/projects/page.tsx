@@ -1,7 +1,7 @@
 import { getProjects } from "@/lib/projects";
 import Link from "next/link";
 import { DeleteButton } from "@/components/admin/DeleteButton";
-import { AdminNav } from "@/components/admin/AdminNav";
+import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 
 export const dynamic = "force-dynamic";
 
@@ -10,72 +10,76 @@ export default async function ProjectsAdminPage() {
   const sorted = [...projects].sort((a, b) => a.order - b.order);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <AdminNav />
+    <>
+      <AdminPageHeader
+        title="Proyectos"
+        subtitle={`${projects.length} proyecto${projects.length !== 1 ? "s" : ""} en el portfolio`}
+      >
+        <Link
+          href="/admin/projects/new"
+          className="inline-flex items-center gap-2 rounded-lg bg-[var(--brand-red)] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[var(--brand-red-deep)]"
+        >
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+          </svg>
+          Nuevo proyecto
+        </Link>
+      </AdminPageHeader>
 
-      <main className="max-w-6xl mx-auto px-6 py-10">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-xl font-bold text-gray-900">Proyectos</h1>
-            <p className="text-sm text-gray-500 mt-0.5">
-              {projects.length} proyecto{projects.length !== 1 ? "s" : ""}
-            </p>
-          </div>
-          <Link
-            href="/admin/projects/new"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-sm font-semibold rounded-lg hover:bg-red-700 transition"
-          >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-            </svg>
-            Nuevo proyecto
-          </Link>
+      {sorted.length === 0 ? (
+        <div className="rounded-2xl border border-dashed border-[var(--line)] bg-white py-20 text-center">
+          <p className="font-display text-lg font-bold text-[var(--ink)]">
+            Aún no hay proyectos
+          </p>
+          <p className="mt-1 text-sm text-[var(--mute)]">
+            Crea el primero con el botón de arriba.
+          </p>
         </div>
+      ) : (
+        <div className="space-y-3">
+          {sorted.map((project) => (
+            <div
+              key={project.slug}
+              className="flex items-center gap-4 rounded-xl border border-[var(--line)] bg-white p-3.5 transition hover:shadow-[0_4px_16px_rgba(0,0,0,0.05)]"
+            >
+              <div className="h-14 w-20 shrink-0 overflow-hidden rounded-lg bg-[var(--bone-deep)]">
+                {project.images[0] && (
+                  /* eslint-disable-next-line @next/next/no-img-element -- preview interno de admin */
+                  <img
+                    src={project.images[0]}
+                    alt={project.nameEs}
+                    className="h-full w-full object-cover"
+                  />
+                )}
+              </div>
 
-        {sorted.length === 0 ? (
-          <div className="text-center py-20 text-gray-400">
-            <p className="text-lg font-medium">Aún no hay proyectos</p>
-            <p className="text-sm mt-1">Crea el primero con el botón de arriba</p>
-          </div>
-        ) : (
-          <div className="space-y-3">
-            {sorted.map((project) => (
-              <div
-                key={project.slug}
-                className="bg-white rounded-xl border border-gray-200 p-4 flex items-center gap-4"
-              >
-                <div className="w-20 h-14 rounded-lg overflow-hidden bg-gray-100 shrink-0">
-                  {project.images[0] && (
-                    <img src={project.images[0]} alt={project.nameEs} className="w-full h-full object-cover" />
-                  )}
-                </div>
-
-                <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-gray-900 truncate">{project.nameEs}</p>
-                  <div className="flex items-center gap-2 mt-0.5">
-                    <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
-                      {project.category}
-                    </span>
-                    <span className="text-xs text-gray-400">
-                      {project.images.length} foto{project.images.length !== 1 ? "s" : ""}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2 shrink-0">
-                  <Link
-                    href={`/admin/projects/${project.slug}/edit`}
-                    className="px-3 py-1.5 text-xs font-semibold text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition"
-                  >
-                    Editar
-                  </Link>
-                  <DeleteButton slug={project.slug} name={project.nameEs} />
+              <div className="min-w-0 flex-1">
+                <p className="truncate font-semibold text-[var(--ink)]">
+                  {project.nameEs}
+                </p>
+                <div className="mt-1 flex items-center gap-2">
+                  <span className="rounded-full bg-[var(--bone)] px-2 py-0.5 text-xs font-medium text-[var(--ink-soft)]">
+                    {project.category}
+                  </span>
+                  <span className="text-xs text-[var(--mute-soft)]">
+                    {project.images.length} foto{project.images.length !== 1 ? "s" : ""}
+                  </span>
                 </div>
               </div>
-            ))}
-          </div>
-        )}
-      </main>
-    </div>
+
+              <div className="flex shrink-0 items-center gap-2">
+                <Link
+                  href={`/admin/projects/${project.slug}/edit`}
+                  className="rounded-lg bg-[var(--bone)] px-3 py-1.5 text-xs font-semibold text-[var(--ink-soft)] transition hover:bg-[var(--bone-deep)]"
+                >
+                  Editar
+                </Link>
+                <DeleteButton slug={project.slug} name={project.nameEs} />
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </>
   );
 }
