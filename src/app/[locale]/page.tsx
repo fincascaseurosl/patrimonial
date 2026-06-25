@@ -39,6 +39,7 @@ type FAQ = { q: string; a: string };
 
 function HomeContent({ locale, projects }: { locale: Locale; projects: Project[] }) {
   const t = useTranslations();
+  const featuredProjects = projects.filter((p) => p.featured);
   const messages = useMessages() as unknown as {
     home: {
       cifras: Cifra[];
@@ -257,14 +258,16 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
       </section>
 
       {/* 7 Â· PORTFOLIO — pinned horizontal cinematic */}
-      <PortfolioPinned
-        projects={projects}
-        locale={locale}
-        eyebrow={t("home.portfolioEyebrow")}
-        titulo={t("home.portfolioTitulo")}
-        verTodos={t("portfolio.verTodos")}
-        verMas={t("portfolio.verMas")}
-      />
+      {featuredProjects.length > 0 && (
+        <PortfolioPinned
+          projects={featuredProjects}
+          locale={locale}
+          eyebrow={t("home.portfolioEyebrow")}
+          titulo={t("home.portfolioTitulo")}
+          verTodos={t("portfolio.verTodos")}
+          verMas={t("portfolio.verMas")}
+        />
+      )}
 
       {/* 8 Â· CERTIFICACIONES */}
       <section className="py-16 bg-[var(--bone-deep)] border-y border-[var(--line)]">

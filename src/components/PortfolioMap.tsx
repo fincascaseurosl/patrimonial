@@ -44,6 +44,30 @@ type Props = {
   categoryLabels: CategoryLabels;
 };
 
+type MapLocation = {
+  lat: number;
+  lng: number;
+  neighborhood?: string;
+  address?: string;
+  year?: number;
+  area?: string;
+  durationMonths?: number;
+};
+
+// Ubicación del proyecto: usa la del propio proyecto (creada en el admin) y, si
+// no tiene coordenadas, cae a la hardcodeada de site-config (proyectos semilla).
+function locationFor(p: Project): MapLocation | null {
+  if (typeof p.lat === "number" && typeof p.lng === "number") {
+    return {
+      lat: p.lat,
+      lng: p.lng,
+      neighborhood: p.neighborhood || undefined,
+      address: p.address || undefined,
+    };
+  }
+  return projectLocations[p.slug] ?? null;
+}
+
 export function PortfolioMap({ projects, locale, strings, categoryLabels }: Props) {
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
   const [lastSlug, setLastSlug] = useState<string | null>(null);
@@ -52,15 +76,20 @@ export function PortfolioMap({ projects, locale, strings, categoryLabels }: Prop
   const markersRef = useRef<LeafletMarker[]>([]);
 
   const stats = useMemo(() => {
-    const located = projects.filter((p) => projectLocations[p.slug]);
-    const districts = new Set(located.map((p) => projectLocations[p.slug].neighborhood));
-    const totalArea = located.reduce((sum, p) => {
-      const a = projectLocations[p.slug].area;
-      if (!a) return sum;
-      const n = Number(a.replace(/[^\d]/g, ""));
+    const locs = projects
+      .map(locationFor)
+      .filter((l): l is MapLocation => l !== null);
+    const districts = new Set(
+      locs.map((l) => l.neighborhood).filter((n): n is string => Boolean(n)),
+    );
+    const totalArea = locs.reduce((sum, l) => {
+      if (!l.area) return sum;
+      const n = Number(l.area.replace(/[^\d]/g, ""));
       return sum + (Number.isFinite(n) ? n : 0);
     }, 0);
-    const years = located.map((p) => projectLocations[p.slug].year).filter(Boolean);
+    const years = locs
+      .map((l) => l.year)
+      .filter((y): y is number => typeof y === "number");
     const yearsActive = years.length ? Math.max(...years) - Math.min(...years) + 1 : 0;
     return {
       total: projects.length,
@@ -71,18 +100,16 @@ export function PortfolioMap({ projects, locale, strings, categoryLabels }: Prop
   }, [projects]);
 
   const sortedByYear = useMemo(() => {
-    return [...projects].sort((a, b) => {
-      const ya = projectLocations[a.slug]?.year ?? 0;
-      const yb = projectLocations[b.slug]?.year ?? 0;
-      return yb - ya;
-    });
+    return [...projects].sort(
+      (a, b) => (locationFor(b)?.year ?? 0) - (locationFor(a)?.year ?? 0),
+    );
   }, [projects]);
 
   // Keep the previous project rendered while the panel slides out so the
   // close transition shows content instead of a blank panel.
   const activeSlug = selectedSlug ?? lastSlug;
   const selectedProject = activeSlug ? projects.find((p) => p.slug === activeSlug) ?? null : null;
-  const selectedLocation = activeSlug ? projectLocations[activeSlug] : null;
+  const selectedLocation = selectedProject ? locationFor(selectedProject) : null;
 
   useEffect(() => {
     if (selectedSlug) setLastSlug(selectedSlug);
@@ -112,7 +139,7 @@ export function PortfolioMap({ projects, locale, strings, categoryLabels }: Prop
       ).addTo(map);
 
       projects.forEach((p) => {
-        const loc = projectLocations[p.slug];
+        const loc = locationFor(p);
         if (!loc) return;
         const name = getProjectName(p, locale);
 
@@ -123,9 +150,12 @@ export function PortfolioMap({ projects, locale, strings, categoryLabels }: Prop
           iconAnchor: [12, 12],
         });
 
+        const sub = [loc.neighborhood?.toUpperCase(), loc.year]
+          .filter(Boolean)
+          .join(" · ");
         const marker = L.marker([loc.lat, loc.lng], { icon }).addTo(map);
         marker.bindTooltip(
-          `<strong>${name}</strong><span>${loc.neighborhood.toUpperCase()} · ${loc.year}</span>`,
+          `<strong>${name}</strong>${sub ? `<span>${sub}</span>` : ""}`,
           {
             direction: "top",
             offset: [0, -10],
@@ -369,12 +399,14 @@ export function PortfolioMap({ projects, locale, strings, categoryLabels }: Prop
                     <dd className="text-[var(--ink)] text-sm">{selectedLocation.address}</dd>
                   </div>
                 )}
-                <div>
-                  <dt className="text-[var(--mute)] text-[10px] font-semibold tracking-[0.32em] uppercase mb-2">
-                    {strings.fichaAno}
-                  </dt>
-                  <dd className="text-[var(--ink)] text-sm tabular-nums">{selectedLocation.year}</dd>
-                </div>
+                {selectedLocation.year && (
+                  <div>
+                    <dt className="text-[var(--mute)] text-[10px] font-semibold tracking-[0.32em] uppercase mb-2">
+                      {strings.fichaAno}
+                    </dt>
+                    <dd className="text-[var(--ink)] text-sm tabular-nums">{selectedLocation.year}</dd>
+                  </div>
+                )}
                 {selectedLocation.area && (
                   <div>
                     <dt className="text-[var(--mute)] text-[10px] font-semibold tracking-[0.32em] uppercase mb-2">

@@ -31,6 +31,11 @@ export async function POST(req: NextRequest) {
     descriptionEs: body.descriptionEs?.trim() ?? "",
     descriptionCa: body.descriptionCa?.trim() ?? "",
     descriptionEn: body.descriptionEn?.trim() ?? "",
+    featured: Boolean(body.featured),
+    address: typeof body.address === "string" ? body.address.trim() : "",
+    neighborhood: typeof body.neighborhood === "string" ? body.neighborhood.trim() : "",
+    lat: typeof body.lat === "number" ? body.lat : null,
+    lng: typeof body.lng === "number" ? body.lng : null,
     order: projects.length,
   };
 

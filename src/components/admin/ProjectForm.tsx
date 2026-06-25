@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { serviceSlugs } from "@/lib/site-config";
 import type { Project } from "@/lib/projects";
+import { LocationPicker } from "./LocationPicker";
 
 type Props = {
   initial?: Partial<Project>;
@@ -32,6 +33,11 @@ export function ProjectForm({ initial, mode }: Props) {
   const [descriptionEs, setDescriptionEs] = useState(initial?.descriptionEs ?? "");
   const [descriptionCa, setDescriptionCa] = useState(initial?.descriptionCa ?? "");
   const [descriptionEn, setDescriptionEn] = useState(initial?.descriptionEn ?? "");
+  const [featured, setFeatured] = useState<boolean>(initial?.featured ?? false);
+  const [address, setAddress] = useState(initial?.address ?? "");
+  const [neighborhood, setNeighborhood] = useState(initial?.neighborhood ?? "");
+  const [lat, setLat] = useState<number | null>(initial?.lat ?? null);
+  const [lng, setLng] = useState<number | null>(initial?.lng ?? null);
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -86,6 +92,11 @@ export function ProjectForm({ initial, mode }: Props) {
       descriptionEs,
       descriptionCa,
       descriptionEn,
+      featured,
+      address,
+      neighborhood,
+      lat,
+      lng,
     };
     const url = mode === "new" ? "/api/admin/projects" : `/api/admin/projects/${initial?.slug}`;
     const method = mode === "new" ? "POST" : "PUT";
@@ -188,6 +199,18 @@ export function ProjectForm({ initial, mode }: Props) {
             </select>
           </div>
         </div>
+
+        <label className="flex cursor-pointer items-center gap-3 pt-1">
+          <input
+            type="checkbox"
+            checked={featured}
+            onChange={(e) => setFeatured(e.target.checked)}
+            className="h-4 w-4 accent-[var(--brand-red)]"
+          />
+          <span className="text-sm font-medium text-gray-700">
+            Destacar en «Trabajos recientes» (portada)
+          </span>
+        </label>
       </section>
 
       {/* Descripciones */}
@@ -225,6 +248,31 @@ export function ProjectForm({ initial, mode }: Props) {
             />
           </div>
         </div>
+      </section>
+
+      {/* Ubicación en el mapa */}
+      <section className="bg-white rounded-xl border border-gray-200 p-6 space-y-4">
+        <div>
+          <h2 className="font-semibold text-gray-900">
+            Ubicación en el mapa{" "}
+            <span className="text-gray-400 font-normal text-sm">(opcional)</span>
+          </h2>
+          <p className="text-sm text-gray-500 mt-0.5">
+            Escribe la dirección y pulsa «Localizar»; ajusta el pin si hace falta.
+            Si la colocas, el proyecto aparecerá en el mapa del portfolio.
+          </p>
+        </div>
+        <LocationPicker
+          address={address}
+          lat={lat}
+          lng={lng}
+          onAddressChange={setAddress}
+          onCoords={({ lat: la, lng: ln, neighborhood: nb }) => {
+            setLat(la);
+            setLng(ln);
+            if (nb !== undefined) setNeighborhood(nb);
+          }}
+        />
       </section>
 
       {/* Imágenes */}

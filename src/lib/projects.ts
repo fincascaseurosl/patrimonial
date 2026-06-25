@@ -1,7 +1,7 @@
 import { put, del, list } from "@vercel/blob";
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "fs";
 import { join } from "path";
-import { projects as defaultRaw, projectNames } from "./site-config";
+import { projects as defaultRaw, projectNames, projectLocations } from "./site-config";
 import type { ServiceSlug } from "./site-config";
 
 export type Project = {
@@ -15,6 +15,13 @@ export type Project = {
   descriptionCa: string;
   descriptionEn: string;
   order: number;
+  // Destacado en "Trabajos recientes" (home).
+  featured?: boolean;
+  // Ubicación en el mapa del portfolio.
+  address?: string;
+  neighborhood?: string;
+  lat?: number | null;
+  lng?: number | null;
 };
 
 const BLOB_KEY = "projects.json";
@@ -22,18 +29,26 @@ const LOCAL_DIR = join(process.cwd(), "data");
 const LOCAL_FILE = join(LOCAL_DIR, "projects.json");
 
 function defaults(): Project[] {
-  return defaultRaw.map((p, i) => ({
-    slug: p.slug,
-    nameEs: projectNames[p.slug]?.es ?? p.slug,
-    nameCa: projectNames[p.slug]?.ca ?? p.slug,
-    nameEn: projectNames[p.slug]?.en ?? projectNames[p.slug]?.es ?? p.slug,
-    category: p.category as ServiceSlug,
-    images: [...p.images],
-    descriptionEs: "",
-    descriptionCa: "",
-    descriptionEn: "",
-    order: i,
-  }));
+  return defaultRaw.map((p, i) => {
+    const loc = projectLocations[p.slug];
+    return {
+      slug: p.slug,
+      nameEs: projectNames[p.slug]?.es ?? p.slug,
+      nameCa: projectNames[p.slug]?.ca ?? p.slug,
+      nameEn: projectNames[p.slug]?.en ?? projectNames[p.slug]?.es ?? p.slug,
+      category: p.category as ServiceSlug,
+      images: [...p.images],
+      descriptionEs: "",
+      descriptionCa: "",
+      descriptionEn: "",
+      order: i,
+      featured: true,
+      address: loc?.address ?? "",
+      neighborhood: loc?.neighborhood ?? "",
+      lat: loc?.lat ?? null,
+      lng: loc?.lng ?? null,
+    };
+  });
 }
 
 export async function getProjects(): Promise<Project[]> {
