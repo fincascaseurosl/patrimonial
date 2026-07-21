@@ -69,7 +69,7 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
   const serviceImageFallback: Record<string, string> = {
     reformas: "/images/portfolio/reforma-piso-barcelona-1.jpg",
     "obra-nueva": "/images/hero/construye-tu-casa-poster.jpg",
-    rehabilitacion: "/images/portfolio/piso-balmes-2.jpg",
+    rehabilitacion: "/images/portfolio/reforma-piso-barcelona-3.jpg",
   };
   const imageForService = (slug: string): string => {
     const proj = projects.find((p) => p.category === slug && p.images[0]);
@@ -85,22 +85,18 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
 
   return (
     <>
-      {/* 1 · HERO */}
-      <section className="relative h-screen min-h-[680px] flex flex-col justify-end overflow-hidden bg-[var(--ink)]">
+      {/* 1 · HERO — composición centrada */}
+      <section className="relative h-screen min-h-[680px] flex flex-col justify-center items-center text-center overflow-hidden bg-[var(--ink)]">
         <HeroVideo poster="/images/hero/home-hero.jpg" />
 
-        <div className="absolute top-28 left-0 right-0 z-10">
-          <div className="max-w-7xl mx-auto px-6">
-            <RevealOnScroll direction="none" duration={0.8}>
-              <p className="text-white/70 text-[11px] font-semibold tracking-[0.32em] uppercase">
-                {t("home.heroEyebrow")}
-              </p>
-            </RevealOnScroll>
-          </div>
-        </div>
+        <div className="relative z-10 w-full max-w-5xl mx-auto px-6">
+          <RevealOnScroll direction="none" duration={0.8}>
+            <p className="text-white/70 text-[11px] font-semibold tracking-[0.32em] uppercase mb-8">
+              {t("home.heroEyebrow")}
+            </p>
+          </RevealOnScroll>
 
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pb-28 md:pb-36">
-          <h1 className="font-display text-white text-[clamp(3rem,10vw,9rem)] font-bold leading-[1.02] tracking-[-0.035em] mb-10">
+          <h1 className="font-display text-white text-[clamp(2.5rem,8vw,7rem)] font-bold leading-[1.0] tracking-[-0.035em]">
             <SplitText as="span" className="block" by="word" stagger={0.08} duration={1.0} delay={0.1}>
               {t("home.heroLine1")}
             </SplitText>
@@ -112,32 +108,32 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
             </SplitText>
           </h1>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-end">
-            <RevealOnScroll direction="up" delay={0.7} distance={20} className="md:col-span-6 lg:col-span-5">
-              <p className="text-white/75 text-base md:text-lg leading-relaxed">{t("home.heroSub")}</p>
-            </RevealOnScroll>
+          <RevealOnScroll direction="up" delay={0.7} distance={20}>
+            <p className="mx-auto mt-10 max-w-2xl text-white/75 text-base md:text-lg leading-relaxed">
+              {t("home.heroSub")}
+            </p>
+          </RevealOnScroll>
 
-            <RevealOnScroll direction="up" delay={0.85} distance={15} className="md:col-span-6 lg:col-span-7 md:flex md:justify-end gap-3">
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Magnetic strength={0.18}>
-                  <Link
-                    href="/contacto"
-                    className="cursor-grow inline-flex items-center justify-center px-9 py-5 bg-[var(--brand-red)] text-white text-[12px] font-semibold tracking-[0.18em] uppercase transition-colors duration-300 hover:bg-[var(--brand-red-deep)]"
-                  >
-                    {t("hero.cta")}
-                  </Link>
-                </Magnetic>
-                <Magnetic strength={0.15}>
-                  <Link
-                    href="/portfolio"
-                    className="cursor-grow inline-flex items-center justify-center px-9 py-5 border border-white/30 text-white text-[12px] font-medium tracking-[0.18em] uppercase transition-all duration-300 hover:border-white hover:bg-white/5"
-                  >
-                    {t("portfolio.verTodos")}
-                  </Link>
-                </Magnetic>
-              </div>
-            </RevealOnScroll>
-          </div>
+          <RevealOnScroll direction="up" delay={0.85} distance={15}>
+            <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
+              <Magnetic strength={0.18}>
+                <Link
+                  href="/contacto"
+                  className="cursor-grow inline-flex items-center justify-center px-9 py-5 bg-[var(--brand-red)] text-white text-[12px] font-semibold tracking-[0.18em] uppercase transition-colors duration-300 hover:bg-[var(--brand-red-deep)]"
+                >
+                  {t("hero.cta")}
+                </Link>
+              </Magnetic>
+              <Magnetic strength={0.15}>
+                <Link
+                  href="/portfolio"
+                  className="cursor-grow inline-flex items-center justify-center px-9 py-5 border border-white/30 text-white text-[12px] font-medium tracking-[0.18em] uppercase transition-all duration-300 hover:border-white hover:bg-white/5"
+                >
+                  {t("portfolio.verTodos")}
+                </Link>
+              </Magnetic>
+            </div>
+          </RevealOnScroll>
         </div>
 
         <div className="absolute bottom-6 left-6 right-6 z-10 flex items-end justify-between text-white/50 text-[10px] font-medium tracking-[0.32em] uppercase">
@@ -220,37 +216,50 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
             </RevealOnScroll>
           </div>
 
-          <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4" stagger={0.1}>
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 md:auto-rows-[330px] gap-4" stagger={0.1}>
             {mainServices.map((slug, i) => {
               const key = serviceKeyMap[slug];
+              const big = i === 0;
               return (
                 <Link
                   key={slug}
                   href={{ pathname: "/servicios/[slug]", params: { slug } }}
-                  className="cursor-grow group relative block overflow-hidden bg-[var(--ink)] min-h-[460px] md:min-h-[560px]"
+                  className={`cursor-grow group relative block overflow-hidden bg-[var(--ink)] ${
+                    big
+                      ? "md:col-span-2 md:row-span-2 min-h-[520px] md:min-h-0"
+                      : "min-h-[340px] md:min-h-0"
+                  }`}
                 >
                   <Image
                     src={imageForService(slug)}
                     alt={t(`servicios.items.${key}.nombre`)}
                     fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes={big ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 100vw, 33vw"}
                     className="object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.06]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)] via-[var(--ink)]/45 to-[var(--ink)]/5" />
                   <div className="absolute inset-0 bg-[var(--brand-red)]/0 group-hover:bg-[var(--brand-red)]/15 transition-colors duration-500" />
 
-                  <div className="relative z-10 h-full min-h-[460px] md:min-h-[560px] p-9 md:p-10 flex flex-col">
+                  <div className="relative z-10 flex h-full flex-col p-8 md:p-10">
                     <span className="font-display text-white/60 text-[11px] font-semibold tracking-[0.32em] uppercase">
                       0{i + 1}
                     </span>
                     <div className="mt-auto">
-                      <h3 className="font-display text-white text-3xl md:text-4xl font-bold leading-[1.05] tracking-[-0.025em]">
+                      <h3
+                        className={`font-display text-white font-bold leading-[1.03] tracking-[-0.025em] ${
+                          big ? "text-4xl md:text-6xl" : "text-2xl md:text-3xl"
+                        }`}
+                      >
                         {t(`servicios.items.${key}.nombre`)}
                       </h3>
-                      <p className="mt-4 text-white/75 text-sm leading-relaxed max-w-sm line-clamp-3">
-                        {t(`servicios.items.${key}.descripcion`)}
+                      <p
+                        className={`mt-4 text-white/80 leading-relaxed ${
+                          big ? "text-base md:text-lg max-w-xl" : "text-sm max-w-xs"
+                        }`}
+                      >
+                        {t(`home.serviciosCards.${key}`)}
                       </p>
-                      <div className="mt-7 inline-flex items-center gap-3 text-[11px] font-semibold tracking-[0.22em] uppercase text-[var(--brand-red-soft)] group-hover:text-white transition-colors duration-300">
+                      <div className="mt-6 inline-flex items-center gap-3 text-[11px] font-semibold tracking-[0.22em] uppercase text-[var(--brand-red-soft)] group-hover:text-white transition-colors duration-300">
                         <span>{t("portfolio.verMas")}</span>
                         <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -262,6 +271,57 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
               );
             })}
           </StaggerChildren>
+        </div>
+      </section>
+
+      {/* 5.5 · CONSTRUYE TU CASA — bloque cinematográfico */}
+      <section className="relative flex min-h-[88vh] items-center overflow-hidden bg-[var(--ink)]">
+        <Image
+          src="/images/hero/construye-tu-casa-poster.jpg"
+          alt=""
+          aria-hidden="true"
+          fill
+          sizes="100vw"
+          className="object-cover select-none pointer-events-none"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[var(--ink)] via-[var(--ink)]/75 to-[var(--ink)]/15" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/70 via-transparent to-transparent" />
+
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6">
+          <div className="max-w-2xl">
+            <RevealOnScroll direction="none">
+              <p className="text-[var(--brand-red-soft)] text-[11px] font-semibold tracking-[0.32em] uppercase mb-7 flex items-center gap-4">
+                <span className="w-8 h-[1px] bg-current" />
+                {t("home.casaHomeEyebrow")}
+              </p>
+            </RevealOnScroll>
+            <TextReveal
+              as="h2"
+              className="font-display text-white text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.02] tracking-[-0.035em] text-balance"
+            >
+              {t("casa.heroTitulo")}
+            </TextReveal>
+            <RevealOnScroll direction="up" delay={0.2} distance={15}>
+              <p className="mt-8 text-white/75 text-base md:text-lg leading-relaxed max-w-xl">
+                {t("casa.heroSub")}
+              </p>
+            </RevealOnScroll>
+            <RevealOnScroll direction="up" delay={0.35} distance={10}>
+              <div className="mt-10">
+                <Magnetic strength={0.18}>
+                  <Link
+                    href="/construir-casa-a-medida"
+                    className="cursor-grow inline-flex items-center gap-3 px-9 py-5 bg-white text-[var(--ink)] text-[12px] font-semibold tracking-[0.18em] uppercase transition-colors duration-300 hover:bg-[var(--brand-red)] hover:text-white"
+                  >
+                    <span>{t("home.casaHomeBoton")}</span>
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </Link>
+                </Magnetic>
+              </div>
+            </RevealOnScroll>
+          </div>
         </div>
       </section>
 

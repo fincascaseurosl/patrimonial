@@ -37,6 +37,13 @@
     ],
     "serviciosEyebrow": "Featured services",
     "serviciosTitulo": "Three ways to care for a building.",
+    "serviciosCards": {
+      "reformas": "Homes, offices and retail units renovated end to end, with our own team across every trade.",
+      "obraNueva": "Buildings and homes built from foundations to keys, with a single point of contact.",
+      "rehabilitacion": "Façades, roofs and communal areas of occupied buildings: rope access and structural reinforcement."
+    },
+    "casaHomeEyebrow": "Build your home",
+    "casaHomeBoton": "Discover it",
     "procesoEyebrow": "How we work",
     "procesoTitulo": "Our own method, tailored to each service.",
     "procesoIntro": "Pick a service and see the exact phases we deliver it in, from the first visit to handover.",

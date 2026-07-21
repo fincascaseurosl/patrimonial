@@ -37,6 +37,13 @@
     ],
     "serviciosEyebrow": "Servicios destacados",
     "serviciosTitulo": "Tres formas de intervenir un patrimonio.",
+    "serviciosCards": {
+      "reformas": "Viviendas, oficinas y locales renovados de principio a fin, con equipo propio de todos los oficios.",
+      "obraNueva": "Edificios y viviendas construidos desde la cimentación hasta las llaves, con un único interlocutor.",
+      "rehabilitacion": "Fachadas, cubiertas y zonas comunes de edificios en uso: trabajos verticales y refuerzos estructurales."
+    },
+    "casaHomeEyebrow": "Construye tu casa",
+    "casaHomeBoton": "Descúbrelo",
     "procesoEyebrow": "Cómo trabajamos",
     "procesoTitulo": "Un método propio, adaptado a cada servicio.",
     "procesoIntro": "Elige un servicio y verás las fases exactas con las que lo ejecutamos, de la primera visita a la entrega.",

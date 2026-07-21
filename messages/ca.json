@@ -37,6 +37,13 @@
     ],
     "serviciosEyebrow": "Serveis destacats",
     "serviciosTitulo": "Tres maneres d'intervenir un patrimoni.",
+    "serviciosCards": {
+      "reformas": "Habitatges, oficines i locals renovats de principi a fi, amb equip propi de tots els oficis.",
+      "obraNueva": "Edificis i habitatges construïts des de la fonamentació fins a les claus, amb un únic interlocutor.",
+      "rehabilitacion": "Façanes, cobertes i zones comunes d'edificis en ús: treballs verticals i reforços estructurals."
+    },
+    "casaHomeEyebrow": "Construeix casa teva",
+    "casaHomeBoton": "Descobreix-ho",
     "procesoEyebrow": "Com treballem",
     "procesoTitulo": "Un mètode propi, adaptat a cada servei.",
     "procesoIntro": "Tria un servei i veuràs les fases exactes amb què l'executem, de la primera visita al lliurament.",
