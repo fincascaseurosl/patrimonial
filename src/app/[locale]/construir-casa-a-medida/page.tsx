@@ -6,6 +6,7 @@ import { siteConfig, ogMeta, serviceSlugs, serviceKeyMap } from "@/lib/site-conf
 import { getServiceSchema, getBreadcrumbSchema, getFaqSchema } from "@/lib/schema";
 import { getProjects } from "@/lib/projects";
 import type { Project } from "@/lib/projects";
+import { getCasaConfig } from "@/lib/casa-config";
 import {
   RevealOnScroll,
   StaggerChildren,
@@ -56,26 +57,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function CasaPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const projects = await getProjects();
+  const [projects, casaConfig] = await Promise.all([getProjects(), getCasaConfig()]);
   const casas = projects
     .filter((p) => p.isCasa)
     .sort((a, b) => a.order - b.order);
-  return <CasaContent locale={locale} casas={casas} />;
+  return <CasaContent locale={locale} casas={casas} procesoImages={casaConfig.procesoImages} />;
 }
 
 type Fase = { n: string; titulo: string; texto: string };
 type Faq = { q: string; a: string };
 type CasaMessages = { casa: { proceso: Fase[]; faq: Faq[] } };
 
-const PROCESO_IMAGES = [
-  "/images/hero/blueprint.jpg",
-  "/images/hero/hero.jpg",
-  "/images/portfolio/reforma-piso-barcelona-1.jpg",
-  "/images/portfolio/reforma-piso-barcelona-2.jpg",
-  "/images/portfolio/reforma-piso-barcelona-3.jpg",
-];
-
-function CasaContent({ locale, casas }: { locale: string; casas: Project[] }) {
+function CasaContent({
+  locale,
+  casas,
+  procesoImages,
+}: {
+  locale: string;
+  casas: Project[];
+  procesoImages: string[];
+}) {
   const t = useTranslations("casa");
   const tNav = useTranslations("nav");
   const tr = useTranslations();
@@ -212,7 +213,7 @@ function CasaContent({ locale, casas }: { locale: string; casas: Project[] }) {
                 style={{ width: "62vw", maxWidth: "760px", aspectRatio: "4 / 5" }}
               >
                 <Image
-                  src={PROCESO_IMAGES[i % PROCESO_IMAGES.length]}
+                  src={procesoImages[i % procesoImages.length]}
                   alt={fase.titulo}
                   fill
                   sizes="(max-width: 760px) 62vw, 760px"

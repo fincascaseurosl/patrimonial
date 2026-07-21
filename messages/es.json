@@ -253,8 +253,8 @@
     "volver": "Volver a proyectos",
     "page": {
       "eyebrow": "Cartera",
-      "titulo": "Cada obra es una coordenada en Barcelona.",
-      "intro": "Recorrido por las intervenciones que hemos firmado en la ciudad. Selecciona una pin sobre el mapa para abrir su ficha o consulta el listado completo abajo.",
+      "titulo": "Cada obra es una coordenada en Catalunya.",
+      "intro": "Recorrido por las intervenciones que hemos firmado en Barcelona y en toda Catalunya. Selecciona una pin sobre el mapa para abrir su ficha o consulta el listado completo abajo.",
       "statObras": "Obras entregadas",
       "statBarrios": "Distritos",
       "statSuperficie": "Superficie intervenida",
@@ -275,6 +275,7 @@
   },
   "sobreNosotros": {
     "titulo": "Sobre nosotros",
+    "eyebrow": "Quiénes somos",
     "subtitulo": "Patrimonial Obras Barcelona",
     "descripcion": "Empresa de servicios inmobiliarios integrales experta en la gestión del patrimonio con más de 20 años de experiencia.",
     "contenido": "Desde nuestros inicios, en Patrimonial nos hemos dedicado a ofrecer un servicio integral de construcción, reformas y rehabilitación de edificios en Barcelona. Nuestra filosofía se basa en la cercanía con el cliente, la transparencia en los presupuestos y la máxima calidad en cada uno de nuestros trabajos.\n\nEntre nuestros clientes se encuentran un gran número de Administradores de fincas, Arquitectos, industrias, empresas y particulares que confían en nuestra experiencia y profesionalidad.\n\nContamos con un equipo de profesionales cualificados en todas las especialidades de la construcción: albañilería, electricidad, fontanería, gas, climatización, pintura, carpintería y trabajos verticales. Todos nuestros instaladores están autorizados y agremiados.\n\nEstamos inscritos en el RERA (Registro de Empresas con Riesgo de Amianto) y contamos con las certificaciones necesarias para realizar cualquier tipo de intervención constructiva.",
@@ -282,10 +283,12 @@
     "stats": {
       "anos": "Años",
       "proyectos": "Proyectos",
-      "garantia": "Garantía"
+      "garantia": "Garantía",
+      "profesionales": "Profesionales"
     },
     "valores": {
       "titulo": "Nuestros valores",
+      "subtitulo": "Los principios que guían cada obra que firmamos.",
       "items": [
         "Profesionalidad y rigurosidad en cada proyecto",
         "Transparencia en presupuestos y plazos",

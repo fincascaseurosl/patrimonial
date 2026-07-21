@@ -253,8 +253,8 @@
     "volver": "Back to projects",
     "page": {
       "eyebrow": "Portfolio",
-      "titulo": "Every project is a coordinate in Barcelona.",
-      "intro": "A tour of the work we have signed across the city. Select a pin on the map to open its profile or browse the full list below.",
+      "titulo": "Every project is a coordinate in Catalonia.",
+      "intro": "A tour of the work we have delivered in Barcelona and across Catalonia. Select a pin on the map to open its profile or browse the full list below.",
       "statObras": "Projects delivered",
       "statBarrios": "Districts",
       "statSuperficie": "Surface area worked on",
@@ -275,6 +275,7 @@
   },
   "sobreNosotros": {
     "titulo": "About us",
+    "eyebrow": "Who we are",
     "subtitulo": "Patrimonial Obras Barcelona",
     "descripcion": "A full-service real-estate firm with expertise in heritage management and over 20 years of experience.",
     "contenido": "From day one, at Patrimonial we have been dedicated to offering an end-to-end service in construction, renovations and building refurbishment in Barcelona. Our philosophy is built on closeness with the client, transparency in budgets and the highest quality in every job we deliver.\n\nOur clients include a large number of property administrators, architects, industrial firms, businesses and private individuals who trust our experience and professionalism.\n\nWe have a team of qualified professionals across every construction discipline: masonry, electrical, plumbing, gas, HVAC, painting, carpentry and rope access. All our installers are authorised and registered.\n\nWe are registered with RERA (the Spanish Asbestos Risk Companies Register) and hold the certifications required to undertake any kind of construction work.",
@@ -282,10 +283,12 @@
     "stats": {
       "anos": "Years",
       "proyectos": "Projects",
-      "garantia": "Guarantee"
+      "garantia": "Guarantee",
+      "profesionales": "Professionals"
     },
     "valores": {
       "titulo": "Our values",
+      "subtitulo": "The principles behind every project we sign.",
       "items": [
         "Professionalism and discipline on every project",
         "Transparency in budgets and schedules",

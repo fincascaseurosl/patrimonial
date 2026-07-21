@@ -253,8 +253,8 @@
     "volver": "Tornar a projectes",
     "page": {
       "eyebrow": "Cartera",
-      "titulo": "Cada obra és una coordenada a Barcelona.",
-      "intro": "Recorregut per les intervencions que hem signat a la ciutat. Selecciona un punt sobre el mapa per obrir-ne la fitxa o consulta el llistat complet a sota.",
+      "titulo": "Cada obra és una coordenada a Catalunya.",
+      "intro": "Recorregut per les intervencions que hem signat a Barcelona i a tota Catalunya. Selecciona un punt sobre el mapa per obrir-ne la fitxa o consulta el llistat complet a sota.",
       "statObras": "Obres lliurades",
       "statBarrios": "Districtes",
       "statSuperficie": "Superfície intervinguda",
@@ -275,6 +275,7 @@
   },
   "sobreNosotros": {
     "titulo": "Sobre nosaltres",
+    "eyebrow": "Qui som",
     "subtitulo": "Patrimonial Obres Barcelona",
     "descripcion": "Empresa de serveis immobiliaris integrals experta en la gestió del patrimoni amb més de 20 anys d'experiència.",
     "contenido": "Des dels nostres inicis, a Patrimonial ens hem dedicat a oferir un servei integral de construcció, reformes i rehabilitació d'edificis a Barcelona. La nostra filosofia es basa en la proximitat amb el client, la transparència en els pressupostos i la màxima qualitat en cadascun dels nostres treballs.\n\nEntre els nostres clients es troben un gran nombre d'Administradors de finques, Arquitectes, indústries, empreses i particulars que confien en la nostra experiència i professionalitat.\n\nComptem amb un equip de professionals qualificats en totes les especialitats de la construcció: paleta, electricitat, lampisteria, gas, climatització, pintura, fusteria i treballs verticals. Tots els nostres instal·ladors estan autoritzats i agremiats.\n\nEstem inscrits al RERA (Registre d'Empreses amb Risc d'Amiant) i comptem amb les certificacions necessàries per realitzar qualsevol tipus d'intervenció constructiva.",
@@ -282,10 +283,12 @@
     "stats": {
       "anos": "Anys",
       "proyectos": "Projectes",
-      "garantia": "Garantia"
+      "garantia": "Garantia",
+      "profesionales": "Professionals"
     },
     "valores": {
       "titulo": "Els nostres valors",
+      "subtitulo": "Els principis que guien cada obra que signem.",
       "items": [
         "Professionalitat i rigorositat en cada projecte",
         "Transparència en pressupostos i terminis",

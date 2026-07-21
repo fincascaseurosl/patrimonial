@@ -10,6 +10,7 @@ type Group = { label: string; items: Item[] };
 const TOP: Item[] = [
   { href: "/admin/dashboard", label: "Inicio", icon: "home" },
   { href: "/admin/projects", label: "Proyectos", icon: "grid" },
+  { href: "/admin/casa", label: "Construye tu casa", icon: "image" },
 ];
 
 const BLOG: Group = {
@@ -34,6 +35,7 @@ const ICONS = {
   rss: "M5 18.5a1 1 0 100 .01M5 11a8 8 0 018 8M5 4a15 15 0 0115 15",
   tag: "M3 11V4h7l11 11-7 7L3 11zM7.5 7.5h.01",
   mail: "M3 6h18v12H3zM3 7l9 6 9-6",
+  image: "M3 5h18v14H3zM3 15l5-5 4 4 3-3 6 6",
 };
 
 function Icon({ name }: { name: keyof typeof ICONS }) {
