@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import { getQueue, saveQueue } from "@/lib/blog/queue";
 import { getPosts, savePosts, type Post } from "@/lib/posts";
 import { requireAdmin } from "@/lib/admin-auth";
+import { sanitizePostHtml } from "@/lib/sanitize-post-html";
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -49,9 +50,9 @@ export async function POST(req: NextRequest, { params }: Params) {
     excerptEs: item.aiExcerptEs ?? "",
     excerptCa: item.aiExcerptCa ?? "",
     excerptEn: item.aiExcerptEn ?? "",
-    bodyEs: item.aiBodyEs,
-    bodyCa: item.aiBodyCa ?? "",
-    bodyEn: item.aiBodyEn ?? "",
+    bodyEs: sanitizePostHtml(item.aiBodyEs),
+    bodyCa: sanitizePostHtml(item.aiBodyCa ?? ""),
+    bodyEn: sanitizePostHtml(item.aiBodyEn ?? ""),
     featuredImage,
     categorySlug: item.aiCategorySlug ?? "",
     metaTitleEs: item.aiMetaTitleEs ?? "",

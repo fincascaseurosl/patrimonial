@@ -16,6 +16,8 @@ import type { Post } from "@/lib/posts";
 import { getCategories, getCategoryName } from "@/lib/categories";
 import type { Category } from "@/lib/categories";
 import { siteConfig } from "@/lib/site-config";
+import { sanitizePostHtml } from "@/lib/sanitize-post-html";
+import { getBreadcrumbSchema } from "@/lib/schema";
 import type { Metadata } from "next";
 
 export const revalidate = 60;
@@ -94,7 +96,7 @@ function PostContent({ post, related, categories, locale }: {
   const t = useTranslations();
   const title = getPostTitle(post, locale);
   const excerpt = getPostExcerpt(post, locale);
-  const body = getPostBody(post, locale);
+  const body = sanitizePostHtml(getPostBody(post, locale));
   const category = categories.find((c) => c.slug === post.categorySlug);
   const minutes = readingTime(body);
   const date = new Date(post.publishedAt);
@@ -112,12 +114,13 @@ function PostContent({ post, related, categories, locale }: {
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: title,
     description: excerpt,
     image: post.featuredImage ? [ogImage] : undefined,
     datePublished: post.publishedAt,
     dateModified: post.updatedAt,
+    inLanguage: locale,
     author: { "@type": "Organization", name: siteConfig.nombre },
     publisher: {
       "@type": "Organization",
@@ -131,9 +134,16 @@ function PostContent({ post, related, categories, locale }: {
     articleSection: category ? getCategoryName(category, locale) : undefined,
   };
 
+  const breadcrumbLd = getBreadcrumbSchema([
+    { name: t("nav.inicio"), url: siteConfig.url },
+    { name: "Blog", url: `${siteConfig.url}/${locale}/blog` },
+    { name: title, url: `${siteConfig.url}/${locale}/blog/${post.slug}` },
+  ]);
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
 
       {/* Hero */}
       <article>

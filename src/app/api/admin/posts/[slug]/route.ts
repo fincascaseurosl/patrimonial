@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getPosts, savePosts } from "@/lib/posts";
 import { revalidatePath } from "next/cache";
+import { sanitizePostHtml } from "@/lib/sanitize-post-html";
+import { requireAdmin } from "@/lib/admin-auth";
 
 type Params = { params: Promise<{ slug: string }> };
 
-export async function GET(_req: NextRequest, { params }: Params) {
+export async function GET(req: NextRequest, { params }: Params) {
+  const auth = await requireAdmin(req);
+  if (!auth.ok) return auth.response;
   const { slug } = await params;
   const posts = await getPosts();
   const post = posts.find((p) => p.slug === slug);
@@ -13,6 +17,8 @@ export async function GET(_req: NextRequest, { params }: Params) {
 }
 
 export async function PUT(req: NextRequest, { params }: Params) {
+  const auth = await requireAdmin(req);
+  if (!auth.ok) return auth.response;
   const { slug } = await params;
   const body = await req.json();
 
@@ -32,9 +38,9 @@ export async function PUT(req: NextRequest, { params }: Params) {
     excerptEs: (body.excerptEs ?? "").trim(),
     excerptCa: (body.excerptCa ?? "").trim(),
     excerptEn: (body.excerptEn ?? "").trim(),
-    bodyEs: body.bodyEs ?? "",
-    bodyCa: body.bodyCa ?? "",
-    bodyEn: body.bodyEn ?? "",
+    bodyEs: sanitizePostHtml(body.bodyEs ?? ""),
+    bodyCa: sanitizePostHtml(body.bodyCa ?? ""),
+    bodyEn: sanitizePostHtml(body.bodyEn ?? ""),
     featuredImage: body.featuredImage ?? "",
     categorySlug: body.categorySlug ?? "",
     metaTitleEs: (body.metaTitleEs ?? "").trim(),
@@ -53,7 +59,9 @@ export async function PUT(req: NextRequest, { params }: Params) {
   return NextResponse.json(posts[idx]);
 }
 
-export async function DELETE(_req: NextRequest, { params }: Params) {
+export async function DELETE(req: NextRequest, { params }: Params) {
+  const auth = await requireAdmin(req);
+  if (!auth.ok) return auth.response;
   const { slug } = await params;
   const posts = await getPosts();
   const filtered = posts.filter((p) => p.slug !== slug);

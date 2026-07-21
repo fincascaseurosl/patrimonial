@@ -3,6 +3,10 @@
 import { useTranslations } from "next-intl";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { serviceSlugs, serviceKeyMap } from "@/lib/site-config";
+import {
+  CASA_HERO_SCRUB_VIEWPORTS,
+  CASA_HERO_PATHNAME,
+} from "@/lib/casa-hero-config";
 import { useLocale } from "next-intl";
 import { useState, useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";
@@ -12,6 +16,7 @@ import { Logo } from "./Logo";
 export function Header() {
   const t = useTranslations("nav");
   const tServices = useTranslations("servicios");
+  const tCasa = useTranslations("casa");
   const pathname = usePathname();
   const router = useRouter();
   const locale = useLocale();
@@ -20,6 +25,7 @@ export function Header() {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const [navExpanded, setNavExpanded] = useState(false);
   const allLocales = ["es", "ca", "en"] as const;
   const localeLabels: Record<(typeof allLocales)[number], string> = {
     es: "Español",
@@ -31,13 +37,55 @@ export function Header() {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const servicesTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const langTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const navExpandTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // Umbral a partir del cual la barra pasa a fondo blanco. Por defecto basta un
+  // pequeño desplazamiento (20px). Excepción: en "Construye tu casa" el hero es
+  // un vídeo fijado (pin) que se recorre con scrub a lo largo de varias alturas
+  // de viewport; ahí la barra blanca no debe aparecer hasta haber recorrido TODO
+  // el vídeo, para no taparlo con una franja blanca mientras se reproduce.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const isCasaHero = pathname === CASA_HERO_PATHNAME;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    const getThreshold = () => {
+      if (!isCasaHero) return 20;
+      // Con reduced motion el hero no se fija: mide una sola pantalla, así que
+      // basta con haber recorrido (casi) ese primer viewport.
+      if (prefersReducedMotion) return window.innerHeight * 0.85;
+      // Con el pin activo, el vídeo consume CASA_HERO_SCRUB_VIEWPORTS alturas de
+      // viewport antes de soltarse: ese es el final del vídeo.
+      return window.innerHeight * CASA_HERO_SCRUB_VIEWPORTS;
+    };
+
+    // ¿Hay una sección oscura (marcada con data-nav-dark) justo bajo la barra?
+    // Si es así, la barra NO debe pasar a fondo blanco: se queda transparente
+    // "como al inicio" para no taparla con una franja blanca (p. ej. el proceso
+    // cinematográfico de "Construye tu casa"). Se mide un punto en el centro
+    // vertical de la barra (72px de alto → sonda a 36px).
+    const isOverDark = () => {
+      const probeY = 36;
+      const els = Array.from(document.querySelectorAll("[data-nav-dark]"));
+      return els.some((el) => {
+        const r = el.getBoundingClientRect();
+        return r.top <= probeY && r.bottom >= probeY;
+      });
+    };
+
+    const onScroll = () => {
+      const past = window.scrollY > getThreshold();
+      setScrolled(past && !isOverDark());
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
     onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [pathname]);
 
   // Animate nav items on mount
   useGSAP(() => {
@@ -85,7 +133,9 @@ export function Header() {
   const navItems = [
     { href: "/" as const, label: t("inicio"), hasDropdown: false },
     { href: "/servicios" as const, label: t("servicios"), hasDropdown: true },
+    { href: "/construir-casa-a-medida" as const, label: tCasa("navLabel"), hasDropdown: false, highlight: true },
     { href: "/portfolio" as const, label: t("portfolio"), hasDropdown: false },
+    { href: "/blog" as const, label: t("blog"), hasDropdown: false },
     { href: "/sobre-nosotros" as const, label: t("sobreNosotros"), hasDropdown: false },
     { href: "/contacto" as const, label: t("contacto"), hasDropdown: false },
   ];
@@ -99,10 +149,27 @@ export function Header() {
     servicesTimeoutRef.current = setTimeout(() => setServicesOpen(false), 150);
   };
 
+  const handleNavEnter = () => {
+    if (navExpandTimeoutRef.current) clearTimeout(navExpandTimeoutRef.current);
+    setNavExpanded(true);
+  };
+
+  const handleNavLeave = () => {
+    navExpandTimeoutRef.current = setTimeout(() => {
+      setNavExpanded(false);
+      setServicesOpen(false);
+      setLangOpen(false);
+    }, 200);
+  };
+
   return (
     <header ref={headerRef} className="fixed top-0 left-0 right-0 z-50">
       {/* Main nav */}
       <nav
+        onMouseEnter={handleNavEnter}
+        onMouseLeave={handleNavLeave}
+        onFocus={handleNavEnter}
+        onBlur={handleNavLeave}
         className={`transition-all duration-500 ${
           scrolled
             ? "bg-white/95 backdrop-blur-md shadow-[0_1px_0_rgba(0,0,0,0.06)]"
@@ -115,11 +182,18 @@ export function Header() {
             className={`relative flex items-center h-[72px] px-1 transition-all duration-500 cursor-grow`}
             aria-label={`Patrimonial — ${t("inicio")}`}
           >
-            <Logo variant={scrolled ? "dark" : "light"} />
+            <Logo variant={scrolled ? "dark" : "light"} tagline={t("logoTagline")} />
           </Link>
 
-          {/* Desktop nav */}
-          <div ref={navRef} className="hidden lg:flex items-center gap-1">
+          {/* Desktop nav — recogido por defecto, se despliega al pasar el ratón por la parte superior */}
+          <div
+            ref={navRef}
+            className={`hidden lg:flex items-center gap-1 transition-all duration-300 ease-out ${
+              navExpanded
+                ? "opacity-100 translate-y-0 pointer-events-auto"
+                : "opacity-0 -translate-y-2 pointer-events-none"
+            }`}
+          >
             {navItems.map((item) =>
               item.hasDropdown ? (
                 /* Servicios with dropdown */
@@ -139,7 +213,7 @@ export function Header() {
                     aria-haspopup="menu"
                     aria-expanded={servicesOpen}
                     aria-controls="servicios-menu"
-                    className={`relative flex items-center gap-1 px-4 py-2 text-[13px] font-medium tracking-wide uppercase transition-all duration-300 ${
+                    className={`relative flex items-center gap-1 px-4 py-2 text-[13px] font-medium tracking-wide uppercase whitespace-nowrap transition-all duration-300 ${
                       pathname.startsWith("/servicios")
                         ? scrolled
                           ? "text-[var(--color-dark)]"
@@ -164,31 +238,42 @@ export function Header() {
                     )}
                   </Link>
 
-                  {/* Dropdown panel */}
+                  {/* Dropdown panel — mega menu, 2 columnas, numeradas como el resto del sitio */}
                   <div
                     id="servicios-menu"
                     role="menu"
-                    className={`absolute top-full left-0 pt-2 transition-all duration-200 ${
+                    className={`absolute top-full left-1/2 -translate-x-1/2 pt-3 transition-all duration-200 ${
                       servicesOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-1"
                     }`}
                   >
-                    <div className="bg-white shadow-lg border border-gray-100 py-3 min-w-[280px]">
-                      {serviceSlugs.map((slug) => {
-                        const key = serviceKeyMap[slug];
-                        return (
-                          <Link
-                            key={slug}
-                            href={{ pathname: "/servicios/[slug]", params: { slug } }}
-                            className="flex items-center gap-3 px-5 py-2.5 text-[13px] text-[var(--color-text-light)] hover:text-[var(--color-dark)] hover:bg-[var(--color-gray-light)] transition-all duration-200"
-                          >
-                            {tServices(`items.${key}.nombre`)}
-                          </Link>
-                        );
-                      })}
-                      <div className="border-t border-gray-100 mt-2 pt-2 px-5">
+                    <div className="bg-[var(--ink)] shadow-2xl py-8 px-8 w-[560px]">
+                      <div className="grid grid-cols-2 gap-x-8 gap-y-1">
+                        {serviceSlugs.map((slug, i) => {
+                          const key = serviceKeyMap[slug];
+                          return (
+                            <Link
+                              key={slug}
+                              href={{ pathname: "/servicios/[slug]", params: { slug } }}
+                              role="menuitem"
+                              className="group flex items-baseline gap-3 py-3 border-b border-white/10"
+                            >
+                              <span className="font-display text-white/30 text-xs tabular-nums shrink-0 group-hover:text-[var(--brand-red)] transition-colors duration-200">
+                                {String(i + 1).padStart(2, "0")}
+                              </span>
+                              <span className="font-display text-white/85 text-[15px] font-medium tracking-[-0.01em] group-hover:text-white transition-colors duration-200">
+                                {tServices(`items.${key}.nombre`)}
+                              </span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                      <div className="mt-6 pt-6 border-t border-white/10 flex items-center justify-between gap-6">
+                        <p className="text-white/40 text-[11px] leading-relaxed max-w-[220px]">
+                          {tServices("dropdownTagline")}
+                        </p>
                         <Link
                           href="/servicios"
-                          className="flex items-center gap-2 py-2 text-[12px] font-semibold tracking-wider uppercase text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] transition-colors duration-200"
+                          className="cursor-grow shrink-0 flex items-center gap-2 py-2 text-[11px] font-semibold tracking-[0.2em] uppercase text-[var(--brand-red-soft)] hover:text-white transition-colors duration-200"
                         >
                           {t("verTodos") || "Ver todos"}
                           <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -203,8 +288,10 @@ export function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`relative px-4 py-2 text-[13px] font-medium tracking-wide uppercase transition-all duration-300 ${
-                    pathname === item.href
+                  className={`relative flex items-center gap-2 px-4 py-2 text-[13px] font-medium tracking-wide uppercase whitespace-nowrap transition-all duration-300 ${
+                    item.highlight
+                      ? "text-[var(--color-primary)] hover:text-[var(--color-primary-dark)]"
+                      : pathname === item.href
                       ? scrolled
                         ? "text-[var(--color-dark)]"
                         : "text-white"

@@ -1,19 +1,24 @@
 import { siteConfig } from "./site-config";
 
+// Geocodificado una única vez (OpenStreetMap Nominatim) para la sede real en
+// C/ de Lepant, 286-288, 08013 Barcelona — no recalcular en cada request.
+const OFFICE_GEO = { lat: 41.4050317, lng: 2.1760581 };
+
 export function getLocalBusinessSchema(locale: string) {
   return {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
     "@id": `${siteConfig.url}/#organization`,
     name: siteConfig.nombre,
     description:
       locale === "ca"
-        ? "Empresa de construcció, reformes integrals i rehabilitació d'edificis a Barcelona amb més de 25 anys d'experiència."
+        ? "Empresa de construcció, reformes integrals i rehabilitació d'edificis a Barcelona amb més de 20 anys d'experiència."
         : locale === "en"
-        ? "Construction, full renovations and building refurbishment in Barcelona with over 25 years of experience."
-        : "Empresa de construcción, reformas integrales y rehabilitación de edificios en Barcelona con más de 25 años de experiencia.",
+        ? "Construction, full renovations and building refurbishment in Barcelona with over 20 years of experience."
+        : "Empresa de construcción, reformas integrales y rehabilitación de edificios en Barcelona con más de 20 años de experiencia.",
+    foundingDate: "2006",
     url: siteConfig.url,
-    telephone: siteConfig.telefonoFijo,
+    telephone: siteConfig.telefonoFijoHref.replace("tel:", ""),
     email: siteConfig.email,
     address: {
       "@type": "PostalAddress",
@@ -21,6 +26,11 @@ export function getLocalBusinessSchema(locale: string) {
       addressLocality: siteConfig.ciudad,
       postalCode: siteConfig.cp,
       addressCountry: "ES",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: OFFICE_GEO.lat,
+      longitude: OFFICE_GEO.lng,
     },
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
@@ -33,6 +43,7 @@ export function getLocalBusinessSchema(locale: string) {
       name: "Barcelona",
     },
     image: `${siteConfig.url}/images/logo/logo.png`,
+    logo: `${siteConfig.url}/images/logo/logo.png`,
     priceRange: "$$",
     serviceType:
       locale === "ca"
@@ -67,5 +78,53 @@ export function getLocalBusinessSchema(locale: string) {
             "Refuerzos estructurales",
             "Impermeabilización",
           ],
+  };
+}
+
+export function getFaqSchema(items: { q: string; a: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  };
+}
+
+export function getBreadcrumbSchema(items: { name: string; url: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+}
+
+export function getServiceSchema(opts: {
+  locale: string;
+  slug: string;
+  name: string;
+  description: string;
+  /** Ruta relativa al locale, sin barras iniciales/finales. Por defecto "servicios/{slug}". */
+  path?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: opts.name,
+    name: opts.name,
+    description: opts.description,
+    provider: { "@id": `${siteConfig.url}/#organization` },
+    areaServed: { "@type": "City", name: "Barcelona" },
+    url: `${siteConfig.url}/${opts.locale}/${opts.path ?? `servicios/${opts.slug}`}`,
   };
 }

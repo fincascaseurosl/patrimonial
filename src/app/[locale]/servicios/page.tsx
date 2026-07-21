@@ -21,10 +21,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = t("titulo");
   const description =
     locale === "ca"
-      ? "Tots els serveis de construccio, reformes i rehabilitacio a Barcelona. Pressupost sense compromis."
+      ? "Tots els serveis de construcció, reformes i rehabilitació a Barcelona. Pressupost sense compromís."
       : locale === "en"
       ? "All our construction, renovation and refurbishment services in Barcelona. No-obligation quote."
-      : "Todos los servicios de construccion, reformas y rehabilitacion en Barcelona. Presupuesto sin compromiso.";
+      : "Todos los servicios de construcción, reformas y rehabilitación en Barcelona. Presupuesto sin compromiso.";
   return {
     title,
     description,

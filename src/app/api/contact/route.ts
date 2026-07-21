@@ -111,7 +111,14 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json();
-    const { nombre, email, telefono, servicio, mensaje } = body;
+    const { nombre, email, telefono, servicio, mensaje, website } = body;
+
+    // Honeypot: los bots suelen rellenar todos los campos, incluido este que
+    // para una persona es invisible. Si viene relleno, fingimos éxito sin
+    // guardar ni notificar, para no darle pistas al bot de que fue detectado.
+    if (typeof website === "string" && website.trim() !== "") {
+      return NextResponse.json({ success: true });
+    }
 
     if (
       !nombre || typeof nombre !== "string" || nombre.length > 200 ||

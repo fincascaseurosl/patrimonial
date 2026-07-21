@@ -2,13 +2,19 @@ import { NextRequest, NextResponse } from "next/server";
 import { getPosts, savePosts } from "@/lib/posts";
 import type { Post } from "@/lib/posts";
 import { revalidatePath } from "next/cache";
+import { sanitizePostHtml } from "@/lib/sanitize-post-html";
+import { requireAdmin } from "@/lib/admin-auth";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const auth = await requireAdmin(req);
+  if (!auth.ok) return auth.response;
   const posts = await getPosts();
   return NextResponse.json(posts);
 }
 
 export async function POST(req: NextRequest) {
+  const auth = await requireAdmin(req);
+  if (!auth.ok) return auth.response;
   const body = await req.json();
   if (!isValid(body)) {
     return NextResponse.json({ error: "Datos inválidos" }, { status: 400 });
@@ -28,9 +34,9 @@ export async function POST(req: NextRequest) {
     excerptEs: (body.excerptEs ?? "").trim(),
     excerptCa: (body.excerptCa ?? "").trim(),
     excerptEn: (body.excerptEn ?? "").trim(),
-    bodyEs: body.bodyEs ?? "",
-    bodyCa: body.bodyCa ?? "",
-    bodyEn: body.bodyEn ?? "",
+    bodyEs: sanitizePostHtml(body.bodyEs ?? ""),
+    bodyCa: sanitizePostHtml(body.bodyCa ?? ""),
+    bodyEn: sanitizePostHtml(body.bodyEn ?? ""),
     featuredImage: body.featuredImage ?? "",
     categorySlug: body.categorySlug ?? "",
     metaTitleEs: (body.metaTitleEs ?? "").trim(),

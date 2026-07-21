@@ -64,6 +64,16 @@ export default async function ProjectsAdminPage() {
                   <span className="text-xs text-[var(--mute-soft)]">
                     {project.images.length} foto{project.images.length !== 1 ? "s" : ""}
                   </span>
+                  {project.featured && (
+                    <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
+                      Destacado
+                    </span>
+                  )}
+                  {project.isCasa && (
+                    <span className="rounded-full bg-[var(--brand-red)]/10 px-2 py-0.5 text-xs font-medium text-[var(--brand-red)]">
+                      Casa construida
+                    </span>
+                  )}
                 </div>
               </div>
 

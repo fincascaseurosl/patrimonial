@@ -2,10 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { getProjects, saveProjects } from "@/lib/projects";
 import { revalidatePath } from "next/cache";
 import { serviceSlugs } from "@/lib/site-config";
+import { requireAdmin } from "@/lib/admin-auth";
 
 type Params = { params: Promise<{ slug: string }> };
 
-export async function GET(_req: NextRequest, { params }: Params) {
+export async function GET(req: NextRequest, { params }: Params) {
+  const auth = await requireAdmin(req);
+  if (!auth.ok) return auth.response;
   const { slug } = await params;
   const projects = await getProjects();
   const project = projects.find((p) => p.slug === slug);
@@ -14,6 +17,8 @@ export async function GET(_req: NextRequest, { params }: Params) {
 }
 
 export async function PUT(req: NextRequest, { params }: Params) {
+  const auth = await requireAdmin(req);
+  if (!auth.ok) return auth.response;
   const { slug } = await params;
   const body = await req.json();
 
@@ -41,6 +46,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
     descriptionCa: body.descriptionCa?.trim() ?? "",
     descriptionEn: body.descriptionEn?.trim() ?? "",
     featured: Boolean(body.featured),
+    isCasa: Boolean(body.isCasa),
     address: typeof body.address === "string" ? body.address.trim() : "",
     neighborhood: typeof body.neighborhood === "string" ? body.neighborhood.trim() : "",
     lat: typeof body.lat === "number" ? body.lat : null,
@@ -53,7 +59,9 @@ export async function PUT(req: NextRequest, { params }: Params) {
   return NextResponse.json(projects[idx]);
 }
 
-export async function DELETE(_req: NextRequest, { params }: Params) {
+export async function DELETE(req: NextRequest, { params }: Params) {
+  const auth = await requireAdmin(req);
+  if (!auth.ok) return auth.response;
   const { slug } = await params;
   const projects = await getProjects();
   const filtered = projects.filter((p) => p.slug !== slug);
@@ -69,6 +77,7 @@ function revalidateAll(slug?: string) {
   for (const locale of ["es", "ca", "en"]) {
     revalidatePath(`/${locale}`);
     revalidatePath(`/${locale}/portfolio`);
+    revalidatePath(`/${locale}/construir-casa-a-medida`);
     if (slug) revalidatePath(`/${locale}/portfolio/${slug}`);
   }
 }

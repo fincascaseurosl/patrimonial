@@ -1,12 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getRequests, saveRequests } from "@/lib/requests";
 import type { RequestStatus } from "@/lib/requests";
+import { requireAdmin } from "@/lib/admin-auth";
 
 const VALID_STATUS: RequestStatus[] = ["new", "read", "replied", "archived"];
 
 type Params = { params: Promise<{ id: string }> };
 
-export async function GET(_req: NextRequest, { params }: Params) {
+export async function GET(req: NextRequest, { params }: Params) {
+  const auth = await requireAdmin(req);
+  if (!auth.ok) return auth.response;
   const { id } = await params;
   const requests = await getRequests();
   const r = requests.find((x) => x.id === id);
@@ -15,6 +18,8 @@ export async function GET(_req: NextRequest, { params }: Params) {
 }
 
 export async function PATCH(req: NextRequest, { params }: Params) {
+  const auth = await requireAdmin(req);
+  if (!auth.ok) return auth.response;
   const { id } = await params;
   const body = await req.json();
   const requests = await getRequests();
@@ -38,7 +43,9 @@ export async function PATCH(req: NextRequest, { params }: Params) {
   return NextResponse.json(current);
 }
 
-export async function DELETE(_req: NextRequest, { params }: Params) {
+export async function DELETE(req: NextRequest, { params }: Params) {
+  const auth = await requireAdmin(req);
+  if (!auth.ok) return auth.response;
   const { id } = await params;
   const requests = await getRequests();
   const filtered = requests.filter((x) => x.id !== id);

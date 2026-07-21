@@ -1,15 +1,16 @@
 "use client";
 
-import { useState, useRef, useEffect, useMemo } from "react";
-import { Link } from "@/i18n/navigation";
+import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import type { Project } from "@/lib/projects";
-import { getProjectName, getProjectDescription } from "@/lib/project-helpers";
+import { getProjectName } from "@/lib/project-helpers";
 import { projectLocations } from "@/lib/site-config";
+import { locationFor, type MapLocation } from "@/lib/project-location";
+import { ProjectPanel, type ProjectPanelStrings } from "@/components/ProjectPanel";
 import { Counter } from "@/components/animations";
 import "leaflet/dist/leaflet.css";
 import type { Map as LeafletMap, Marker as LeafletMarker } from "leaflet";
 
-type Strings = {
+type Strings = ProjectPanelStrings & {
   intro: string;
   mapaInstruccion: string;
   listadoEyebrow: string;
@@ -18,24 +19,9 @@ type Strings = {
   statBarrios: string;
   statSuperficie: string;
   statAnos: string;
-  fichaBarrio: string;
-  fichaAno: string;
-  fichaCategoria: string;
-  fichaSuperficie: string;
-  fichaDuracion: string;
-  fichaDireccion: string;
-  abrirFicha: string;
-  cerrarPanel: string;
 };
 
 type CategoryLabels = Record<string, string>;
-
-// Formatea la duración (en meses) según el idioma de la ficha.
-function formatMonths(months: number, locale: string): string {
-  if (locale === "en") return `${months} month${months === 1 ? "" : "s"}`;
-  if (locale === "ca") return `${months} ${months === 1 ? "mes" : "mesos"}`;
-  return `${months} ${months === 1 ? "mes" : "meses"}`;
-}
 
 type Props = {
   projects: Project[];
@@ -44,33 +30,9 @@ type Props = {
   categoryLabels: CategoryLabels;
 };
 
-type MapLocation = {
-  lat: number;
-  lng: number;
-  neighborhood?: string;
-  address?: string;
-  year?: number;
-  area?: string;
-  durationMonths?: number;
-};
-
-// Ubicación del proyecto: usa la del propio proyecto (creada en el admin) y, si
-// no tiene coordenadas, cae a la hardcodeada de site-config (proyectos semilla).
-function locationFor(p: Project): MapLocation | null {
-  if (typeof p.lat === "number" && typeof p.lng === "number") {
-    return {
-      lat: p.lat,
-      lng: p.lng,
-      neighborhood: p.neighborhood || undefined,
-      address: p.address || undefined,
-    };
-  }
-  return projectLocations[p.slug] ?? null;
-}
-
 export function PortfolioMap({ projects, locale, strings, categoryLabels }: Props) {
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
-  const [lastSlug, setLastSlug] = useState<string | null>(null);
+  const closePanel = useCallback(() => setSelectedSlug(null), []);
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<LeafletMap | null>(null);
   const markersRef = useRef<LeafletMarker[]>([]);
@@ -105,15 +67,9 @@ export function PortfolioMap({ projects, locale, strings, categoryLabels }: Prop
     );
   }, [projects]);
 
-  // Keep the previous project rendered while the panel slides out so the
-  // close transition shows content instead of a blank panel.
-  const activeSlug = selectedSlug ?? lastSlug;
-  const selectedProject = activeSlug ? projects.find((p) => p.slug === activeSlug) ?? null : null;
-  const selectedLocation = selectedProject ? locationFor(selectedProject) : null;
-
-  useEffect(() => {
-    if (selectedSlug) setLastSlug(selectedSlug);
-  }, [selectedSlug]);
+  const selectedProject = selectedSlug
+    ? projects.find((p) => p.slug === selectedSlug) ?? null
+    : null;
 
   // Init Leaflet map (client-only via dynamic import)
   useEffect(() => {
@@ -184,27 +140,6 @@ export function PortfolioMap({ projects, locale, strings, categoryLabels }: Prop
       }
     };
   }, [projects, locale]);
-
-  // ESC to close + body scroll lock
-  useEffect(() => {
-    if (!selectedSlug) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSelectedSlug(null);
-    };
-    window.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [selectedSlug]);
-
-  // Safety: ensure body overflow is reset if the component unmounts mid-navigation
-  useEffect(() => {
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, []);
 
   return (
     <>
@@ -314,146 +249,15 @@ export function PortfolioMap({ projects, locale, strings, categoryLabels }: Prop
         </div>
       </section>
 
-      {/* Side panel + backdrop */}
-      <div
-        onClick={() => setSelectedSlug(null)}
-        className={`fixed inset-0 z-40 bg-[var(--ink)]/60 backdrop-blur-sm transition-opacity duration-300 ${
-          selectedSlug ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
-        aria-hidden={!selectedSlug}
+      {/* Ficha lateral — mismo componente que la galería de "Construye tu casa" */}
+      <ProjectPanel
+        project={selectedProject}
+        open={!!selectedSlug}
+        locale={locale}
+        categoryLabels={categoryLabels}
+        strings={strings}
+        onClose={closePanel}
       />
-      <aside
-        className={`fixed top-0 right-0 z-50 h-screen w-full sm:w-[480px] md:w-[560px] bg-[var(--paper)] shadow-2xl overflow-y-auto transition-transform duration-500 ease-out ${
-          selectedSlug ? "translate-x-0" : "translate-x-full"
-        }`}
-        aria-hidden={!selectedSlug}
-      >
-        {selectedProject && selectedLocation && (
-          <div className="flex flex-col min-h-full">
-            <div className="flex items-center justify-between p-6 md:p-8 border-b border-[var(--line)]">
-              <p className="text-[var(--brand-red)] text-[10px] font-semibold tracking-[0.32em] uppercase">
-                {selectedLocation.neighborhood} · {selectedLocation.year}
-              </p>
-              <button
-                type="button"
-                onClick={() => setSelectedSlug(null)}
-                className="cursor-grow text-[var(--ink)] hover:text-[var(--brand-red)] transition-colors p-2 -m-2 flex items-center gap-2 text-[10px] font-semibold tracking-[0.28em] uppercase"
-                aria-label={strings.cerrarPanel}
-              >
-                <span>{strings.cerrarPanel}</span>
-                <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M18 6L6 18" />
-                </svg>
-              </button>
-            </div>
-
-            {selectedProject.images?.[0] && (
-              <div className="relative aspect-[4/3] bg-[var(--bone-deep)] overflow-hidden">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={selectedProject.images[0]}
-                  alt={getProjectName(selectedProject, locale)}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    target.style.display = "none";
-                    const parent = target.parentElement;
-                    if (parent && !parent.querySelector("[data-img-fallback]")) {
-                      const fb = document.createElement("div");
-                      fb.setAttribute("data-img-fallback", "");
-                      fb.className =
-                        "absolute inset-0 flex items-center justify-center text-[var(--mute)] text-[10px] font-semibold tracking-[0.32em] uppercase";
-                      fb.textContent = "Imagen no disponible";
-                      parent.appendChild(fb);
-                    }
-                  }}
-                />
-              </div>
-            )}
-
-            <div className="p-6 md:p-10 flex-1">
-              <h2 className="font-display text-[var(--ink)] text-3xl md:text-4xl font-bold tracking-[-0.025em] leading-[1.05] mb-8">
-                {getProjectName(selectedProject, locale)}
-              </h2>
-
-              <dl className="grid grid-cols-2 gap-y-6 gap-x-8 mb-10 pb-10 border-b border-[var(--line)]">
-                <div>
-                  <dt className="text-[var(--mute)] text-[10px] font-semibold tracking-[0.32em] uppercase mb-2">
-                    {strings.fichaCategoria}
-                  </dt>
-                  <dd className="text-[var(--ink)] text-sm">
-                    {categoryLabels[selectedProject.category] ?? selectedProject.category}
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-[var(--mute)] text-[10px] font-semibold tracking-[0.32em] uppercase mb-2">
-                    {strings.fichaBarrio}
-                  </dt>
-                  <dd className="text-[var(--ink)] text-sm">{selectedLocation.neighborhood}</dd>
-                </div>
-                {selectedLocation.address && (
-                  <div>
-                    <dt className="text-[var(--mute)] text-[10px] font-semibold tracking-[0.32em] uppercase mb-2">
-                      {strings.fichaDireccion}
-                    </dt>
-                    <dd className="text-[var(--ink)] text-sm">{selectedLocation.address}</dd>
-                  </div>
-                )}
-                {selectedLocation.year && (
-                  <div>
-                    <dt className="text-[var(--mute)] text-[10px] font-semibold tracking-[0.32em] uppercase mb-2">
-                      {strings.fichaAno}
-                    </dt>
-                    <dd className="text-[var(--ink)] text-sm tabular-nums">{selectedLocation.year}</dd>
-                  </div>
-                )}
-                {selectedLocation.area && (
-                  <div>
-                    <dt className="text-[var(--mute)] text-[10px] font-semibold tracking-[0.32em] uppercase mb-2">
-                      {strings.fichaSuperficie}
-                    </dt>
-                    <dd className="text-[var(--ink)] text-sm tabular-nums">{selectedLocation.area}</dd>
-                  </div>
-                )}
-                {selectedLocation.durationMonths != null && (
-                  <div>
-                    <dt className="text-[var(--mute)] text-[10px] font-semibold tracking-[0.32em] uppercase mb-2">
-                      {strings.fichaDuracion}
-                    </dt>
-                    <dd className="text-[var(--ink)] text-sm">{formatMonths(selectedLocation.durationMonths, locale)}</dd>
-                  </div>
-                )}
-              </dl>
-
-              {getProjectDescription(selectedProject, locale) && (
-                <p className="text-[var(--ink-soft)] text-base leading-relaxed mb-10">
-                  {getProjectDescription(selectedProject, locale)}
-                </p>
-              )}
-
-              <Link
-                href={{ pathname: "/portfolio/[slug]", params: { slug: selectedProject.slug } }}
-                onClick={() => {
-                  document.body.style.overflow = "";
-                  setSelectedSlug(null);
-                }}
-                className="cursor-grow inline-flex items-center gap-3 text-[12px] font-semibold tracking-[0.18em] uppercase text-[var(--ink)] hover:text-[var(--brand-red)] transition-colors duration-300 group"
-              >
-                <span>{strings.abrirFicha}</span>
-                <svg
-                  className="w-4 h-4 -rotate-45 transition-transform duration-300 group-hover:rotate-0"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
-          </div>
-        )}
-      </aside>
     </>
   );
 }

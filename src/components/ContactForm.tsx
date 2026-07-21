@@ -23,6 +23,8 @@ export default function ContactForm({ defaultServicio }: { defaultServicio?: str
       servicio: (form.elements.namedItem("servicio") as HTMLSelectElement).value,
       mensaje: (form.elements.namedItem("mensaje") as HTMLTextAreaElement)
         .value,
+      // Honeypot: campo invisible para personas, que los bots de spam suelen rellenar.
+      website: (form.elements.namedItem("website") as HTMLInputElement).value,
     };
 
     try {
@@ -58,6 +60,23 @@ export default function ContactForm({ defaultServicio }: { defaultServicio?: str
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Honeypot anti-spam: oculto para personas (y para lectores de pantalla, vía
+          aria-hidden), pero presente en el DOM para que los bots que auto-rellenan
+          formularios lo detecten y lo escriban. width/height 1px + clip, no display:none,
+          para que los bots más simples no lo detecten como oculto y lo salten. */}
+      <div
+        style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)" }}
+        aria-hidden="true"
+      >
+        <label htmlFor="website">Website</label>
+        <input
+          type="text"
+          id="website"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label

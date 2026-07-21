@@ -96,7 +96,7 @@ function SobreNosotrosContent() {
               <StaggerChildren className="grid grid-cols-3 gap-6 pt-8 border-t border-[var(--color-border)]" stagger={0.1}>
                 <div>
                   <div className="text-[var(--color-dark)] text-2xl font-bold mb-1">
-                    <Counter end={25} suffix="+" />
+                    <Counter end={20} suffix="+" />
                   </div>
                   <p className="text-[var(--color-text-muted)] text-xs uppercase tracking-wider">{t("stats.anos")}</p>
                 </div>

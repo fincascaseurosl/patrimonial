@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSources, saveSources } from "@/lib/blog/sources";
 import { requireAdmin } from "@/lib/admin-auth";
+import { isPubliclyRoutableUrl } from "@/lib/blog/url-safety";
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -20,16 +21,24 @@ export async function PUT(req: NextRequest, { params }: Params) {
     return NextResponse.json({ error: "No encontrada" }, { status: 404 });
   }
 
+  let feedUrl = sources[idx].feedUrl;
+  if (typeof body.feedUrl === "string" && /^https?:\/\//i.test(body.feedUrl)) {
+    if (!(await isPubliclyRoutableUrl(body.feedUrl))) {
+      return NextResponse.json(
+        { error: "Esa URL de feed no es accesible públicamente (host privado o no resoluble)" },
+        { status: 400 },
+      );
+    }
+    feedUrl = body.feedUrl.trim();
+  }
+
   sources[idx] = {
     ...sources[idx],
     name:
       typeof body.name === "string" && body.name.trim()
         ? body.name.trim()
         : sources[idx].name,
-    feedUrl:
-      typeof body.feedUrl === "string" && /^https?:\/\//i.test(body.feedUrl)
-        ? body.feedUrl.trim()
-        : sources[idx].feedUrl,
+    feedUrl,
     isActive:
       typeof body.isActive === "boolean"
         ? body.isActive

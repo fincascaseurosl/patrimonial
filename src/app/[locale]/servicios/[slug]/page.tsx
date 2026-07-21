@@ -1,10 +1,16 @@
 import { useTranslations, useMessages } from "next-intl";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { serviceSlugs, serviceKeyMap, type ServiceSlug } from "@/lib/site-config";
+import Image from "next/image";
+import { serviceSlugs, serviceKeyMap, ogMeta, siteConfig, type ServiceSlug } from "@/lib/site-config";
+import { getServiceSchema, getBreadcrumbSchema } from "@/lib/schema";
+import { getProjects } from "@/lib/projects";
+import { getProjectName } from "@/lib/project-helpers";
+import type { Project } from "@/lib/projects";
 import { notFound } from "next/navigation";
 import {
   RevealOnScroll,
+  StaggerChildren,
   TextReveal,
   Magnetic,
   SplitText,
@@ -25,11 +31,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const key = serviceKeyMap[slug as ServiceSlug];
   const t = await getTranslations({ locale, namespace: "servicios" });
   const nombre = t(`items.${key}.nombre`);
+  const descripcion = t(`items.${key}.descripcion`);
   // El valor del [slug] NO se traduce (next-intl solo traduce el prefijo /serveis).
   // Las URLs reales usan siempre el slug en español, igual que enlaces y sitemap.
   return {
     title: nombre,
-    description: t(`items.${key}.descripcion`),
+    description: descripcion,
+    openGraph: ogMeta(locale, nombre, descripcion),
     alternates: {
       canonical:
         locale === "ca"
@@ -51,13 +59,28 @@ export default async function ServicioDetailPage({ params }: Props) {
   const { locale, slug } = await params;
   if (!serviceSlugs.includes(slug as ServiceSlug)) notFound();
   setRequestLocale(locale);
-  return <ServicioContent slug={slug as ServiceSlug} />;
+  const allProjects = await getProjects();
+  const serviceProjects = allProjects
+    .filter((p) => p.category === slug)
+    .sort((a, b) => a.order - b.order)
+    .slice(0, 3);
+  return <ServicioContent slug={slug as ServiceSlug} locale={locale} projects={serviceProjects} />;
 }
 
 type FaseMsg = { n: string; titulo: string; descripcion: string };
-type DetailMessages = { servicios: { detailFases: FaseMsg[] } };
+type DetailMessages = {
+  servicios: { items: Record<string, { destacados: string[]; fases: FaseMsg[] }> };
+};
 
-function ServicioContent({ slug }: { slug: ServiceSlug }) {
+function ServicioContent({
+  slug,
+  locale,
+  projects,
+}: {
+  slug: ServiceSlug;
+  locale: string;
+  projects: Project[];
+}) {
   const t = useTranslations();
   const messages = useMessages() as unknown as DetailMessages;
   const key = serviceKeyMap[slug];
@@ -66,10 +89,33 @@ function ServicioContent({ slug }: { slug: ServiceSlug }) {
   const otherServices = serviceSlugs.filter((s) => s !== slug);
   const next = serviceSlugs[(idx + 1) % serviceSlugs.length];
   const nextKey = serviceKeyMap[next];
-  const detailFases = messages.servicios.detailFases;
+  const destacados = messages.servicios.items[key].destacados;
+  const fases = messages.servicios.items[key].fases;
+  const nombre = t(`servicios.items.${key}.nombre`);
+  const descripcion = t(`servicios.items.${key}.descripcion`);
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            getServiceSchema({ locale, slug, name: nombre, description: descripcion }),
+          ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            getBreadcrumbSchema([
+              { name: t("nav.inicio"), url: siteConfig.url },
+              { name: t("nav.servicios"), url: `${siteConfig.url}/${locale}/servicios` },
+              { name: nombre, url: `${siteConfig.url}/${locale}/servicios/${slug}` },
+            ]),
+          ),
+        }}
+      />
       {/* HERO masivo negro */}
       <section className="relative bg-[var(--ink)] text-[var(--paper)] pt-36 pb-24 md:pt-44 md:pb-32 overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6 md:px-10">
@@ -132,10 +178,29 @@ function ServicioContent({ slug }: { slug: ServiceSlug }) {
               </RevealOnScroll>
               <TextReveal
                 as="p"
-                className="font-display text-[var(--ink)] text-[clamp(1.5rem,2.6vw,2.25rem)] font-light leading-[1.35] tracking-[-0.015em] text-balance mb-16 first-letter:font-display first-letter:text-[var(--brand-red)] first-letter:text-[5rem] first-letter:font-medium first-letter:float-left first-letter:mr-4 first-letter:leading-[0.85] first-letter:mt-2"
+                className="font-display text-[var(--ink)] text-[clamp(1.5rem,2.6vw,2.25rem)] font-light leading-[1.35] tracking-[-0.015em] text-balance mb-14 first-letter:font-display first-letter:text-[var(--brand-red)] first-letter:text-[5rem] first-letter:font-medium first-letter:float-left first-letter:mr-4 first-letter:leading-[0.85] first-letter:mt-2"
               >
                 {t(`servicios.items.${key}.descripcionLarga`)}
               </TextReveal>
+
+              {/* Destacados — qué incluye, propio de cada servicio */}
+              <RevealOnScroll direction="up" distance={15}>
+                <div className="border-t border-[var(--line)] pt-12">
+                  <p className="text-[var(--brand-red)] text-[11px] font-semibold tracking-[0.3em] uppercase mb-10">
+                    {t("servicios.detailDestacados")}
+                  </p>
+                  <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-8" stagger={0.08}>
+                    {destacados.map((d, i) => (
+                      <div key={i} className="flex gap-4">
+                        <span className="font-display text-[var(--brand-red)] text-xl font-medium tabular-nums shrink-0 leading-none mt-0.5">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <p className="text-[var(--ink)] text-[15px] leading-[1.5]">{d}</p>
+                      </div>
+                    ))}
+                  </StaggerChildren>
+                </div>
+              </RevealOnScroll>
 
               <RevealOnScroll direction="up" distance={20}>
                 <div className="border-t border-[var(--line)] pt-12 mt-12">
@@ -143,7 +208,7 @@ function ServicioContent({ slug }: { slug: ServiceSlug }) {
                     {t("servicios.detailMetodo")}
                   </p>
                   <ol className="grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-12">
-                    {detailFases.map((f) => (
+                    {fases.map((f) => (
                       <li key={f.n} className="flex gap-5">
                         <span className="font-display text-[var(--mute-soft)] text-2xl font-light tabular-nums shrink-0 leading-none mt-1">
                           {f.n}
@@ -181,10 +246,10 @@ function ServicioContent({ slug }: { slug: ServiceSlug }) {
                       </Link>
                     </Magnetic>
                     <a
-                      href="tel:+34935316431"
+                      href={siteConfig.telefonoFijoHref}
                       className="cursor-grow inline-flex items-center gap-3 px-8 py-4 border border-white/20 text-white text-[12px] font-medium tracking-[0.25em] uppercase hover:border-white/60 transition-colors duration-300"
                     >
-                      93 531 64 31
+                      {siteConfig.telefonoFijo}
                     </a>
                   </div>
                 </div>
@@ -229,6 +294,71 @@ function ServicioContent({ slug }: { slug: ServiceSlug }) {
           </div>
         </div>
       </section>
+
+      {/* Trabajos realizados — proyectos reales de este servicio, si los hay */}
+      {projects.length > 0 && (
+        <section className="bg-[var(--ink)] py-24 md:py-32">
+          <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
+              <div>
+                <RevealOnScroll direction="none">
+                  <p className="text-[var(--brand-red)] text-[11px] font-semibold tracking-[0.3em] uppercase mb-5">
+                    {t("servicios.detailTrabajos")}
+                  </p>
+                </RevealOnScroll>
+                <TextReveal as="h2" className="font-display text-white text-3xl md:text-4xl font-medium leading-[1.1] tracking-[-0.02em] max-w-xl">
+                  {t("servicios.detailTrabajosSubtitulo")}
+                </TextReveal>
+              </div>
+              <RevealOnScroll direction="right" delay={0.15}>
+                <Link
+                  href="/portfolio"
+                  className="cursor-grow inline-flex items-center gap-3 text-[12px] font-semibold tracking-[0.18em] uppercase text-white/70 hover:text-white transition-colors duration-300 shrink-0"
+                >
+                  {t("portfolio.verTodos")}
+                  <span className="w-9 h-[1px] bg-current" />
+                </Link>
+              </RevealOnScroll>
+            </div>
+
+            <StaggerChildren
+              className={`grid grid-cols-1 gap-8 ${
+                projects.length === 1 ? "sm:grid-cols-1 max-w-xl" : projects.length === 2 ? "sm:grid-cols-2" : "sm:grid-cols-2 lg:grid-cols-3"
+              }`}
+              stagger={0.1}
+            >
+              {projects.map((project) => (
+                <Link
+                  key={project.slug}
+                  href={{ pathname: "/portfolio/[slug]", params: { slug: project.slug } }}
+                  className="cursor-grow group block"
+                >
+                  <div className="relative aspect-[4/3] overflow-hidden bg-white/5">
+                    {project.images[0] && (
+                      <Image
+                        src={project.images[0]}
+                        alt={getProjectName(project, locale)}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.06]"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
+                  <div className="mt-5 flex items-center justify-between gap-4">
+                    <h3 className="font-display text-white text-lg font-medium tracking-[-0.01em] group-hover:text-[var(--brand-red-soft)] transition-colors duration-300">
+                      {getProjectName(project, locale)}
+                    </h3>
+                    <span className="shrink-0 text-white/40 text-[11px] font-semibold tracking-[0.2em] uppercase group-hover:text-white/80 transition-colors duration-300">
+                      {t("portfolio.verProyecto")}
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </StaggerChildren>
+          </div>
+        </section>
+      )}
 
       {/* Siguiente servicio */}
       <section className="bg-[var(--bone)] border-t border-[var(--line)]">

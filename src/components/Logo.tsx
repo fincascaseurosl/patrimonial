@@ -5,6 +5,7 @@ type Variant = "dark" | "light";
 type LogoProps = {
   variant?: Variant;
   withTagline?: boolean;
+  tagline?: string;
   className?: string;
   style?: CSSProperties;
 };
@@ -18,6 +19,7 @@ type LogoProps = {
 export function Logo({
   variant = "dark",
   withTagline = true,
+  tagline = "Obras · Barcelona",
   className = "",
   style,
 }: LogoProps) {
@@ -29,7 +31,6 @@ export function Logo({
     <div
       className={`inline-flex items-center gap-3 ${className}`}
       style={style}
-      aria-label="Patrimonial — Obres a Barcelona"
     >
       {/* Building mark — paths extracted from logo patri.svg, viewBox cropped to icon */}
       <svg
@@ -87,7 +88,7 @@ export function Logo({
               marginTop: "4px",
             }}
           >
-            Obres · Barcelona
+            {tagline}
           </span>
         )}
       </div>

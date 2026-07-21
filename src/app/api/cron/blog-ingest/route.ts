@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ingestAllActiveSources } from "@/lib/blog/ingest";
+import { timingSafeEqual } from "@/lib/admin-token";
 
 export async function GET(request: NextRequest) {
   const expected = process.env.CRON_SECRET;
@@ -11,7 +12,7 @@ export async function GET(request: NextRequest) {
   }
 
   const auth = request.headers.get("authorization") || "";
-  if (auth !== `Bearer ${expected}`) {
+  if (!timingSafeEqual(auth, `Bearer ${expected}`)) {
     return NextResponse.json({ error: "No autorizado" }, { status: 401 });
   }
 

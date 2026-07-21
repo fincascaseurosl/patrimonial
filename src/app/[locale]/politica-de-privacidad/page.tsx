@@ -69,9 +69,9 @@ export default async function PrivacyPolicyPage({ params }: Props) {
 
               <h2>Finalitat del tractament</h2>
               <p>
-                Les dades personals que ens proporcioneu a través del formulari
+                Les dades personals que ens proporcionis a través del formulari
                 de contacte seran tractades amb la finalitat de gestionar la
-                vostra sol·licitud i posar-nos en contacte amb vosaltres.
+                teva sol·licitud i posar-nos en contacte amb tu.
               </p>
 
               <h2>Base legal</h2>
@@ -87,7 +87,7 @@ export default async function PrivacyPolicyPage({ params }: Props) {
 
               <h2>Drets</h2>
               <p>
-                Podeu exercir els vostres drets d&apos;accés, rectificació,
+                Pots exercir els teus drets d&apos;accés, rectificació,
                 supressió, limitació, portabilitat i oposició enviant un correu
                 a gestion@obraspatrimonial.es.
               </p>
@@ -151,9 +151,9 @@ export default async function PrivacyPolicyPage({ params }: Props) {
 
               <h2>Finalidad del tratamiento</h2>
               <p>
-                Los datos personales que nos proporcione a través del formulario
-                de contacto serán tratados con la finalidad de gestionar su
-                solicitud y ponernos en contacto con usted.
+                Los datos personales que nos proporciones a través del formulario
+                de contacto serán tratados con la finalidad de gestionar tu
+                solicitud y ponernos en contacto contigo.
               </p>
 
               <h2>Base legal</h2>
@@ -169,7 +169,7 @@ export default async function PrivacyPolicyPage({ params }: Props) {
 
               <h2>Derechos</h2>
               <p>
-                Puede ejercer sus derechos de acceso, rectificación, supresión,
+                Puedes ejercer tus derechos de acceso, rectificación, supresión,
                 limitación, portabilidad y oposición enviando un correo a
                 gestion@obraspatrimonial.es.
               </p>

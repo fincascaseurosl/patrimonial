@@ -35,6 +35,12 @@
 
     { "source": "/367-2/", "destination": "/es/blog", "permanent": true },
     { "source": "/358-2/", "destination": "/es/blog", "permanent": true },
+    { "source": "/como-aislar-un-tejado-ya-construido/", "destination": "/es/blog", "permanent": true },
+    { "source": "/como-aislar-un-tejado-ya-construido", "destination": "/es/blog", "permanent": true },
+    { "source": "/todo-sobre-la-tela-asfaltica/", "destination": "/es/blog", "permanent": true },
+    { "source": "/todo-sobre-la-tela-asfaltica", "destination": "/es/blog", "permanent": true },
+    { "source": "/formacion-trabajos-en-suspension/", "destination": "/es/blog", "permanent": true },
+    { "source": "/formacion-trabajos-en-suspension", "destination": "/es/blog", "permanent": true },
 
     { "source": "/wp-content/:path*", "destination": "/es", "permanent": true },
     { "source": "/wp-admin/:path*", "destination": "/es", "permanent": true },

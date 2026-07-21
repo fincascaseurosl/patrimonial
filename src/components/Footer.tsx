@@ -15,7 +15,7 @@ export function Footer() {
           {/* Company */}
           <div>
             <div className="mb-6">
-              <Logo variant="light" />
+              <Logo variant="light" tagline={t("nav.logoTagline")} />
             </div>
             <p className="text-sm leading-relaxed mb-6">
               {t("footer.descripcion")}
@@ -49,6 +49,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/construir-casa-a-medida" className="hover:text-white transition-colors duration-300">
+                  {t("casa.navLabel")}
+                </Link>
+              </li>
+              <li>
                 <Link href="/sobre-nosotros" className="hover:text-white transition-colors duration-300">
                   {t("nav.sobreNosotros")}
                 </Link>
@@ -56,6 +61,11 @@ export function Footer() {
               <li>
                 <Link href="/portfolio" className="hover:text-white transition-colors duration-300">
                   {t("nav.portfolio")}
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="hover:text-white transition-colors duration-300">
+                  {t("nav.blog")}
                 </Link>
               </li>
               <li>
@@ -123,7 +133,7 @@ export function Footer() {
       {/* Bottom line */}
       <div className="border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6 py-6 flex flex-wrap justify-between items-center text-[11px] text-white/25 tracking-wider">
-          <p>&copy; {new Date().getFullYear()} {siteConfig.nombre}</p>
+          <p>&copy; {new Date().getFullYear()} {siteConfig.nombre} — {t("footer.legal")}</p>
           <Link href="/politica-de-privacidad" className="hover:text-white/50 transition-colors duration-300">
             {t("footer.privacidad")}
           </Link>

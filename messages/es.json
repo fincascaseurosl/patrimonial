@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Obras en Barcelona | Patrimonial - Construcción, Reformas y Rehabilitación",
-    "description": "Empresa de construcción, reformas integrales y rehabilitación de edificios en Barcelona con más de 25 años de experiencia. Presupuesto sin compromiso."
+    "description": "Empresa de construcción, reformas integrales y rehabilitación de edificios en Barcelona con más de 20 años de experiencia. Presupuesto sin compromiso."
   },
   "nav": {
     "inicio": "Inicio",
@@ -12,26 +12,25 @@
     "blog": "Blog",
     "presupuesto": "Pedir presupuesto",
     "verTodos": "Ver todos",
-    "idioma": "CA"
+    "idioma": "CA",
+    "logoTagline": "Obras · Barcelona"
   },
   "hero": {
-    "titulo": "Obras en Barcelona",
-    "subtitulo": "Expertos en construcción, reformas y rehabilitación de edificios con más de 25 años de experiencia.",
     "cta": "Obtener presupuesto"
   },
   "home": {
-    "heroEyebrow": "Patrimonial · Barcelona · Desde 1998",
+    "heroEyebrow": "Patrimonial · Barcelona · Desde 2006",
     "heroLine1": "Construimos",
     "heroLine2": "el patrimonio",
     "heroLine3": "de Barcelona.",
-    "heroSub": "Reformas integrales, obra nueva y rehabilitación de edificios con la disciplina de un estudio de arquitectura y la rigurosidad de una constructora con 25 años en la ciudad.",
+    "heroSub": "Reformas integrales, obra nueva y rehabilitación de edificios con la disciplina de un estudio de arquitectura y la rigurosidad de una constructora con 20 años en la ciudad.",
     "heroScroll": "Desplaza para descubrir",
     "marqueeItems": ["Reformas integrales", "Obra nueva", "Rehabilitación de edificios", "Trabajos verticales", "Retirada de amianto", "Refuerzos estructurales", "Impermeabilización"],
     "manifiestoEyebrow": "Manifiesto",
     "manifiestoText": "No hacemos obras. Devolvemos a Barcelona los edificios que la han sostenido durante un siglo, con la misma exigencia con la que se levantaron.",
     "cifrasEyebrow": "Cifras que nos sostienen",
     "cifras": [
-      { "num": 25, "suffix": "+", "label": "años en Barcelona" },
+      { "num": 20, "suffix": "+", "label": "años en Barcelona" },
       { "num": 480, "suffix": "+", "label": "proyectos entregados" },
       { "num": 92000, "suffix": " m²", "label": "intervenidos" },
       { "num": 38, "suffix": "", "label": "profesionales en plantilla" }
@@ -39,7 +38,9 @@
     "serviciosEyebrow": "Servicios destacados",
     "serviciosTitulo": "Tres formas de intervenir un patrimonio.",
     "procesoEyebrow": "Cómo trabajamos",
-    "procesoTitulo": "Un método propio en cinco fases.",
+    "procesoTitulo": "Un método propio, adaptado a cada servicio.",
+    "procesoIntro": "Elige un servicio y verás las fases exactas con las que lo ejecutamos, de la primera visita a la entrega.",
+    "procesoVerServicio": "Ver el servicio",
     "proceso": [
       { "num": "01", "titulo": "Auditoría del proyecto", "texto": "Reconocimiento del inmueble, levantamiento de patologías y gestión de permisos y trámites con la propiedad o administración." },
       { "num": "02", "titulo": "Anteproyecto", "texto": "Memoria valorada, propuesta de soluciones y estimación de plazos en 7 días laborables." },
@@ -49,6 +50,9 @@
     ],
     "portfolioEyebrow": "Trabajos recientes",
     "portfolioTitulo": "Una década interviniendo Barcelona, edificio a edificio.",
+    "portfolioDesplaza": "Desplaza",
+    "portfolioFinalLabel": "Final",
+    "portfolioFinalTitulo": "Toda la cartera te espera.",
     "certEyebrow": "Acreditaciones",
     "certItems": ["RERA · Empresa inscrita amianto", "Gremi de Constructors BCN", "ISO 9001 calidad", "ISO 14001 medio ambiente", "FAD Arquitectura", "Asociación Rehabilitación BCN"],
     "blogEyebrow": "Diario de obra",
@@ -76,6 +80,7 @@
     "ctaFinalSecundario": "Ver servicios"
   },
   "servicios": {
+    "dropdownTagline": "Un solo equipo propio para las 8 disciplinas. Sin subcontratas.",
     "titulo": "Servicios de construcción, reformas y rehabilitación en Barcelona",
     "subtitulo": "Reformas integrales, obra nueva, rehabilitación y trabajos especializados con un equipo propio de 38 profesionales.",
     "heroEyebrow": "Nuestros servicios",
@@ -87,85 +92,154 @@
     "manifiestoTexto": "No subcontratamos lo que sabemos hacer. Cada disciplina tiene un jefe de obra propio y una sola persona que responde ante ti.",
     "marqueeServiciosItems": ["Reformas", "Obra nueva", "Rehabilitación", "Estructuras", "Amianto", "Verticales", "Impermeabilización"],
     "detailEncargo": "El encargo",
+    "detailDestacados": "Qué incluye",
     "detailMetodo": "Método · 04 fases",
-    "detailFases": [
-      { "n": "01", "titulo": "Auditoría del proyecto", "descripcion": "Permisos y trámites." },
-      { "n": "02", "titulo": "Proyecto", "descripcion": "Definición de alcance, materiales, plazos y presupuesto cerrado." },
-      { "n": "03", "titulo": "Ejecución", "descripcion": "Jefe de obra propio y una sola persona como interlocutor." },
-      { "n": "04", "titulo": "Entrega", "descripcion": "Repaso final y limpieza." }
-    ],
     "detailPresupuestoLabel": "Presupuesto",
     "detailOtrosServicios": "Otros servicios",
     "detailSiguiente": "Siguiente servicio",
+    "detailTrabajos": "Trabajos realizados",
+    "detailTrabajosSubtitulo": "Proyectos reales de este servicio, entregados en Barcelona.",
     "verTodos": "Ver todos los servicios",
     "items": {
       "reformas": {
-        "nombre": "Reformas Barcelona",
+        "nombre": "Reformas Integrales",
         "descripcion": "Realizamos reformas integrales y parciales, tanto en viviendas, como en oficinas y locales comerciales. Instaladores autorizados y agremiados de gas, luz, agua, etc. Retirada de amianto.",
-        "descripcionLarga": "En Patrimonial somos especialistas en reformas integrales en Barcelona. Nos encargamos de todo el proceso, desde el diseño hasta la ejecución final, incluyendo instalaciones de gas, luz, agua, telecomunicaciones y climatización. Contamos con instaladores autorizados y agremiados que garantizan la máxima calidad y el cumplimiento de toda la normativa vigente. También realizamos reformas parciales adaptadas a las necesidades y presupuesto de cada cliente, ya sea en viviendas particulares, oficinas o locales comerciales."
+        "descripcionLarga": "En Patrimonial somos especialistas en reformas integrales en Barcelona. Nos encargamos de todo el proceso, desde el diseño hasta la ejecución final, incluyendo instalaciones de gas, luz, agua, telecomunicaciones y climatización. Contamos con instaladores autorizados y agremiados que garantizan la máxima calidad y el cumplimiento de toda la normativa vigente. También realizamos reformas parciales adaptadas a las necesidades y presupuesto de cada cliente, ya sea en viviendas particulares, oficinas o locales comerciales.",
+        "destacados": [
+          "Diseño y ejecución con el mismo equipo, sin intermediarios.",
+          "Instaladores propios agremiados de gas, luz, agua y climatización.",
+          "Reformas integrales o por partidas sueltas, a tu medida.",
+          "Retirada de amianto incluida si el edificio lo requiere."
+        ],
+        "fases": [
+          { "n": "01", "titulo": "Auditoría del proyecto", "descripcion": "Permisos y trámites." },
+          { "n": "02", "titulo": "Diseño y presupuesto", "descripcion": "Distribución, materiales y memoria valorada cerrada antes de empezar." },
+          { "n": "03", "titulo": "Ejecución por oficios", "descripcion": "Albañilería, instalaciones, alicatados y carpintería coordinados por un jefe de obra." },
+          { "n": "04", "titulo": "Entrega y limpieza final", "descripcion": "Repaso, limpieza de obra y revisión conjunta contigo." }
+        ]
       },
       "obraNueva": {
         "nombre": "Obra nueva",
         "descripcion": "Realizamos construcciones de obra nueva tanto de edificios de oficinas como de viviendas, locales, etc. de principio a fin de la obra.",
-        "descripcionLarga": "Ejecutamos proyectos de obra nueva de principio a fin. Desde la cimentación hasta los acabados finales, gestionamos todos los oficios y fases de la construcción: estructura, albañilería, instalaciones, pavimentos, revestimientos y carpintería. Trabajamos tanto en edificios residenciales como en oficinas, locales comerciales e instalaciones industriales, siempre respetando los plazos y presupuestos acordados."
+        "descripcionLarga": "Ejecutamos proyectos de obra nueva de principio a fin. Desde la cimentación hasta los acabados finales, gestionamos todos los oficios y fases de la construcción: estructura, albañilería, instalaciones, pavimentos, revestimientos y carpintería. Trabajamos tanto en edificios residenciales como en oficinas, locales comerciales e instalaciones industriales, siempre respetando los plazos y presupuestos acordados.",
+        "destacados": [
+          "Un solo interlocutor desde la cimentación hasta las llaves.",
+          "Coordinamos arquitectura, estructura e instalaciones en un mismo equipo.",
+          "Trabajamos en vivienda residencial, oficinas, locales e industria.",
+          "Plazos y presupuesto cerrados desde el proyecto ejecutivo."
+        ],
+        "fases": [
+          { "n": "01", "titulo": "Auditoría del proyecto", "descripcion": "Permisos y trámites." },
+          { "n": "02", "titulo": "Proyecto ejecutivo", "descripcion": "Coordinación con arquitectura y cálculo de estructura." },
+          { "n": "03", "titulo": "Cimentación y estructura", "descripcion": "Movimiento de tierras, cimentación y estructura portante." },
+          { "n": "04", "titulo": "Acabados y entrega", "descripcion": "Instalaciones, revestimientos, carpintería y entrega llave en mano." }
+        ]
       },
       "rehabilitacion": {
         "nombre": "Rehabilitación",
         "descripcion": "Hacemos rehabilitaciones integrales tanto de edificios, fachadas, portales, pavimentos y todo lo que necesites. Trabajos verticales, refuerzos estructurales, etc.",
-        "descripcionLarga": "Somos expertos en rehabilitación integral de edificios en Barcelona. Realizamos trabajos de rehabilitación de fachadas, portales, escaleras comunitarias, cubiertas y terrados. Nuestro equipo está especializado en trabajos verticales, refuerzos estructurales y consolidación de elementos constructivos, garantizando la seguridad y durabilidad de cada intervención."
+        "descripcionLarga": "Somos expertos en rehabilitación integral de edificios en Barcelona. Realizamos trabajos de rehabilitación de fachadas, portales, escaleras comunitarias, cubiertas y terrados. Nuestro equipo está especializado en trabajos verticales, refuerzos estructurales y consolidación de elementos constructivos, garantizando la seguridad y durabilidad de cada intervención.",
+        "destacados": [
+          "Fachadas, portales, escaleras y cubiertas de edificios en uso.",
+          "Trabajos verticales y refuerzos estructurales con equipo propio.",
+          "Coordinación directa con comunidades y administradores de fincas.",
+          "Intervenciones planificadas para minimizar molestias a los vecinos."
+        ],
+        "fases": [
+          { "n": "01", "titulo": "Auditoría del proyecto", "descripcion": "Permisos y trámites." },
+          { "n": "02", "titulo": "Inspección técnica del edificio", "descripcion": "Estudio de patologías y memoria de intervención." },
+          { "n": "03", "titulo": "Ejecución por fases", "descripcion": "Fachada, cubierta o zonas comunes, coordinada con la comunidad." },
+          { "n": "04", "titulo": "Entrega y garantía", "descripcion": "Revisión final y seguimiento postventa." }
+        ]
       },
       "instalaciones": {
         "nombre": "Instalaciones de luz, agua y gas",
         "descripcion": "Instaladores autorizados y agremiados para todo tipo de instalaciones: electricidad, fontanería, gas natural y climatización.",
-        "descripcionLarga": "Disponemos de instaladores autorizados para realizar todo tipo de instalaciones en viviendas, oficinas y locales comerciales. Nos encargamos de las instalaciones eléctricas, de fontanería, gas natural, aire acondicionado y calefacción, cumpliendo siempre con la normativa vigente y proporcionando los boletines y certificados necesarios."
+        "descripcionLarga": "Disponemos de instaladores autorizados para realizar todo tipo de instalaciones en viviendas, oficinas y locales comerciales. Nos encargamos de las instalaciones eléctricas, de fontanería, gas natural, aire acondicionado y calefacción, cumpliendo siempre con la normativa vigente y proporcionando los boletines y certificados necesarios.",
+        "destacados": [
+          "Instaladores propios autorizados y agremiados en las 4 disciplinas.",
+          "Boletines y certificados oficiales incluidos en cada intervención.",
+          "Electricidad, fontanería, gas natural, climatización y calefacción.",
+          "Instalación adaptada a la normativa vigente en reformas y obra nueva."
+        ],
+        "fases": [
+          { "n": "01", "titulo": "Auditoría del proyecto", "descripcion": "Permisos y trámites." },
+          { "n": "02", "titulo": "Diseño de la instalación", "descripcion": "Cálculo de potencias, trazados y normativa aplicable." },
+          { "n": "03", "titulo": "Ejecución e instalación", "descripcion": "Montaje por instaladores autorizados de cada gremio." },
+          { "n": "04", "titulo": "Boletines y puesta en marcha", "descripcion": "Legalización, certificados y pruebas de funcionamiento." }
+        ]
       },
       "amianto": {
         "nombre": "Retirada de amianto",
         "descripcion": "Empresa inscrita en el RERA para la retirada segura y legal de materiales con amianto en todo tipo de edificaciones.",
-        "descripcionLarga": "Estamos inscritos en el Registro de Empresas con Riesgo de Amianto (RERA) y contamos con toda la formación y equipamiento necesario para la retirada segura de materiales que contienen amianto. Gestionamos todo el proceso: evaluación, plan de trabajo, retirada, transporte y eliminación en vertederos autorizados, garantizando la seguridad de los trabajadores y vecinos."
+        "descripcionLarga": "Estamos inscritos en el Registro de Empresas con Riesgo de Amianto (RERA) y contamos con toda la formación y equipamiento necesario para la retirada segura de materiales que contienen amianto. Gestionamos todo el proceso: evaluación, plan de trabajo, retirada, transporte y eliminación en vertederos autorizados, garantizando la seguridad de los trabajadores y vecinos.",
+        "destacados": [
+          "Empresa inscrita en el RERA (Registro de Empresas con Riesgo de Amianto).",
+          "Equipo formado y equipado según el Real Decreto 396/2006.",
+          "Transporte y eliminación en vertederos autorizados con trazabilidad documental.",
+          "Gestión íntegra de los permisos ante Trabajo y Salud Pública."
+        ],
+        "fases": [
+          { "n": "01", "titulo": "Auditoría del proyecto", "descripcion": "Permisos y trámites." },
+          { "n": "02", "titulo": "Evaluación e identificación", "descripcion": "Inspección de materiales y plan de trabajo ante la autoridad laboral." },
+          { "n": "03", "titulo": "Retirada controlada", "descripcion": "Desmontaje con equipos certificados y protocolos de seguridad." },
+          { "n": "04", "titulo": "Transporte y certificado final", "descripcion": "Eliminación en vertedero autorizado y entrega de la documentación." }
+        ]
       },
       "trabajosVerticales": {
         "nombre": "Trabajos verticales",
         "descripcion": "Intervención en fachadas, cubiertas y zonas de difícil acceso mediante técnicas de trabajos en altura con cuerdas.",
-        "descripcionLarga": "Nuestro equipo está formado y certificado para realizar trabajos verticales en fachadas, cubiertas, patios de luces y cualquier zona de difícil acceso. Esta técnica permite intervenir en edificios sin necesidad de montar andamios, reduciendo costes y plazos de ejecución. Realizamos reparaciones de fachada, impermeabilización, pintura, instalación de redes de protección y anclajes."
+        "descripcionLarga": "Nuestro equipo está formado y certificado para realizar trabajos verticales en fachadas, cubiertas, patios de luces y cualquier zona de difícil acceso. Esta técnica permite intervenir en edificios sin necesidad de montar andamios, reduciendo costes y plazos de ejecución. Realizamos reparaciones de fachada, impermeabilización, pintura, instalación de redes de protección y anclajes.",
+        "destacados": [
+          "Técnicos certificados en trabajos verticales con cuerdas.",
+          "Intervención sin andamios: menos coste y menos plazo de ejecución.",
+          "Fachadas, cubiertas y patios de luces de difícil acceso.",
+          "Instalación de líneas de vida y redes de protección permanentes."
+        ],
+        "fases": [
+          { "n": "01", "titulo": "Auditoría del proyecto", "descripcion": "Permisos y trámites." },
+          { "n": "02", "titulo": "Inspección de acceso", "descripcion": "Estudio de anclajes, fachada y puntos de difícil acceso." },
+          { "n": "03", "titulo": "Montaje de anclajes y líneas de vida", "descripcion": "Preparación segura del acceso vertical." },
+          { "n": "04", "titulo": "Intervención e informe fotográfico", "descripcion": "Reparación, limpieza o pintura con reporte final." }
+        ]
       },
       "refuerzos": {
         "nombre": "Refuerzos estructurales",
         "descripcion": "Consolidación y refuerzo de estructuras: vigas, pilares, forjados y cimentaciones con las técnicas más avanzadas.",
-        "descripcionLarga": "Realizamos estudios y proyectos de refuerzo estructural para edificios que presentan patologías o necesitan adaptarse a nuevos usos. Trabajamos con técnicas de refuerzo de vigas, pilares, forjados y cimentaciones, utilizando materiales como fibra de carbono, resinas epoxi, perfiles metálicos y hormigón proyectado."
+        "descripcionLarga": "Realizamos estudios y proyectos de refuerzo estructural para edificios que presentan patologías o necesitan adaptarse a nuevos usos. Trabajamos con técnicas de refuerzo de vigas, pilares, forjados y cimentaciones, utilizando materiales como fibra de carbono, resinas epoxi, perfiles metálicos y hormigón proyectado.",
+        "destacados": [
+          "Estudio estructural previo firmado por técnico competente.",
+          "Refuerzo de vigas, pilares, forjados y cimentaciones.",
+          "Soluciones para patologías o cambios de uso del edificio.",
+          "Seguimiento del comportamiento estructural tras la intervención."
+        ],
+        "fases": [
+          { "n": "01", "titulo": "Auditoría del proyecto", "descripcion": "Permisos y trámites." },
+          { "n": "02", "titulo": "Estudio patológico", "descripcion": "Inspección, cálculo y memoria de refuerzo." },
+          { "n": "03", "titulo": "Ejecución del refuerzo", "descripcion": "Intervención sobre vigas, pilares, forjados o cimentación." },
+          { "n": "04", "titulo": "Control y cierre", "descripcion": "Verificación del comportamiento estructural y entrega de la documentación." }
+        ]
       },
       "impermeabilizacion": {
         "nombre": "Impermeabilización de terrados",
         "descripcion": "Impermeabilización profesional de terrados, cubiertas y azoteas con las mejores técnicas y materiales del mercado.",
-        "descripcionLarga": "Ofrecemos soluciones profesionales de impermeabilización para terrados, cubiertas planas, azoteas y balcones."
-      }
-    }
-  },
-  "porqueElegirnos": {
-    "titulo": "¿Por qué elegirnos?",
-    "subtitulo": "Lo que buscan nuestros clientes",
-    "items": {
-      "experiencia": {
-        "titulo": "Experiencia",
-        "texto": "Más de 25 años en el sector de la construcción"
-      },
-      "financiacion": {
-        "titulo": "Financiación",
-        "texto": "0% de interés y financiación del 100%"
-      },
-      "subvencion": {
-        "titulo": "Subvención",
-        "texto": "Gestionamos toda la tramitación de las subvenciones"
-      },
-      "garantia": {
-        "titulo": "Garantía",
-        "texto": "Máxima profesionalidad y rigurosidad en nuestros trabajos"
+        "descripcionLarga": "Ofrecemos soluciones profesionales de impermeabilización para terrados, cubiertas planas, azoteas y balcones.",
+        "destacados": [
+          "Solución adaptada a cada tipo de cubierta: transitable, plana o inclinada.",
+          "Revisión previa del estado de desagües y pendientes.",
+          "Dos años de garantía sobre la intervención.",
+          "Intervenciones también en balcones y terrazas particulares."
+        ],
+        "fases": [
+          { "n": "01", "titulo": "Auditoría del proyecto", "descripcion": "Permisos y trámites." },
+          { "n": "02", "titulo": "Inspección de la cubierta", "descripcion": "Estado de pendientes, desagües y humedades." },
+          { "n": "03", "titulo": "Aplicación del sistema", "descripcion": "Ejecución con la técnica adecuada a cada cubierta." },
+          { "n": "04", "titulo": "Pruebas y entrega", "descripcion": "Prueba de estanqueidad y garantía por escrito." }
+        ]
       }
     }
   },
   "cta": {
-    "titulo": "Reformas, obra nueva y rehabilitación de edificios",
-    "texto": "Entendemos que los proyectos representan no sólo edificios, sino los planes para el futuro de nuestros clientes. Pregúntanos lo que quieras sin ningún tipo de compromiso. Te responderemos en el menor tiempo posible.",
     "boton": "Contáctanos",
     "presupuesto": "Pídenos presupuesto sin compromiso",
     "subtexto": "Cuéntanos tu proyecto y te asesoramos sin ningún compromiso."
@@ -195,22 +269,14 @@
       "fichaDuracion": "Plazo",
       "fichaDireccion": "Dirección",
       "abrirFicha": "Abrir ficha completa",
-      "cerrarPanel": "Cerrar"
+      "cerrarPanel": "Cerrar",
+      "imagenNoDisponible": "Imagen no disponible"
     }
-  },
-  "testimonios": {
-    "titulo": "Testimonios",
-    "items": [
-      {
-        "texto": "Necesitaba una reforma de mi salón y Patrimonial hizo un trabajo excelente en toda la obra y con gran limpieza y profesionalidad.",
-        "autor": "Carlos"
-      }
-    ]
   },
   "sobreNosotros": {
     "titulo": "Sobre nosotros",
     "subtitulo": "Patrimonial Obras Barcelona",
-    "descripcion": "Empresa de servicios inmobiliarios integrales experta en la gestión del patrimonio con más de 25 años de experiencia.",
+    "descripcion": "Empresa de servicios inmobiliarios integrales experta en la gestión del patrimonio con más de 20 años de experiencia.",
     "contenido": "Desde nuestros inicios, en Patrimonial nos hemos dedicado a ofrecer un servicio integral de construcción, reformas y rehabilitación de edificios en Barcelona. Nuestra filosofía se basa en la cercanía con el cliente, la transparencia en los presupuestos y la máxima calidad en cada uno de nuestros trabajos.\n\nEntre nuestros clientes se encuentran un gran número de Administradores de fincas, Arquitectos, industrias, empresas y particulares que confían en nuestra experiencia y profesionalidad.\n\nContamos con un equipo de profesionales cualificados en todas las especialidades de la construcción: albañilería, electricidad, fontanería, gas, climatización, pintura, carpintería y trabajos verticales. Todos nuestros instaladores están autorizados y agremiados.\n\nEstamos inscritos en el RERA (Registro de Empresas con Riesgo de Amianto) y contamos con las certificaciones necesarias para realizar cualquier tipo de intervención constructiva.",
     "contactar": "Contactar",
     "stats": {
@@ -228,6 +294,61 @@
         "Compromiso con la calidad y la sostenibilidad"
       ]
     }
+  },
+  "casa": {
+    "navLabel": "Construye tu casa",
+    "metaTitle": "Casas a Medida en Barcelona y Catalunya",
+    "metaDescription": "Construimos casas a medida en Barcelona y Catalunya: diseño, licencias y ejecución con un único equipo, de la parcela a las llaves en mano.",
+    "heroEyebrow": "ARQUITECTURA • DISEÑO • CONSTRUCCIÓN",
+    "heroTitulo": "Diseñamos y construimos la casa que quieres vivir.",
+    "heroSub": "Desde la primera idea hasta la entrega de llaves, diseñamos y construimos viviendas únicas adaptadas a tu estilo de vida, con un proceso transparente, cuidado y completamente personalizado.",
+    "heroBotonPrimario": "Empieza tu proyecto",
+    "heroBotonSecundario": "Ver proyectos",
+    "heroScroll": "Desplaza para descubrir",
+    "manifiestoEyebrow": "Un proyecto · un equipo · una casa",
+    "manifiestoTexto": "Construir una casa no es aplicar un catálogo. Es traducir cómo vives en metros, luz y materiales — y sostenerlo con un equipo que responde ante ti, no ante una subcontrata.",
+    "porqueEyebrow": "Por qué construir con nosotros",
+    "porqueTitulo": "Un solo interlocutor, de la escritura del terreno a las llaves.",
+    "destacados": [
+      "Arquitectura y ejecución bajo el mismo equipo, sin fricciones entre estudios.",
+      "Gestionamos la licencia de obra nueva y todos los trámites municipales.",
+      "Equipo propio en obra: estructura, instalaciones y acabados, sin subcontratas.",
+      "Presupuesto cerrado desde el proyecto ejecutivo, sin sorpresas en la certificación."
+    ],
+    "procesoEyebrow": "El proceso",
+    "procesoTitulo": "De la parcela a las llaves, en cinco fases.",
+    "procesoScroll": "Desplaza",
+    "proceso": [
+      { "n": "01", "titulo": "Auditoría del proyecto", "texto": "Permisos y trámites." },
+      { "n": "02", "titulo": "Anteproyecto y diseño", "texto": "Arquitectura, distribución y memoria valorada." },
+      { "n": "03", "titulo": "Proyecto ejecutivo y licencias", "texto": "Cálculo de estructura y tramitación de la licencia de obra nueva." },
+      { "n": "04", "titulo": "Cimentación y estructura", "texto": "Movimiento de tierras, cimentación y estructura portante." },
+      { "n": "05", "titulo": "Acabados y entrega", "texto": "Instalaciones, revestimientos, carpintería y entrega llave en mano." }
+    ],
+    "galeria": {
+      "eyebrow": "Casas entregadas",
+      "titulo": "Casas que hemos construido.",
+      "subtitulo": "Proyectos de obra nueva llave en mano. Desliza para recorrerlos y abre cualquiera para ver su ficha completa.",
+      "anterior": "Anterior",
+      "siguiente": "Siguiente"
+    },
+    "statAnos": "años construyendo en Barcelona",
+    "statProyectos": "proyectos entregados",
+    "statProfesionales": "profesionales en plantilla",
+    "faqEyebrow": "Preguntas frecuentes",
+    "faqTitulo": "Antes de construir, resolvemos esto.",
+    "faq": [
+      { "q": "¿Cuánto tarda construir una casa desde cero?", "a": "Una vivienda unifamiliar de tamaño medio, desde la licencia hasta la entrega de llaves, suele tardar entre 12 y 18 meses según la superficie y la complejidad del terreno." },
+      { "q": "¿Puedo construir en cualquier terreno?", "a": "Depende de la calificación urbanística y la normativa municipal. En la auditoría del proyecto revisamos la edificabilidad y los condicionantes antes de diseñar nada." },
+      { "q": "¿Gestionáis vosotros la licencia de obra nueva?", "a": "Sí. Tramitamos el proyecto ejecutivo y la licencia municipal, y coordinamos las inspecciones técnicas hasta la cédula de habitabilidad." },
+      { "q": "¿Puedo traer mi propio arquitecto?", "a": "Sí. Podemos ejecutar sobre un proyecto ya redactado, o coordinar el diseño con nuestro propio equipo de arquitectura desde cero." },
+      { "q": "¿El presupuesto puede variar durante la obra?", "a": "El presupuesto se cierra sobre el proyecto ejecutivo. Cualquier cambio posterior se aprueba por escrito antes de ejecutarse." }
+    ],
+    "ctaEyebrow": "¿Tienes un terreno o un proyecto?",
+    "ctaTitulo": "Cuéntanos qué casa quieres construir.",
+    "ctaSub": "Te decimos qué es posible, qué trámites necesitas y en cuánto tiempo, sin compromiso.",
+    "ctaBoton": "Pide presupuesto",
+    "ctaSecundario": "Ver obra nueva"
   },
   "contacto": {
     "titulo": "Contacto",
@@ -255,7 +376,7 @@
   },
   "footer": {
     "empresa": "Patrimonial Obras Barcelona",
-    "descripcion": "Empresa de servicios inmobiliarios integrales experta en la gestión del patrimonio con más de 25 años de experiencia.",
+    "descripcion": "Empresa de servicios inmobiliarios integrales experta en la gestión del patrimonio con más de 20 años de experiencia.",
     "menu": "Menú",
     "serviciosTitle": "Servicios",
     "contactoTitle": "Contacto",
@@ -263,5 +384,13 @@
     "privacidad": "Política de privacidad",
     "financiadoUE": "Financiado por la Unión Europea",
     "prtr": "Plan de Recuperación, Transformación y Resiliencia"
+  },
+  "notFound": {
+    "eyebrow": "Error 404",
+    "titulo": "Esta página no existe.",
+    "texto": "Puede que el enlace esté roto o que la página se haya movido. Prueba con uno de estos accesos.",
+    "inicio": "Volver al inicio",
+    "servicios": "Ver servicios",
+    "contacto": "Contactar"
   }
 }

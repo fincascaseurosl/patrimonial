@@ -8,8 +8,19 @@ export const alt =
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+const COPY: Record<string, { headline: string; sub: string }> = {
+  es: { headline: "Construcción, reformas y rehabilitación", sub: `${siteConfig.nombre} · Barcelona · Equipo propio` },
+  ca: { headline: "Construcció, reformes i rehabilitació", sub: `${siteConfig.nombre} · Barcelona · Equip propi` },
+  en: { headline: "Construction, renovations & refurbishment", sub: `${siteConfig.nombre} · Barcelona · In-house crew` },
+};
+
+type Props = { params: Promise<{ locale: string }> };
+
 // Imagen OG de marca generada en build (logo blanco sobre fondo tinta + acento rojo).
-export default async function Image() {
+export default async function Image({ params }: Props) {
+  const { locale } = await params;
+  const copy = COPY[locale] ?? COPY.es;
+
   const logo = await readFile(
     join(process.cwd(), "public/images/logo/logo-white.png"),
   );
@@ -54,7 +65,7 @@ export default async function Image() {
               letterSpacing: "-0.02em",
             }}
           >
-            Construcción, reformas y rehabilitación
+            {copy.headline}
           </div>
           <div
             style={{
@@ -64,7 +75,7 @@ export default async function Image() {
               marginTop: 24,
             }}
           >
-            {siteConfig.nombre} · Barcelona · Equipo propio
+            {copy.sub}
           </div>
         </div>
       </div>

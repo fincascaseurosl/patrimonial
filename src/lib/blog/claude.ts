@@ -42,7 +42,7 @@ export class ClaudeError extends Error {
 
 function buildSystemPrompt(categories: { slug: string; nameEs: string }[]): string {
   const catList = categories.map((c) => `${c.slug} (${c.nameEs})`).join(", ");
-  return `Eres el redactor jefe del blog de Patrimonial Obras Barcelona, una empresa de construcción, reformas integrales y rehabilitación de edificios con más de 25 años de experiencia en Barcelona.
+  return `Eres el redactor jefe del blog de Patrimonial Obras Barcelona, una empresa de construcción, reformas integrales y rehabilitación de edificios con más de 20 años de experiencia en Barcelona (fundada en 2006).
 
 Tu trabajo: leer una noticia del sector y reescribirla COMPLETAMENTE en un artículo nuevo con la voz de Patrimonial, en TRES idiomas (español, catalán e inglés) en la misma respuesta. NUNCA copies frases ni estructura del original.
 

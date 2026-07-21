@@ -20,9 +20,24 @@ type Props = {
   titulo: string;
   verTodos: string;
   verMas: string;
+  desplaza: string;
+  finalLabel: string;
+  finalTitulo: string;
+  categoryLabels: Record<string, string>;
 };
 
-export function PortfolioPinned({ projects, locale, eyebrow, titulo, verTodos, verMas }: Props) {
+export function PortfolioPinned({
+  projects,
+  locale,
+  eyebrow,
+  titulo,
+  verTodos,
+  verMas,
+  desplaza,
+  finalLabel,
+  finalTitulo,
+  categoryLabels,
+}: Props) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const counterRef = useRef<HTMLSpanElement>(null);
@@ -174,7 +189,7 @@ export function PortfolioPinned({ projects, locale, eyebrow, titulo, verTodos, v
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 p-6">
                     <p className="text-[var(--brand-red-soft)] text-[10px] font-semibold tracking-[0.32em] uppercase mb-2">
-                      {project.category}
+                      {categoryLabels[project.category] ?? project.category}
                     </p>
                     <h3 className="font-display text-white text-xl font-bold tracking-[-0.02em] leading-tight">
                       {name}
@@ -226,7 +241,7 @@ export function PortfolioPinned({ projects, locale, eyebrow, titulo, verTodos, v
             <div className="max-w-7xl mx-auto px-6 flex justify-end">
               <div className="flex items-center gap-3 text-[var(--mute)] text-[10px] font-semibold tracking-[0.32em] uppercase">
                 <span className="w-8 h-[1px] bg-current" />
-                <span>Desplaza</span>
+                <span>{desplaza}</span>
               </div>
             </div>
           </div>
@@ -275,7 +290,7 @@ export function PortfolioPinned({ projects, locale, eyebrow, titulo, verTodos, v
                       style={{ willChange: "transform" }}
                     >
                       <p className="text-[var(--brand-red-soft)] text-[10px] font-semibold tracking-[0.32em] uppercase mb-3">
-                        {project.category}
+                        {categoryLabels[project.category] ?? project.category}
                       </p>
                       <div className="flex items-end justify-between gap-6">
                         <h3 className="font-display text-white text-2xl xl:text-[1.875rem] font-bold tracking-[-0.02em] leading-[1.1] max-w-md">
@@ -314,10 +329,10 @@ export function PortfolioPinned({ projects, locale, eyebrow, titulo, verTodos, v
               style={{ width: "38vw", maxWidth: "480px" }}
             >
               <p className="text-[var(--mute)] text-[10px] font-semibold tracking-[0.32em] uppercase">
-                {String(projects.length + 1).padStart(2, "0")} · Final
+                {String(projects.length + 1).padStart(2, "0")} · {finalLabel}
               </p>
               <p className="font-display text-[var(--ink)] text-4xl xl:text-5xl font-bold tracking-[-0.03em] leading-[1.05]">
-                Toda la cartera te espera.
+                {finalTitulo}
               </p>
               <span className="inline-flex items-center gap-3 text-[12px] font-semibold tracking-[0.18em] uppercase text-[var(--brand-red)]">
                 <span>{verTodos}</span>

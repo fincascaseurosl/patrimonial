@@ -34,6 +34,7 @@ export function ProjectForm({ initial, mode }: Props) {
   const [descriptionCa, setDescriptionCa] = useState(initial?.descriptionCa ?? "");
   const [descriptionEn, setDescriptionEn] = useState(initial?.descriptionEn ?? "");
   const [featured, setFeatured] = useState<boolean>(initial?.featured ?? false);
+  const [isCasa, setIsCasa] = useState<boolean>(initial?.isCasa ?? false);
   const [address, setAddress] = useState(initial?.address ?? "");
   const [neighborhood, setNeighborhood] = useState(initial?.neighborhood ?? "");
   const [lat, setLat] = useState<number | null>(initial?.lat ?? null);
@@ -93,6 +94,7 @@ export function ProjectForm({ initial, mode }: Props) {
       descriptionCa,
       descriptionEn,
       featured,
+      isCasa,
       address,
       neighborhood,
       lat,
@@ -200,17 +202,30 @@ export function ProjectForm({ initial, mode }: Props) {
           </div>
         </div>
 
-        <label className="flex cursor-pointer items-center gap-3 pt-1">
-          <input
-            type="checkbox"
-            checked={featured}
-            onChange={(e) => setFeatured(e.target.checked)}
-            className="h-4 w-4 accent-[var(--brand-red)]"
-          />
-          <span className="text-sm font-medium text-gray-700">
-            Destacar en «Trabajos recientes» (portada)
-          </span>
-        </label>
+        <div className="space-y-3 pt-1">
+          <label className="flex cursor-pointer items-center gap-3">
+            <input
+              type="checkbox"
+              checked={featured}
+              onChange={(e) => setFeatured(e.target.checked)}
+              className="h-4 w-4 accent-[var(--brand-red)]"
+            />
+            <span className="text-sm font-medium text-gray-700">
+              Destacar en «Trabajos recientes» (portada)
+            </span>
+          </label>
+          <label className="flex cursor-pointer items-center gap-3">
+            <input
+              type="checkbox"
+              checked={isCasa}
+              onChange={(e) => setIsCasa(e.target.checked)}
+              className="h-4 w-4 accent-[var(--brand-red)]"
+            />
+            <span className="text-sm font-medium text-gray-700">
+              Es una casa construida — mostrar en «Construye tu casa»
+            </span>
+          </label>
+        </div>
       </section>
 
       {/* Descripciones */}

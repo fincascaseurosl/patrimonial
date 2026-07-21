@@ -3,13 +3,18 @@ import { getProjects, saveProjects } from "@/lib/projects";
 import type { Project } from "@/lib/projects";
 import { revalidatePath } from "next/cache";
 import { serviceSlugs } from "@/lib/site-config";
+import { requireAdmin } from "@/lib/admin-auth";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const auth = await requireAdmin(req);
+  if (!auth.ok) return auth.response;
   const projects = await getProjects();
   return NextResponse.json(projects);
 }
 
 export async function POST(req: NextRequest) {
+  const auth = await requireAdmin(req);
+  if (!auth.ok) return auth.response;
   const body = await req.json();
   if (!isValidProject(body)) {
     return NextResponse.json({ error: "Datos inválidos" }, { status: 400 });
@@ -32,6 +37,7 @@ export async function POST(req: NextRequest) {
     descriptionCa: body.descriptionCa?.trim() ?? "",
     descriptionEn: body.descriptionEn?.trim() ?? "",
     featured: Boolean(body.featured),
+    isCasa: Boolean(body.isCasa),
     address: typeof body.address === "string" ? body.address.trim() : "",
     neighborhood: typeof body.neighborhood === "string" ? body.neighborhood.trim() : "",
     lat: typeof body.lat === "number" ? body.lat : null,
@@ -62,5 +68,6 @@ function revalidateAll() {
   for (const locale of ["es", "ca", "en"]) {
     revalidatePath(`/${locale}`);
     revalidatePath(`/${locale}/portfolio`);
+    revalidatePath(`/${locale}/construir-casa-a-medida`);
   }
 }

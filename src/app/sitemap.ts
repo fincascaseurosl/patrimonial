@@ -21,6 +21,11 @@ const localizedPaths = {
   },
   contacto: { es: "/contacto", ca: "/contacte", en: "/contact" },
   blog: { es: "/blog", ca: "/blog", en: "/blog" },
+  casa: {
+    es: "/construir-casa-a-medida",
+    ca: "/construir-casa-a-mida",
+    en: "/build-a-custom-home",
+  },
 } as const;
 
 type PageKey = keyof typeof localizedPaths;
@@ -40,6 +45,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: { key: PageKey; priority: number }[] = [
     { key: "home", priority: 1.0 },
     { key: "servicios", priority: 0.9 },
+    { key: "casa", priority: 0.85 },
     { key: "portfolio", priority: 0.8 },
     { key: "sobreNosotros", priority: 0.7 },
     { key: "contacto", priority: 0.8 },

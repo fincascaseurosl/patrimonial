@@ -2,10 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { getCategories, saveCategories } from "@/lib/categories";
 import { getPosts } from "@/lib/posts";
 import { revalidatePath } from "next/cache";
+import { requireAdmin } from "@/lib/admin-auth";
 
 type Params = { params: Promise<{ slug: string }> };
 
 export async function PUT(req: NextRequest, { params }: Params) {
+  const auth = await requireAdmin(req);
+  if (!auth.ok) return auth.response;
   const { slug } = await params;
   const body = await req.json();
 
@@ -29,7 +32,9 @@ export async function PUT(req: NextRequest, { params }: Params) {
   return NextResponse.json(cats[idx]);
 }
 
-export async function DELETE(_req: NextRequest, { params }: Params) {
+export async function DELETE(req: NextRequest, { params }: Params) {
+  const auth = await requireAdmin(req);
+  if (!auth.ok) return auth.response;
   const { slug } = await params;
 
   // Bloquear si hay posts en esta categoría

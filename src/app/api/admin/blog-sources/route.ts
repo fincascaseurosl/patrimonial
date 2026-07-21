@@ -5,6 +5,7 @@ import {
   generateSourceId,
 } from "@/lib/blog/sources";
 import { requireAdmin } from "@/lib/admin-auth";
+import { isPubliclyRoutableUrl } from "@/lib/blog/url-safety";
 
 export async function GET(req: NextRequest) {
   const auth = await requireAdmin(req);
@@ -26,6 +27,13 @@ export async function POST(req: NextRequest) {
   ) {
     return NextResponse.json(
       { error: "Nombre y feedUrl válidos son obligatorios" },
+      { status: 400 },
+    );
+  }
+
+  if (!(await isPubliclyRoutableUrl(body.feedUrl))) {
+    return NextResponse.json(
+      { error: "Esa URL de feed no es accesible públicamente (host privado o no resoluble)" },
       { status: 400 },
     );
   }

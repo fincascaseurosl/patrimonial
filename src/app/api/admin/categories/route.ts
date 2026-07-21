@@ -1,12 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCategories, saveCategories } from "@/lib/categories";
 import { revalidatePath } from "next/cache";
+import { requireAdmin } from "@/lib/admin-auth";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const auth = await requireAdmin(req);
+  if (!auth.ok) return auth.response;
   return NextResponse.json(await getCategories());
 }
 
 export async function POST(req: NextRequest) {
+  const auth = await requireAdmin(req);
+  if (!auth.ok) return auth.response;
   const body = await req.json();
   if (
     typeof body.slug !== "string" || !/^[a-z0-9-]+$/.test(body.slug) ||

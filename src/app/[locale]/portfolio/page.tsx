@@ -11,6 +11,7 @@ import {
   SplitText,
 } from "@/components/animations";
 import { PortfolioMap } from "@/components/PortfolioMap";
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const revalidate = 60;
@@ -55,12 +56,14 @@ function PortfolioContent({ locale, projects }: { locale: string; projects: Proj
     <>
       {/* Hero — with background photo */}
       <section className="relative bg-[var(--ink)] text-white pt-40 pb-24 md:pt-56 md:pb-32 overflow-hidden">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/portfolio/hero-bg.jpg"
+        <Image
+          src="/images/portfolio/reforma-piso-barcelona-1.jpg"
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover select-none pointer-events-none"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)] via-[var(--ink)]/65 to-[var(--ink)]/25" />
         <div className="relative z-10 max-w-7xl mx-auto px-6">
@@ -100,6 +103,7 @@ function PortfolioContent({ locale, projects }: { locale: string; projects: Proj
           fichaDireccion: t("portfolio.page.fichaDireccion"),
           abrirFicha: t("portfolio.page.abrirFicha"),
           cerrarPanel: t("portfolio.page.cerrarPanel"),
+          imagenNoDisponible: t("portfolio.page.imagenNoDisponible"),
         }}
       />
 

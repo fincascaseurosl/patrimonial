@@ -1,48 +1,42 @@
 import { NextRequest, NextResponse } from "next/server";
-
-async function makeToken(password: string): Promise<string> {
-  if (
-    process.env.VERCEL_ENV === "production" &&
-    (!process.env.ADMIN_PASSWORD || !process.env.ADMIN_SECRET)
-  ) {
-    throw new Error(
-      "ADMIN_PASSWORD y ADMIN_SECRET deben estar configurados en producción",
-    );
-  }
-  const secret = process.env.ADMIN_SECRET ?? "dev-secret";
-  const enc = new TextEncoder();
-  const key = await globalThis.crypto.subtle.importKey(
-    "raw",
-    enc.encode(secret),
-    { name: "HMAC", hash: "SHA-256" },
-    false,
-    ["sign"],
-  );
-  const sig = await globalThis.crypto.subtle.sign("HMAC", key, enc.encode(password));
-  return Array.from(new Uint8Array(sig))
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
-}
+import { verifyPassword, createSessionToken, SESSION_COOKIE_MAX_AGE_SECONDS } from "@/lib/admin-token";
+import { checkLockout, recordFailedAttempt, clearAttempts, getClientIp } from "@/lib/admin-login-attempts";
 
 export async function POST(req: NextRequest) {
+  const ip = getClientIp(req.headers);
+
+  const lockout = await checkLockout(ip);
+  if (lockout.locked) {
+    return NextResponse.json(
+      { error: "Demasiados intentos. Inténtalo de nuevo más tarde." },
+      { status: 429, headers: { "Retry-After": String(lockout.retryAfterSeconds) } },
+    );
+  }
+
   const { password } = await req.json();
   if (!password || typeof password !== "string") {
     return NextResponse.json({ error: "Contraseña requerida" }, { status: 400 });
   }
 
-  const expected = await makeToken(process.env.ADMIN_PASSWORD ?? "");
-  const provided = await makeToken(password);
-
-  if (provided !== expected) {
+  if (!(await verifyPassword(password))) {
+    const result = await recordFailedAttempt(ip);
+    if (result.locked) {
+      return NextResponse.json(
+        { error: "Demasiados intentos. Inténtalo de nuevo más tarde." },
+        { status: 429, headers: { "Retry-After": String(result.retryAfterSeconds) } },
+      );
+    }
     return NextResponse.json({ error: "Contraseña incorrecta" }, { status: 401 });
   }
 
+  await clearAttempts(ip);
+
   const res = NextResponse.json({ ok: true });
-  res.cookies.set("admin_session", expected, {
+  res.cookies.set("admin_session", await createSessionToken(), {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
-    maxAge: 60 * 60 * 24 * 7,
+    maxAge: SESSION_COOKIE_MAX_AGE_SECONDS,
     path: "/",
   });
   return res;

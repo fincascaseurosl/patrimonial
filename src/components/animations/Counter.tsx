@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLocale } from "next-intl";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,6 +24,8 @@ export function Counter({
   className = "",
 }: CounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
+  const locale = useLocale();
+  const formatter = new Intl.NumberFormat(locale);
 
   useGSAP(() => {
     if (!ref.current) return;
@@ -40,7 +43,7 @@ export function Counter({
       },
       onUpdate: () => {
         if (ref.current) {
-          ref.current.textContent = `${prefix}${Math.round(counter.value)}${suffix}`;
+          ref.current.textContent = `${prefix}${formatter.format(Math.round(counter.value))}${suffix}`;
         }
       },
     });

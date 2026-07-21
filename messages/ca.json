@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Obres a Barcelona | Patrimonial - Construcció, Reformes i Rehabilitació",
-    "description": "Empresa de construcció, reformes integrals i rehabilitació d'edificis a Barcelona amb més de 25 anys d'experiència. Pressupost sense compromís."
+    "description": "Empresa de construcció, reformes integrals i rehabilitació d'edificis a Barcelona amb més de 20 anys d'experiència. Pressupost sense compromís."
   },
   "nav": {
     "inicio": "Inici",
@@ -12,26 +12,25 @@
     "blog": "Blog",
     "presupuesto": "Demanar pressupost",
     "verTodos": "Veure tots",
-    "idioma": "ES"
+    "idioma": "ES",
+    "logoTagline": "Obres · Barcelona"
   },
   "hero": {
-    "titulo": "Obres a Barcelona",
-    "subtitulo": "Experts en construcció, reformes i rehabilitació d'edificis amb més de 25 anys d'experiència.",
     "cta": "Obtenir pressupost"
   },
   "home": {
-    "heroEyebrow": "Patrimonial · Barcelona · Des de 1998",
+    "heroEyebrow": "Patrimonial · Barcelona · Des de 2006",
     "heroLine1": "Construïm",
     "heroLine2": "el patrimoni",
     "heroLine3": "de Barcelona.",
-    "heroSub": "Reformes integrals, obra nova i rehabilitació d'edificis amb la disciplina d'un estudi d'arquitectura i el rigor d'una constructora amb 25 anys a la ciutat.",
+    "heroSub": "Reformes integrals, obra nova i rehabilitació d'edificis amb la disciplina d'un estudi d'arquitectura i el rigor d'una constructora amb 20 anys a la ciutat.",
     "heroScroll": "Desplaça per descobrir",
     "marqueeItems": ["Reformes integrals", "Obra nova", "Rehabilitació d'edificis", "Treballs verticals", "Retirada d'amiant", "Reforços estructurals", "Impermeabilització"],
     "manifiestoEyebrow": "Manifest",
     "manifiestoText": "No fem obres. Tornem a Barcelona els edificis que l'han sostingut durant un segle, amb la mateixa exigència amb què es van aixecar.",
     "cifrasEyebrow": "Xifres que ens sostenen",
     "cifras": [
-      { "num": 25, "suffix": "+", "label": "anys a Barcelona" },
+      { "num": 20, "suffix": "+", "label": "anys a Barcelona" },
       { "num": 480, "suffix": "+", "label": "projectes lliurats" },
       { "num": 92000, "suffix": " m²", "label": "intervinguts" },
       { "num": 38, "suffix": "", "label": "professionals en plantilla" }
@@ -39,7 +38,9 @@
     "serviciosEyebrow": "Serveis destacats",
     "serviciosTitulo": "Tres maneres d'intervenir un patrimoni.",
     "procesoEyebrow": "Com treballem",
-    "procesoTitulo": "Un mètode propi en cinc fases.",
+    "procesoTitulo": "Un mètode propi, adaptat a cada servei.",
+    "procesoIntro": "Tria un servei i veuràs les fases exactes amb què l'executem, de la primera visita al lliurament.",
+    "procesoVerServicio": "Veure el servei",
     "proceso": [
       { "num": "01", "titulo": "Auditoria del projecte", "texto": "Reconeixement de l'immoble, aixecament de patologies i gestió de permisos i tràmits amb la propietat o administració." },
       { "num": "02", "titulo": "Avantprojecte", "texto": "Memòria valorada, proposta de solucions i estimació de terminis en 7 dies laborables." },
@@ -49,6 +50,9 @@
     ],
     "portfolioEyebrow": "Treballs recents",
     "portfolioTitulo": "Una dècada intervenint Barcelona, edifici a edifici.",
+    "portfolioDesplaza": "Desplaça",
+    "portfolioFinalLabel": "Final",
+    "portfolioFinalTitulo": "Tota la cartera t'espera.",
     "certEyebrow": "Acreditacions",
     "certItems": ["RERA · Empresa inscrita amiant", "Gremi de Constructors BCN", "ISO 9001 qualitat", "ISO 14001 medi ambient", "FAD Arquitectura", "Associació Rehabilitació BCN"],
     "blogEyebrow": "Diari d'obra",
@@ -76,6 +80,7 @@
     "ctaFinalSecundario": "Veure serveis"
   },
   "servicios": {
+    "dropdownTagline": "Un sol equip propi per a les 8 disciplines. Sense subcontractes.",
     "titulo": "Serveis de construcció, reformes i rehabilitació a Barcelona",
     "subtitulo": "Reformes integrals, obra nova, rehabilitació i treballs especialitzats amb un equip propi de 38 professionals.",
     "heroEyebrow": "Els nostres serveis",
@@ -87,85 +92,154 @@
     "manifiestoTexto": "No subcontractem el que sabem fer. Cada disciplina té un cap d'obra propi i una sola persona que respon davant teu.",
     "marqueeServiciosItems": ["Reformes", "Obra nova", "Rehabilitació", "Estructures", "Amiant", "Verticals", "Impermeabilització"],
     "detailEncargo": "L'encàrrec",
+    "detailDestacados": "Què inclou",
     "detailMetodo": "Mètode · 04 fases",
-    "detailFases": [
-      { "n": "01", "titulo": "Auditoria del projecte", "descripcion": "Permisos i tràmits." },
-      { "n": "02", "titulo": "Projecte", "descripcion": "Definició d'abast, materials, terminis i pressupost tancat." },
-      { "n": "03", "titulo": "Execució", "descripcion": "Cap d'obra propi i una sola persona com a interlocutor." },
-      { "n": "04", "titulo": "Lliurament", "descripcion": "Repàs final i neteja." }
-    ],
     "detailPresupuestoLabel": "Pressupost",
     "detailOtrosServicios": "Altres serveis",
     "detailSiguiente": "Següent servei",
+    "detailTrabajos": "Treballs realitzats",
+    "detailTrabajosSubtitulo": "Projectes reals d'aquest servei, lliurats a Barcelona.",
     "verTodos": "Veure tots els serveis",
     "items": {
       "reformas": {
-        "nombre": "Reformes Barcelona",
+        "nombre": "Reformes Integrals",
         "descripcion": "Realitzem reformes integrals i parcials, tant en habitatges, com en oficines i locals comercials. Instal·ladors autoritzats i agremiats de gas, llum, aigua, etc. Retirada d'amiant.",
-        "descripcionLarga": "A Patrimonial som especialistes en reformes integrals a Barcelona. Ens encarreguem de tot el procés, des del disseny fins a l'execució final, incloent instal·lacions de gas, llum, aigua, telecomunicacions i climatització. Comptem amb instal·ladors autoritzats i agremiats que garanteixen la màxima qualitat i el compliment de tota la normativa vigent."
+        "descripcionLarga": "A Patrimonial som especialistes en reformes integrals a Barcelona. Ens encarreguem de tot el procés, des del disseny fins a l'execució final, incloent instal·lacions de gas, llum, aigua, telecomunicacions i climatització. Comptem amb instal·ladors autoritzats i agremiats que garanteixen la màxima qualitat i el compliment de tota la normativa vigent. També realitzem reformes parcials adaptades a les necessitats i el pressupost de cada client, ja sigui en habitatges particulars, oficines o locals comercials.",
+        "destacados": [
+          "Disseny i execució amb el mateix equip, sense intermediaris.",
+          "Instal·ladors propis agremiats de gas, llum, aigua i climatització.",
+          "Reformes integrals o per partides soltes, a la teva mida.",
+          "Retirada d'amiant inclosa si l'edifici ho requereix."
+        ],
+        "fases": [
+          { "n": "01", "titulo": "Auditoria del projecte", "descripcion": "Permisos i tràmits." },
+          { "n": "02", "titulo": "Disseny i pressupost", "descripcion": "Distribució, materials i memòria valorada tancada abans de començar." },
+          { "n": "03", "titulo": "Execució per oficis", "descripcion": "Paleta, instal·lacions, enrajolats i fusteria coordinats per un cap d'obra." },
+          { "n": "04", "titulo": "Lliurament i neteja final", "descripcion": "Repàs, neteja d'obra i revisió conjunta amb tu." }
+        ]
       },
       "obraNueva": {
         "nombre": "Obra nova",
         "descripcion": "Realitzem construccions d'obra nova tant d'edificis d'oficines com d'habitatges, locals, etc. de principi a fi de l'obra.",
-        "descripcionLarga": "Executem projectes d'obra nova de principi a fi. Des de la cimentació fins als acabats finals, gestionem tots els oficis i fases de la construcció: estructura, paleta, instal·lacions, paviments, revestiments i fusteria."
+        "descripcionLarga": "Executem projectes d'obra nova de principi a fi. Des de la cimentació fins als acabats finals, gestionem tots els oficis i fases de la construcció: estructura, paleta, instal·lacions, paviments, revestiments i fusteria. Treballem tant en edificis residencials com en oficines, locals comercials i instal·lacions industrials, sempre respectant els terminis i pressupostos acordats.",
+        "destacados": [
+          "Un sol interlocutor des de la fonamentació fins a les claus.",
+          "Coordinem arquitectura, estructura i instal·lacions sota un mateix equip.",
+          "Treballem en habitatge residencial, oficines, locals i indústria.",
+          "Terminis i pressupost tancats des del projecte executiu."
+        ],
+        "fases": [
+          { "n": "01", "titulo": "Auditoria del projecte", "descripcion": "Permisos i tràmits." },
+          { "n": "02", "titulo": "Projecte executiu", "descripcion": "Coordinació amb arquitectura i càlcul d'estructura." },
+          { "n": "03", "titulo": "Fonamentació i estructura", "descripcion": "Moviment de terres, fonamentació i estructura portant." },
+          { "n": "04", "titulo": "Acabats i lliurament", "descripcion": "Instal·lacions, revestiments, fusteria i lliurament clau en mà." }
+        ]
       },
       "rehabilitacion": {
         "nombre": "Rehabilitació",
         "descripcion": "Fem rehabilitacions integrals tant d'edificis, façanes, portals, paviments i tot el que necessitis. Treballs verticals, reforços estructurals, etc.",
-        "descripcionLarga": "Som experts en rehabilitació integral d'edificis a Barcelona. Realitzem treballs de rehabilitació de façanes, portals, escales comunitàries, cobertes i terrats."
+        "descripcionLarga": "Som experts en rehabilitació integral d'edificis a Barcelona. Realitzem treballs de rehabilitació de façanes, portals, escales comunitàries, cobertes i terrats. El nostre equip està especialitzat en treballs verticals, reforços estructurals i consolidació d'elements constructius, garantint la seguretat i la durabilitat de cada intervenció.",
+        "destacados": [
+          "Façanes, portals, escales i cobertes d'edificis en ús.",
+          "Treballs verticals i reforços estructurals amb equip propi.",
+          "Coordinació directa amb comunitats i administradors de finques.",
+          "Intervencions planificades per minimitzar molèsties als veïns."
+        ],
+        "fases": [
+          { "n": "01", "titulo": "Auditoria del projecte", "descripcion": "Permisos i tràmits." },
+          { "n": "02", "titulo": "Inspecció tècnica de l'edifici", "descripcion": "Estudi de patologies i memòria d'intervenció." },
+          { "n": "03", "titulo": "Execució per fases", "descripcion": "Façana, coberta o zones comunes, coordinada amb la comunitat." },
+          { "n": "04", "titulo": "Lliurament i garantia", "descripcion": "Revisió final i seguiment postvenda." }
+        ]
       },
       "instalaciones": {
         "nombre": "Instal·lacions de llum, aigua i gas",
         "descripcion": "Instal·ladors autoritzats i agremiats per a tot tipus d'instal·lacions: electricitat, lampisteria, gas natural i climatització.",
-        "descripcionLarga": "Disposem d'instal·ladors autoritzats per realitzar tot tipus d'instal·lacions en habitatges, oficines i locals comercials."
+        "descripcionLarga": "Disposem d'instal·ladors autoritzats per realitzar tot tipus d'instal·lacions en habitatges, oficines i locals comercials. Ens encarreguem de les instal·lacions elèctriques, de lampisteria, gas natural, aire condicionat i calefacció, complint sempre la normativa vigent i proporcionant els butlletins i certificats necessaris.",
+        "destacados": [
+          "Instal·ladors propis autoritzats i agremiats en les 4 disciplines.",
+          "Butlletins i certificats oficials inclosos en cada intervenció.",
+          "Electricitat, lampisteria, gas natural, climatització i calefacció.",
+          "Instal·lació adaptada a la normativa vigent en reformes i obra nova."
+        ],
+        "fases": [
+          { "n": "01", "titulo": "Auditoria del projecte", "descripcion": "Permisos i tràmits." },
+          { "n": "02", "titulo": "Disseny de la instal·lació", "descripcion": "Càlcul de potències, traçats i normativa aplicable." },
+          { "n": "03", "titulo": "Execució i instal·lació", "descripcion": "Muntatge per instal·ladors autoritzats de cada gremi." },
+          { "n": "04", "titulo": "Butlletins i posada en marxa", "descripcion": "Legalització, certificats i proves de funcionament." }
+        ]
       },
       "amianto": {
         "nombre": "Retirada d'amiant",
         "descripcion": "Empresa inscrita al RERA per a la retirada segura i legal de materials amb amiant en tot tipus d'edificacions.",
-        "descripcionLarga": "Estem inscrits al Registre d'Empreses amb Risc d'Amiant (RERA) i comptem amb tota la formació i equipament necessari per a la retirada segura de materials que contenen amiant."
+        "descripcionLarga": "Estem inscrits al Registre d'Empreses amb Risc d'Amiant (RERA) i comptem amb tota la formació i equipament necessari per a la retirada segura de materials que contenen amiant. Gestionem tot el procés: avaluació, pla de treball, retirada, transport i eliminació en abocadors autoritzats, garantint la seguretat dels treballadors i els veïns.",
+        "destacados": [
+          "Empresa inscrita al RERA (Registre d'Empreses amb Risc d'Amiant).",
+          "Equip format i equipat segons el Reial Decret 396/2006.",
+          "Transport i eliminació en abocadors autoritzats amb traçabilitat documental.",
+          "Gestió íntegra dels permisos davant de Treball i Salut Pública."
+        ],
+        "fases": [
+          { "n": "01", "titulo": "Auditoria del projecte", "descripcion": "Permisos i tràmits." },
+          { "n": "02", "titulo": "Avaluació i identificació", "descripcion": "Inspecció de materials i pla de treball davant l'autoritat laboral." },
+          { "n": "03", "titulo": "Retirada controlada", "descripcion": "Desmuntatge amb equips certificats i protocols de seguretat." },
+          { "n": "04", "titulo": "Transport i certificat final", "descripcion": "Eliminació en abocador autoritzat i lliurament de la documentació." }
+        ]
       },
       "trabajosVerticales": {
         "nombre": "Treballs verticals",
         "descripcion": "Intervenció en façanes, cobertes i zones de difícil accés mitjançant tècniques de treballs en alçada amb cordes.",
-        "descripcionLarga": "El nostre equip està format i certificat per realitzar treballs verticals en façanes, cobertes, patis de llums i qualsevol zona de difícil accés."
+        "descripcionLarga": "El nostre equip està format i certificat per realitzar treballs verticals en façanes, cobertes, patis de llums i qualsevol zona de difícil accés. Aquesta tècnica permet intervenir en edificis sense necessitat de muntar bastides, reduint costos i terminis d'execució. Realitzem reparacions de façana, impermeabilització, pintura, instal·lació de xarxes de protecció i ancoratges.",
+        "destacados": [
+          "Tècnics certificats en treballs verticals amb cordes.",
+          "Intervenció sense bastides: menys cost i menys termini d'execució.",
+          "Façanes, cobertes i patis de llums de difícil accés.",
+          "Instal·lació de línies de vida i xarxes de protecció permanents."
+        ],
+        "fases": [
+          { "n": "01", "titulo": "Auditoria del projecte", "descripcion": "Permisos i tràmits." },
+          { "n": "02", "titulo": "Inspecció d'accés", "descripcion": "Estudi d'ancoratges, façana i punts de difícil accés." },
+          { "n": "03", "titulo": "Muntatge d'ancoratges i línies de vida", "descripcion": "Preparació segura de l'accés vertical." },
+          { "n": "04", "titulo": "Intervenció i informe fotogràfic", "descripcion": "Reparació, neteja o pintura amb informe final." }
+        ]
       },
       "refuerzos": {
         "nombre": "Reforços estructurals",
         "descripcion": "Consolidació i reforç d'estructures: bigues, pilars, forjats i fonamentacions amb les tècniques més avançades.",
-        "descripcionLarga": "Realitzem estudis i projectes de reforç estructural per a edificis que presenten patologies o necessitin adaptar-se a nous usos."
+        "descripcionLarga": "Realitzem estudis i projectes de reforç estructural per a edificis que presenten patologies o necessitin adaptar-se a nous usos. Treballem amb tècniques de reforç de bigues, pilars, forjats i fonamentacions, utilitzant materials com fibra de carboni, resines epoxi, perfils metàl·lics i formigó projectat.",
+        "destacados": [
+          "Estudi estructural previ signat per tècnic competent.",
+          "Reforç de bigues, pilars, forjats i fonamentacions.",
+          "Solucions per a patologies o canvis d'ús de l'edifici.",
+          "Seguiment del comportament estructural després de la intervenció."
+        ],
+        "fases": [
+          { "n": "01", "titulo": "Auditoria del projecte", "descripcion": "Permisos i tràmits." },
+          { "n": "02", "titulo": "Estudi patològic", "descripcion": "Inspecció, càlcul i memòria de reforç." },
+          { "n": "03", "titulo": "Execució del reforç", "descripcion": "Intervenció sobre bigues, pilars, forjats o fonamentació." },
+          { "n": "04", "titulo": "Control i tancament", "descripcion": "Verificació del comportament estructural i lliurament de la documentació." }
+        ]
       },
       "impermeabilizacion": {
         "nombre": "Impermeabilització de terrats",
         "descripcion": "Impermeabilització professional de terrats, cobertes i terrasses amb les millors tècniques i materials del mercat.",
-        "descripcionLarga": "Oferim solucions professionals d'impermeabilització per a terrats, cobertes planes, terrasses i balcons."
-      }
-    }
-  },
-  "porqueElegirnos": {
-    "titulo": "Per què triar-nos?",
-    "subtitulo": "El que busquen els nostres clients",
-    "items": {
-      "experiencia": {
-        "titulo": "Experiència",
-        "texto": "Més de 25 anys en el sector de la construcció"
-      },
-      "financiacion": {
-        "titulo": "Finançament",
-        "texto": "0% d'interès i finançament del 100%"
-      },
-      "subvencion": {
-        "titulo": "Subvenció",
-        "texto": "Gestionem tota la tramitació de les subvencions"
-      },
-      "garantia": {
-        "titulo": "Garantia",
-        "texto": "Màxima professionalitat i rigorositat en els nostres treballs"
+        "descripcionLarga": "Oferim solucions professionals d'impermeabilització per a terrats, cobertes planes, terrasses i balcons.",
+        "destacados": [
+          "Solució adaptada a cada tipus de coberta: transitable, plana o inclinada.",
+          "Revisió prèvia de l'estat de desguassos i pendents.",
+          "Dos anys de garantia sobre la intervenció.",
+          "Intervencions també en balcons i terrasses particulars."
+        ],
+        "fases": [
+          { "n": "01", "titulo": "Auditoria del projecte", "descripcion": "Permisos i tràmits." },
+          { "n": "02", "titulo": "Inspecció de la coberta", "descripcion": "Estat de pendents, desguassos i humitats." },
+          { "n": "03", "titulo": "Aplicació del sistema", "descripcion": "Execució amb la tècnica adequada a cada coberta." },
+          { "n": "04", "titulo": "Proves i lliurament", "descripcion": "Prova d'estanqueïtat i garantia per escrit." }
+        ]
       }
     }
   },
   "cta": {
-    "titulo": "Reformes, obra nova i rehabilitació d'edificis",
-    "texto": "Entenem que els projectes representen no només edificis, sinó els plans per al futur dels nostres clients. Pregunta'ns el que vulguis sense cap tipus de compromís. Et respondrem en el menor temps possible.",
     "boton": "Contacta'ns",
     "presupuesto": "Demana'ns pressupost sense compromís",
     "subtexto": "Explica'ns el teu projecte i t'assessorem sense cap compromís."
@@ -195,22 +269,14 @@
       "fichaDuracion": "Termini",
       "fichaDireccion": "Adreça",
       "abrirFicha": "Obrir fitxa completa",
-      "cerrarPanel": "Tancar"
+      "cerrarPanel": "Tancar",
+      "imagenNoDisponible": "Imatge no disponible"
     }
-  },
-  "testimonios": {
-    "titulo": "Testimonis",
-    "items": [
-      {
-        "texto": "Necessitava una reforma del meu saló i Patrimonial va fer un treball excel·lent en tota l'obra i amb gran neteja i professionalitat.",
-        "autor": "Carlos"
-      }
-    ]
   },
   "sobreNosotros": {
     "titulo": "Sobre nosaltres",
     "subtitulo": "Patrimonial Obres Barcelona",
-    "descripcion": "Empresa de serveis immobiliaris integrals experta en la gestió del patrimoni amb més de 25 anys d'experiència.",
+    "descripcion": "Empresa de serveis immobiliaris integrals experta en la gestió del patrimoni amb més de 20 anys d'experiència.",
     "contenido": "Des dels nostres inicis, a Patrimonial ens hem dedicat a oferir un servei integral de construcció, reformes i rehabilitació d'edificis a Barcelona. La nostra filosofia es basa en la proximitat amb el client, la transparència en els pressupostos i la màxima qualitat en cadascun dels nostres treballs.\n\nEntre els nostres clients es troben un gran nombre d'Administradors de finques, Arquitectes, indústries, empreses i particulars que confien en la nostra experiència i professionalitat.\n\nComptem amb un equip de professionals qualificats en totes les especialitats de la construcció: paleta, electricitat, lampisteria, gas, climatització, pintura, fusteria i treballs verticals. Tots els nostres instal·ladors estan autoritzats i agremiats.\n\nEstem inscrits al RERA (Registre d'Empreses amb Risc d'Amiant) i comptem amb les certificacions necessàries per realitzar qualsevol tipus d'intervenció constructiva.",
     "contactar": "Contactar",
     "stats": {
@@ -228,6 +294,61 @@
         "Compromís amb la qualitat i la sostenibilitat"
       ]
     }
+  },
+  "casa": {
+    "navLabel": "Construeix la teva casa",
+    "metaTitle": "Cases a Mida a Barcelona i Catalunya",
+    "metaDescription": "Construïm cases a mida a Barcelona i Catalunya: disseny, llicències i execució amb un únic equip, de la parcel·la a les claus en mà.",
+    "heroEyebrow": "ARQUITECTURA • DISSENY • CONSTRUCCIÓ",
+    "heroTitulo": "Dissenyem i construïm la casa que vols viure.",
+    "heroSub": "Des de la primera idea fins al lliurament de claus, dissenyem i construïm habitatges únics adaptats al teu estil de vida, amb un procés transparent, curat i completament personalitzat.",
+    "heroBotonPrimario": "Comença el teu projecte",
+    "heroBotonSecundario": "Veure projectes",
+    "heroScroll": "Desplaça per descobrir",
+    "manifiestoEyebrow": "Un projecte · un equip · una casa",
+    "manifiestoTexto": "Construir una casa no és aplicar un catàleg. És traduir com vius en metres, llum i materials — i sostenir-ho amb un equip que respon davant teu, no davant d'una subcontracta.",
+    "porqueEyebrow": "Per què construir amb nosaltres",
+    "porqueTitulo": "Un sol interlocutor, de l'escriptura del terreny a les claus.",
+    "destacados": [
+      "Arquitectura i execució sota el mateix equip, sense friccions entre estudis.",
+      "Gestionem la llicència d'obra nova i tots els tràmits municipals.",
+      "Equip propi a l'obra: estructura, instal·lacions i acabats, sense subcontractes.",
+      "Pressupost tancat des del projecte executiu, sense sorpreses a la certificació."
+    ],
+    "procesoEyebrow": "El procés",
+    "procesoTitulo": "De la parcel·la a les claus, en cinc fases.",
+    "procesoScroll": "Desplaça",
+    "proceso": [
+      { "n": "01", "titulo": "Auditoria del projecte", "texto": "Permisos i tràmits." },
+      { "n": "02", "titulo": "Avantprojecte i disseny", "texto": "Arquitectura, distribució i memòria valorada." },
+      { "n": "03", "titulo": "Projecte executiu i llicències", "texto": "Càlcul d'estructura i tramitació de la llicència d'obra nova." },
+      { "n": "04", "titulo": "Fonamentació i estructura", "texto": "Moviment de terres, fonamentació i estructura portant." },
+      { "n": "05", "titulo": "Acabats i lliurament", "texto": "Instal·lacions, revestiments, fusteria i lliurament clau en mà." }
+    ],
+    "galeria": {
+      "eyebrow": "Cases lliurades",
+      "titulo": "Cases que hem construït.",
+      "subtitulo": "Projectes d'obra nova claus en mà. Llisca per recórrer-los i obre'n qualsevol per veure'n la fitxa completa.",
+      "anterior": "Anterior",
+      "siguiente": "Següent"
+    },
+    "statAnos": "anys construint a Barcelona",
+    "statProyectos": "projectes lliurats",
+    "statProfesionales": "professionals en plantilla",
+    "faqEyebrow": "Preguntes freqüents",
+    "faqTitulo": "Abans de construir, resolem això.",
+    "faq": [
+      { "q": "Quant triga a construir-se una casa des de zero?", "a": "Un habitatge unifamiliar de mida mitjana, des de la llicència fins al lliurament de claus, sol trigar entre 12 i 18 mesos segons la superfície i la complexitat del terreny." },
+      { "q": "Puc construir en qualsevol terreny?", "a": "Depèn de la qualificació urbanística i la normativa municipal. En l'auditoria del projecte revisem l'edificabilitat i els condicionants abans de dissenyar res." },
+      { "q": "Gestioneu vosaltres la llicència d'obra nova?", "a": "Sí. Tramitem el projecte executiu i la llicència municipal, i coordinem les inspeccions tècniques fins a la cèdula d'habitabilitat." },
+      { "q": "Puc portar el meu propi arquitecte?", "a": "Sí. Podem executar sobre un projecte ja redactat, o coordinar el disseny amb el nostre propi equip d'arquitectura des de zero." },
+      { "q": "El pressupost pot variar durant l'obra?", "a": "El pressupost es tanca sobre el projecte executiu. Qualsevol canvi posterior s'aprova per escrit abans d'executar-se." }
+    ],
+    "ctaEyebrow": "Tens un terreny o un projecte?",
+    "ctaTitulo": "Explica'ns quina casa vols construir.",
+    "ctaSub": "Et diem què és possible, quins tràmits necessites i en quant de temps, sense compromís.",
+    "ctaBoton": "Demana pressupost",
+    "ctaSecundario": "Veure obra nova"
   },
   "contacto": {
     "titulo": "Contacte",
@@ -255,7 +376,7 @@
   },
   "footer": {
     "empresa": "Patrimonial Obres Barcelona",
-    "descripcion": "Empresa de serveis immobiliaris integrals experta en la gestió del patrimoni amb més de 25 anys d'experiència.",
+    "descripcion": "Empresa de serveis immobiliaris integrals experta en la gestió del patrimoni amb més de 20 anys d'experiència.",
     "menu": "Menú",
     "serviciosTitle": "Serveis",
     "contactoTitle": "Contacte",
@@ -263,5 +384,13 @@
     "privacidad": "Política de privacitat",
     "financiadoUE": "Finançat per la Unió Europea",
     "prtr": "Pla de Recuperació, Transformació i Resiliència"
+  },
+  "notFound": {
+    "eyebrow": "Error 404",
+    "titulo": "Aquesta pàgina no existeix.",
+    "texto": "Pot ser que l'enllaç estigui trencat o que la pàgina s'hagi mogut. Prova amb un d'aquests accessos.",
+    "inicio": "Tornar a l'inici",
+    "servicios": "Veure serveis",
+    "contacto": "Contactar"
   }
 }

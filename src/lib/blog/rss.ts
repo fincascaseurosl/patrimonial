@@ -1,3 +1,5 @@
+import { isPubliclyRoutableUrl } from "./url-safety";
+
 export interface RssItem {
   title: string;
   link: string;
@@ -109,6 +111,10 @@ export function parseFeed(xml: string): RssItem[] {
 }
 
 export async function fetchFeed(feedUrl: string): Promise<RssItem[]> {
+  if (!(await isPubliclyRoutableUrl(feedUrl))) {
+    throw new Error(`URL de feed no permitida (host privado o no resoluble): ${feedUrl}`);
+  }
+
   const res = await fetch(feedUrl, {
     headers: {
       "User-Agent": "PatrimonialObras-BlogBot/1.0 (+https://obrasenbarcelona.es)",

@@ -2,7 +2,7 @@ import { useTranslations, useMessages } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import { serviceKeyMap } from "@/lib/site-config";
+import { serviceKeyMap, serviceSlugs } from "@/lib/site-config";
 import { getProjects } from "@/lib/projects";
 import type { Project } from "@/lib/projects";
 import type { Locale } from "@/i18n/routing";
@@ -18,6 +18,8 @@ import {
 import { HomeFAQ } from "@/components/HomeFAQ";
 import { HeroVideo } from "@/components/HeroVideo";
 import { PortfolioPinned } from "@/components/PortfolioPinned";
+import { ServiceMethod, type MethodService } from "@/components/ServiceMethod";
+import { getFaqSchema } from "@/lib/schema";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -48,20 +50,44 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
       marqueeItems: string[];
       certItems: string[];
     };
+    servicios: {
+      items: Record<string, { fases: { n: string; titulo: string; descripcion: string }[] }>;
+    };
   };
 
   const cifras = messages.home.cifras;
-  const procesoPasos = messages.home.proceso;
   const faqItems = messages.home.faq;
   const marqueeItems = messages.home.marqueeItems;
   const certItems = messages.home.certItems;
   const mainServices = ["reformas", "obra-nueva", "rehabilitacion"] as const;
+  const categoryLabels: Record<string, string> = Object.fromEntries(
+    serviceSlugs.map((slug) => [slug, t(`servicios.items.${serviceKeyMap[slug]}.nombre`)])
+  );
+
+  // Imagen representativa de cada servicio: primero una foto real de un proyecto
+  // de esa categoría; si no hay, una imagen de reserva.
+  const serviceImageFallback: Record<string, string> = {
+    reformas: "/images/portfolio/reforma-piso-barcelona-1.jpg",
+    "obra-nueva": "/images/hero/construye-tu-casa-poster.jpg",
+    rehabilitacion: "/images/portfolio/piso-balmes-2.jpg",
+  };
+  const imageForService = (slug: string): string => {
+    const proj = projects.find((p) => p.category === slug && p.images[0]);
+    return proj?.images[0] ?? serviceImageFallback[slug] ?? "/images/hero/hero.jpg";
+  };
+
+  // Método por servicio: cada servicio muestra sus propias fases.
+  const methodServices: MethodService[] = serviceSlugs.map((slug) => ({
+    slug,
+    nombre: t(`servicios.items.${serviceKeyMap[slug]}.nombre`),
+    fases: messages.servicios.items[serviceKeyMap[slug]].fases,
+  }));
 
   return (
     <>
-      {/* 1 Â· HERO */}
+      {/* 1 · HERO */}
       <section className="relative h-screen min-h-[680px] flex flex-col justify-end overflow-hidden bg-[var(--ink)]">
-        <HeroVideo poster="/images/hero/hero.jpg" />
+        <HeroVideo poster="/images/hero/home-hero.jpg" />
 
         <div className="absolute top-28 left-0 right-0 z-10">
           <div className="max-w-7xl mx-auto px-6">
@@ -116,11 +142,11 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
 
         <div className="absolute bottom-6 left-6 right-6 z-10 flex items-end justify-between text-white/50 text-[10px] font-medium tracking-[0.32em] uppercase">
           <span>{t("home.heroScroll")}</span>
-          <span>BCN Â· 41.40Â°N Â· 2.17Â°E</span>
+          <span>BCN · 41.40°N · 2.17°E</span>
         </div>
       </section>
 
-      {/* 2 Â· MARQUEE SERVICIOS */}
+      {/* 2 · MARQUEE SERVICIOS */}
       <section className="bg-[var(--ink)] border-t border-white/10 py-6">
         <MarqueeText speed={45}>
           {marqueeItems.map((item, i) => (
@@ -132,7 +158,7 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
         </MarqueeText>
       </section>
 
-      {/* 3 Â· MANIFIESTO */}
+      {/* 3 · MANIFIESTO */}
       <section className="py-32 md:py-44 bg-[var(--paper)]">
         <div className="max-w-6xl mx-auto px-6">
           <RevealOnScroll direction="none">
@@ -147,7 +173,7 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
         </div>
       </section>
 
-      {/* 4 Â· CIFRAS */}
+      {/* 4 · CIFRAS */}
       <section className="py-24 md:py-32 bg-[var(--ink)] text-white">
         <div className="max-w-7xl mx-auto px-6">
           <RevealOnScroll direction="none">
@@ -169,7 +195,7 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
         </div>
       </section>
 
-      {/* 5 Â· SERVICIOS DESTACADOS */}
+      {/* 5 · SERVICIOS DESTACADOS */}
       <section className="py-24 md:py-36 bg-[var(--paper)]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 md:mb-20 gap-8">
@@ -194,31 +220,43 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
             </RevealOnScroll>
           </div>
 
-          <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[var(--line)]" stagger={0.1}>
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4" stagger={0.1}>
             {mainServices.map((slug, i) => {
               const key = serviceKeyMap[slug];
               return (
                 <Link
                   key={slug}
                   href={{ pathname: "/servicios/[slug]", params: { slug } }}
-                  className="cursor-grow group relative bg-[var(--paper)] p-10 md:p-12 transition-colors duration-500 hover:bg-[var(--ink)] flex flex-col min-h-[420px]"
+                  className="cursor-grow group relative block overflow-hidden bg-[var(--ink)] min-h-[460px] md:min-h-[560px]"
                 >
-                  <span className="font-display text-[var(--mute-soft)] group-hover:text-[var(--brand-red)] text-[11px] font-semibold tracking-[0.32em] uppercase transition-colors duration-500">
-                    0{i + 1}
-                  </span>
+                  <Image
+                    src={imageForService(slug)}
+                    alt={t(`servicios.items.${key}.nombre`)}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.06]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)] via-[var(--ink)]/45 to-[var(--ink)]/5" />
+                  <div className="absolute inset-0 bg-[var(--brand-red)]/0 group-hover:bg-[var(--brand-red)]/15 transition-colors duration-500" />
 
-                  <h3 className="mt-auto font-display text-[var(--ink)] group-hover:text-white text-3xl md:text-4xl font-bold leading-[1.05] tracking-[-0.025em] transition-colors duration-500">
-                    {t(`servicios.items.${key}.nombre`)}
-                  </h3>
-                  <p className="mt-5 text-[var(--ink-soft)] group-hover:text-white/65 text-sm leading-relaxed transition-colors duration-500 max-w-sm">
-                    {t(`servicios.items.${key}.descripcion`)}
-                  </p>
-
-                  <div className="mt-8 inline-flex items-center gap-3 text-[11px] font-semibold tracking-[0.22em] uppercase text-[var(--brand-red)] group-hover:text-white">
-                    <span>{t("portfolio.verMas")}</span>
-                    <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
+                  <div className="relative z-10 h-full min-h-[460px] md:min-h-[560px] p-9 md:p-10 flex flex-col">
+                    <span className="font-display text-white/60 text-[11px] font-semibold tracking-[0.32em] uppercase">
+                      0{i + 1}
+                    </span>
+                    <div className="mt-auto">
+                      <h3 className="font-display text-white text-3xl md:text-4xl font-bold leading-[1.05] tracking-[-0.025em]">
+                        {t(`servicios.items.${key}.nombre`)}
+                      </h3>
+                      <p className="mt-4 text-white/75 text-sm leading-relaxed max-w-sm line-clamp-3">
+                        {t(`servicios.items.${key}.descripcion`)}
+                      </p>
+                      <div className="mt-7 inline-flex items-center gap-3 text-[11px] font-semibold tracking-[0.22em] uppercase text-[var(--brand-red-soft)] group-hover:text-white transition-colors duration-300">
+                        <span>{t("portfolio.verMas")}</span>
+                        <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </div>
+                    </div>
                   </div>
                 </Link>
               );
@@ -227,37 +265,16 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
         </div>
       </section>
 
-      {/* 6 Â· PROCESO */}
-      <section className="py-24 md:py-36 bg-[var(--bone)]">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="max-w-2xl mb-20">
-            <RevealOnScroll direction="none">
-              <p className="text-[var(--brand-red)] text-[11px] font-semibold tracking-[0.32em] uppercase mb-5">
-                {t("home.procesoEyebrow")}
-              </p>
-            </RevealOnScroll>
-            <TextReveal as="h2" className="font-display text-[var(--ink)] text-4xl md:text-5xl font-bold leading-[1.05] tracking-[-0.03em] text-balance">
-              {t("home.procesoTitulo")}
-            </TextReveal>
-          </div>
+      {/* 6 · PROCESO — método interactivo que cambia según el servicio elegido */}
+      <ServiceMethod
+        eyebrow={t("home.procesoEyebrow")}
+        titulo={t("home.procesoTitulo")}
+        intro={t("home.procesoIntro")}
+        services={methodServices}
+        verServicio={t("home.procesoVerServicio")}
+      />
 
-          <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-px bg-[var(--line)]" stagger={0.08}>
-            {procesoPasos.map((paso) => (
-              <div key={paso.num} className="bg-[var(--bone)] p-8 md:p-10 flex flex-col min-h-[300px] relative group hover:bg-[var(--paper)] transition-colors duration-500">
-                <span className="font-display text-[var(--brand-red)] text-5xl md:text-6xl font-bold tracking-[-0.04em]">
-                  {paso.num}
-                </span>
-                <h3 className="mt-auto font-display text-[var(--ink)] text-xl md:text-2xl font-semibold tracking-[-0.015em]">
-                  {paso.titulo}
-                </h3>
-                <p className="mt-4 text-[var(--ink-soft)] text-sm leading-relaxed">{paso.texto}</p>
-              </div>
-            ))}
-          </StaggerChildren>
-        </div>
-      </section>
-
-      {/* 7 Â· PORTFOLIO — pinned horizontal cinematic */}
+      {/* 7 · PORTFOLIO — pinned horizontal cinematic */}
       {featuredProjects.length > 0 && (
         <PortfolioPinned
           projects={featuredProjects}
@@ -266,10 +283,14 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
           titulo={t("home.portfolioTitulo")}
           verTodos={t("portfolio.verTodos")}
           verMas={t("portfolio.verMas")}
+          desplaza={t("home.portfolioDesplaza")}
+          finalLabel={t("home.portfolioFinalLabel")}
+          finalTitulo={t("home.portfolioFinalTitulo")}
+          categoryLabels={categoryLabels}
         />
       )}
 
-      {/* 8 Â· CERTIFICACIONES */}
+      {/* 8 · CERTIFICACIONES */}
       <section className="py-16 bg-[var(--bone-deep)] border-y border-[var(--line)]">
         <p className="text-center text-[var(--mute)] text-[11px] font-semibold tracking-[0.32em] uppercase mb-8">
           {t("home.certEyebrow")}
@@ -284,7 +305,7 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
         </MarqueeText>
       </section>
 
-      {/* 9 Â· MAPA */}
+      {/* 9 · MAPA */}
       <section className="py-24 md:py-36 bg-[var(--paper)]">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           <div className="lg:col-span-5">
@@ -320,7 +341,7 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
         </div>
       </section>
 
-      {/* 10 Â· TESTIMONIO */}
+      {/* 10 · TESTIMONIO */}
       <section className="py-32 md:py-44 bg-[var(--ink)] text-white">
         <div className="max-w-6xl mx-auto px-6">
           <RevealOnScroll direction="none">
@@ -341,8 +362,12 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
         </div>
       </section>
 
-      {/* 11 Â· FAQ */}
+      {/* 11 · FAQ */}
       <section className="py-24 md:py-36 bg-[var(--paper)]">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(getFaqSchema(faqItems)) }}
+        />
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           <div className="lg:col-span-4">
             <RevealOnScroll direction="none">
@@ -360,7 +385,7 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
         </div>
       </section>
 
-      {/* 12 Â· CTA FINAL */}
+      {/* 12 · CTA FINAL */}
       <section className="relative py-32 md:py-48 bg-[var(--brand-red)] text-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <RevealOnScroll direction="none">

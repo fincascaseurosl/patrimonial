@@ -1,7 +1,7 @@
 import { put, del, list } from "@vercel/blob";
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "fs";
 import { join } from "path";
-import { projects as defaultRaw, projectNames, projectLocations } from "./site-config";
+import { projects as defaultRaw, projectNames, projectLocations, projectDescriptions } from "./site-config";
 import type { ServiceSlug } from "./site-config";
 
 export type Project = {
@@ -17,6 +17,9 @@ export type Project = {
   order: number;
   // Destacado en "Trabajos recientes" (home).
   featured?: boolean;
+  // Marcado como "casa construida": aparece además en la galería de la página
+  // "Construye tu casa".
+  isCasa?: boolean;
   // Ubicación en el mapa del portfolio.
   address?: string;
   neighborhood?: string;
@@ -38,11 +41,12 @@ function defaults(): Project[] {
       nameEn: projectNames[p.slug]?.en ?? projectNames[p.slug]?.es ?? p.slug,
       category: p.category as ServiceSlug,
       images: [...p.images],
-      descriptionEs: "",
-      descriptionCa: "",
-      descriptionEn: "",
+      descriptionEs: projectDescriptions[p.slug]?.es ?? "",
+      descriptionCa: projectDescriptions[p.slug]?.ca ?? "",
+      descriptionEn: projectDescriptions[p.slug]?.en ?? "",
       order: i,
       featured: true,
+      isCasa: "isCasa" in p ? Boolean(p.isCasa) : false,
       address: loc?.address ?? "",
       neighborhood: loc?.neighborhood ?? "",
       lat: loc?.lat ?? null,

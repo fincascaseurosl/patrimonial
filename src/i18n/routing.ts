@@ -31,6 +31,11 @@ export const routing = defineRouting({
       ca: "/sobre-nosaltres",
       en: "/about-us",
     },
+    "/construir-casa-a-medida": {
+      es: "/construir-casa-a-medida",
+      ca: "/construir-casa-a-mida",
+      en: "/build-a-custom-home",
+    },
     "/contacto": {
       es: "/contacto",
       ca: "/contacte",

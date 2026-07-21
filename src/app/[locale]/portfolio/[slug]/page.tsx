@@ -4,7 +4,8 @@ import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { getProjects, getProjectName, getProjectDescription } from "@/lib/projects";
 import type { Project } from "@/lib/projects";
-import { serviceKeyMap } from "@/lib/site-config";
+import { serviceKeyMap, ogMeta, siteConfig } from "@/lib/site-config";
+import { getBreadcrumbSchema } from "@/lib/schema";
 import { notFound } from "next/navigation";
 import {
   RevealOnScroll,
@@ -30,14 +31,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = projects.find((p) => p.slug === slug);
   if (!project) return {};
   const name = getProjectName(project, locale);
+  const description =
+    locale === "ca"
+      ? `Projecte: ${name}. Veure les fotos del treball realitzat a Barcelona.`
+      : locale === "en"
+      ? `Project: ${name}. See photos of the work completed in Barcelona.`
+      : `Proyecto: ${name}. Ver las fotos del trabajo realizado en Barcelona.`;
   return {
     title: name,
-    description:
-      locale === "ca"
-        ? `Projecte: ${name}. Veure les fotos del treball realitzat a Barcelona.`
-        : locale === "en"
-        ? `Project: ${name}. See photos of the work completed in Barcelona.`
-        : `Proyecto: ${name}. Ver las fotos del trabajo realizado en Barcelona.`,
+    description,
+    openGraph: ogMeta(locale, name, description),
     alternates: {
       canonical: `/${locale}/portfolio/${slug}`,
       languages: {
@@ -66,6 +69,18 @@ function ProjectContent({ project, locale }: { project: Project; locale: string 
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            getBreadcrumbSchema([
+              { name: t("nav.inicio"), url: siteConfig.url },
+              { name: t("nav.portfolio"), url: `${siteConfig.url}/${locale}/portfolio` },
+              { name, url: `${siteConfig.url}/${locale}/portfolio/${project.slug}` },
+            ]),
+          ),
+        }}
+      />
       {/* Hero */}
       <section className="relative bg-[var(--color-dark)] text-white pt-32 pb-16 md:pb-20">
         <div className="max-w-7xl mx-auto px-6">
