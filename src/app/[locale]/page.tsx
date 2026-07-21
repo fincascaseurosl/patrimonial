@@ -85,18 +85,22 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
 
   return (
     <>
-      {/* 1 · HERO — composición centrada */}
-      <section className="relative h-screen min-h-[680px] flex flex-col justify-center items-center text-center overflow-hidden bg-[var(--ink)]">
+      {/* 1 · HERO — alineado a la izquierda, centrado verticalmente */}
+      <section className="relative h-screen min-h-[680px] flex flex-col justify-center overflow-hidden bg-[var(--ink)]">
         <HeroVideo poster="/images/hero/home-hero.jpg" />
 
-        <div className="relative z-10 w-full max-w-5xl mx-auto px-6">
-          <RevealOnScroll direction="none" duration={0.8}>
-            <p className="text-white/70 text-[11px] font-semibold tracking-[0.32em] uppercase mb-8">
-              {t("home.heroEyebrow")}
-            </p>
-          </RevealOnScroll>
+        <div className="absolute top-28 left-0 right-0 z-10">
+          <div className="max-w-7xl mx-auto px-6">
+            <RevealOnScroll direction="none" duration={0.8}>
+              <p className="text-white/70 text-[11px] font-semibold tracking-[0.32em] uppercase">
+                {t("home.heroEyebrow")}
+              </p>
+            </RevealOnScroll>
+          </div>
+        </div>
 
-          <h1 className="font-display text-white text-[clamp(2.5rem,8vw,7rem)] font-bold leading-[1.0] tracking-[-0.035em]">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6">
+          <h1 className="font-display text-white text-[clamp(3rem,10vw,9rem)] font-bold leading-[1.02] tracking-[-0.035em] mb-10">
             <SplitText as="span" className="block" by="word" stagger={0.08} duration={1.0} delay={0.1}>
               {t("home.heroLine1")}
             </SplitText>
@@ -108,32 +112,32 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
             </SplitText>
           </h1>
 
-          <RevealOnScroll direction="up" delay={0.7} distance={20}>
-            <p className="mx-auto mt-10 max-w-2xl text-white/75 text-base md:text-lg leading-relaxed">
-              {t("home.heroSub")}
-            </p>
-          </RevealOnScroll>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-end">
+            <RevealOnScroll direction="up" delay={0.7} distance={20} className="md:col-span-6 lg:col-span-5">
+              <p className="text-white/75 text-base md:text-lg leading-relaxed">{t("home.heroSub")}</p>
+            </RevealOnScroll>
 
-          <RevealOnScroll direction="up" delay={0.85} distance={15}>
-            <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
-              <Magnetic strength={0.18}>
-                <Link
-                  href="/contacto"
-                  className="cursor-grow inline-flex items-center justify-center px-9 py-5 bg-[var(--brand-red)] text-white text-[12px] font-semibold tracking-[0.18em] uppercase transition-colors duration-300 hover:bg-[var(--brand-red-deep)]"
-                >
-                  {t("hero.cta")}
-                </Link>
-              </Magnetic>
-              <Magnetic strength={0.15}>
-                <Link
-                  href="/portfolio"
-                  className="cursor-grow inline-flex items-center justify-center px-9 py-5 border border-white/30 text-white text-[12px] font-medium tracking-[0.18em] uppercase transition-all duration-300 hover:border-white hover:bg-white/5"
-                >
-                  {t("portfolio.verTodos")}
-                </Link>
-              </Magnetic>
-            </div>
-          </RevealOnScroll>
+            <RevealOnScroll direction="up" delay={0.85} distance={15} className="md:col-span-6 lg:col-span-7 md:flex md:justify-end gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Magnetic strength={0.18}>
+                  <Link
+                    href="/contacto"
+                    className="cursor-grow inline-flex items-center justify-center px-9 py-5 bg-[var(--brand-red)] text-white text-[12px] font-semibold tracking-[0.18em] uppercase transition-colors duration-300 hover:bg-[var(--brand-red-deep)]"
+                  >
+                    {t("hero.cta")}
+                  </Link>
+                </Magnetic>
+                <Magnetic strength={0.15}>
+                  <Link
+                    href="/portfolio"
+                    className="cursor-grow inline-flex items-center justify-center px-9 py-5 border border-white/30 text-white text-[12px] font-medium tracking-[0.18em] uppercase transition-all duration-300 hover:border-white hover:bg-white/5"
+                  >
+                    {t("portfolio.verTodos")}
+                  </Link>
+                </Magnetic>
+              </div>
+            </RevealOnScroll>
+          </div>
         </div>
 
         <div className="absolute bottom-6 left-6 right-6 z-10 flex items-end justify-between text-white/50 text-[10px] font-medium tracking-[0.32em] uppercase">
@@ -224,7 +228,7 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
                 <Link
                   key={slug}
                   href={{ pathname: "/servicios/[slug]", params: { slug } }}
-                  className={`cursor-grow group relative block overflow-hidden bg-[var(--ink)] ${
+                  className={`group cursor-pointer relative block overflow-hidden bg-[var(--ink)] ${
                     big
                       ? "md:col-span-2 md:row-span-2 min-h-[520px] md:min-h-0"
                       : "min-h-[340px] md:min-h-0"
@@ -235,7 +239,7 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
                     alt={t(`servicios.items.${key}.nombre`)}
                     fill
                     sizes={big ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 100vw, 33vw"}
-                    className="object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.06]"
+                    className="object-cover transform-gpu will-change-transform transition-transform duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)] via-[var(--ink)]/45 to-[var(--ink)]/5" />
                   <div className="absolute inset-0 bg-[var(--brand-red)]/0 group-hover:bg-[var(--brand-red)]/15 transition-colors duration-500" />
@@ -277,7 +281,7 @@ function HomeContent({ locale, projects }: { locale: Locale; projects: Project[]
       {/* 5.5 · CONSTRUYE TU CASA — bloque cinematográfico */}
       <section className="relative flex min-h-[88vh] items-center overflow-hidden bg-[var(--ink)]">
         <Image
-          src="/images/hero/construye-tu-casa-poster.jpg"
+          src="/images/hero/construye-tu-casa-home.jpg"
           alt=""
           aria-hidden="true"
           fill
